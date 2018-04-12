@@ -1,5 +1,2 @@
-# Black_Magazines
-
-A [workflowr][] project.
-
-[workflowr]: https://github.com/jdblischak/workflowr
+# Black_magazines
+Word2vec + Statistical analysis of Black Magazines during civil rights era
