@@ -5,4 +5,7 @@ output:
     toc: false
 ---
 
-Describe your project.
+This project uses natural language processing tools like word2vec together with statistical methods
+to investigate narratives in the civil rights and post civil rights era for two popular African 
+American magazines of the time - **Black World/ Negro Digest ** and **Ebony**.
+

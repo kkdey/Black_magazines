@@ -1,0 +1,197 @@
+---
+title: 'word2vec association analysis : Black World/ Negro Digest'
+author: "Kushal K Dey"
+date: "4/11/2018"
+output: html_document
+---
+
+## Introduction
+
+In this script, we investigate the association between words or word sets of
+interest for the Black World/ Negro Digest magazines. We also track the 
+associations across time.
+
+```{r}
+library(wordVectors)
+library(ggplot2)
+```
+
+## Load word2vec models
+
+We load the word2vec model fits.
+
+```{r warning = FALSE, message=FALSE}
+dirs <- c("../Negro_Digest/ND_1961/",
+          "../Negro_Digest/ND_1962/",
+          "../Negro_Digest/ND_1963/",
+          "../Negro_Digest/ND_1964/",
+          "../Negro_Digest/ND_1965/",
+          "../Negro_Digest/ND_1966/",
+          "../Negro_Digest/ND_1967/",
+          "../Negro_Digest/ND_1968/",
+          "../Negro_Digest/ND_1969/",
+          "../Negro_Digest/ND_1970/",
+          "../Black_World/BL_1970/",
+          "../Black_World/BL_1971/",
+          "../Black_World/BL_1972/",
+          "../Black_World/BL_1973/",
+          "../Black_World/BL_1974/",
+          "../Black_World/BL_1975/",
+          "../Black_World/BL_1976/")
+
+
+model_list <- list()
+for(m in 1:length(dirs)){
+  model_list[[m]] = read.vectors(paste0(dirs[m], "pooled_word2vec.bin"))
+}
+```
+
+## Association Trend Plotter 
+
+```{r}
+trend_plotter <- function(word_set_1, word_set_2){
+  assoc <- c()
+  for(m in 1:length(dirs)){
+  
+  assoc <- c(assoc, 
+             cosineSimilarity(model_list[[m]][[word_set_1, average = TRUE]], 
+                              model_list[[m]][[word_set_2, average = TRUE]]))
+  }
+  df <- data.frame("year" =  c(1961:1970, 1970:1976),
+                   "score" = assoc)
+  p <- qplot(year, score, data = df, xlab = "year", ylab = "association score") +  
+            geom_smooth(method = "lm", size = 1.5) +
+            ggtitle("trend plot")
+  p
+}
+```
+
+##  Negro vs Struggle 
+
+```{r}
+trend_plotter(c("negro", "negroes", "negro"), "struggle")
+```
+
+## Negro vs Revolution 
+
+```{r}
+trend_plotter(c("negro", "negroes", "negro"), c("revolution", "movement"))
+```
+
+## Negro vs Black
+
+```{r}
+trend_plotter(c("negro", "negroes", "negro"), c("black", "blacks"))
+```
+
+## Negro vs arts
+
+```{r}
+arts <- c("arts", "art", "music", "musicians", "musician",
+   "poem", "poems", "poet", "poets",
+   "poetry", "literature", "novels",
+   "fiction", "theatre", "theater",
+   "blues", "jazz", "magazines",
+   "magazine", "painting", "sculpture", "painter", "artist", "artists",
+   "sculpture", "composer", "prose", "ballads", "anthology" )
+trend_plotter(c("negro", "negroes", "negro"), arts)
+```
+
+## Black vs arts
+
+```{r}
+arts <- c("arts", "art", "music", "musicians", "musician",
+   "poem", "poems", "poet", "poets",
+   "poetry", "literature", "novels",
+   "fiction", "theatre", "theater",
+   "blues", "jazz", "magazines",
+   "magazine", "painting", "sculpture", "painter", "artist", "artists",
+   "sculpture", "composer", "prose", "ballads", "anthology" )
+trend_plotter(c("black", "blacks"), arts)
+```
+
+## [Black, Negro] vs arts
+
+```{r}
+trend_plotter(c("black", "blacks", "negro", "negros", "negroes"), arts)
+```
+
+## [Black, Negro] vs slave
+
+```{r}
+trend_plotter(c("black", "blacks", "negro", "negros", "negroes"), c("slave", "slaves"))
+```
+
+## [Negro] vs slave
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("slave", "slaves"))
+```
+
+## [black] vs slave
+
+```{r}
+trend_plotter(c("black", "blacks"), c("slave", "slaves"))
+```
+
+## Black_panther vs black_power
+
+```{r}
+trend_plotter("black_panther", "black_power")
+```
+
+## Black vs blues
+
+```{r}
+trend_plotter(c("black", "blacks"), "blues")
+```
+
+## Black vs blues, jazz
+
+```{r}
+trend_plotter(c("black", "blacks"), c("blues", "jazz"))
+```
+
+## Negro vs blues, jazz
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("blues", "jazz"))
+```
+
+## [Black, Negro] vs blues, jazz
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes", "blacks", "black"), c("blues", "jazz"))
+```
+
+## afroamerican vs arts
+
+```{r}
+trend_plotter(c("afroamerican"), arts)
+```
+
+## MLK vs assassination
+
+```{r}
+set1 <- c("martin_luther_king", "martin_luther_kings", "dr_king", "dr_kings")
+set2 <- c("assassination", "death", "died", "murder", "assassinated", "murdered")
+trend_plotter(set1, set2)
+```
+
+## Black power vs Stokely
+
+```{r}
+trend_plotter(c("stokely", "carmichael"), c("black_power"))
+```
+
+## MLK vs civil rights
+
+```{r}
+set1 <- c("martin_luther_king", "martin_luther_kings", "dr_king", "dr_kings")
+set2 <- c("civil_rights", "rights", "righters")
+trend_plotter(set1, set2)
+```
+
+
+
+

@@ -1,0 +1,86 @@
+---
+title: "Trends in Black and Negro terms"
+author: "Kushal K Dey"
+date: "4/11/2018"
+output: html_document
+---
+
+```{r warning=FALSE, message=FALSE, include=TRUE}
+library(ggplot2)
+library(wordVectors)
+```
+
+## Introduction
+
+In this script, we observe the trends in usage of the words like *black* and *negro* 
+in the magazines Ebony and Black World/Negro Digest across a time period of 16 years 
+from 1961 to 1975.
+
+
+## Ebony 
+
+
+```{r}
+ebony_data <- get(load( "../output/table_word_frequencies_ebony.rda"))
+ebony_data_norm <- t(apply(ebony_data, 1, function(x) return(x/sum(x))))
+black_counts_norm <- apply(ebony_data_norm[, c("black", "blacks")], 1, mean)
+negro_counts_norm <- apply(ebony_data_norm[, c("negro", "negros", "negroes")], 1, mean)
+afroamerican_counts_norm <- apply(ebony_data_norm[, c("afroamerican", "africanamerican")], 1, mean)
+```
+
+
+```{r}
+charts.data <- data.frame("word" = c(rep("black", 16), 
+                                     rep("negro", 16)),
+                          "year" = factor(c(rownames(ebony_data), 
+                                            rownames(ebony_data)),
+                                          levels = rownames(ebony_data)),
+                          "prop" = c(black_counts_norm, 
+                                     negro_counts_norm))
+
+
+p1 <- ggplot() + geom_line(aes(y = prop, x = year, colour = word, group=word),
+                           data = charts.data, stat="identity") +
+        theme(axis.text.x=element_text(angle=90, hjust=1)) + xlab("") + 
+        ylab("relative occurrence")
+p1
+
+```
+
+
+## Black World/Negro Digest
+
+```{r}
+bl_nd_data <- get(load( "../output/table_word_frequencies_BL_ND.rda"))
+bl_nd_data_norm <- t(apply(bl_nd_data, 1, function(x) return(x/sum(x))))
+black_counts_norm <- apply(bl_nd_data_norm[, c("black", "blacks")], 1, mean)
+negro_counts_norm <- apply(bl_nd_data_norm[, c("negro", "negros", "negroes")], 1, mean)
+afroamerican_counts_norm <- apply(bl_nd_data_norm[, c("afroamerican", "africanamerican")], 1, mean)
+```
+
+```{r}
+charts.data <- data.frame("word" = c(rep("black", 17), 
+                                     rep("negro", 17)),
+                          "year" = factor(c(rownames(bl_nd_data), 
+                                            rownames(bl_nd_data)),
+                                          levels = rownames(bl_nd_data)),
+                          "prop" = c(black_counts_norm, 
+                                     negro_counts_norm))
+
+
+p1 <- ggplot() + geom_line(aes(y = prop, x = year, colour = word, group=word),
+                           data = charts.data, stat="identity") +
+        theme(axis.text.x=element_text(angle=90, hjust=1)) + xlab("") + 
+        ylab("relative occurrence")
+p1
+
+```
+
+## SessionInfo
+
+```{r}
+sessionInfo()
+```
+
+
+

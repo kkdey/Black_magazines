@@ -1,0 +1,164 @@
+---
+title: "CountClust on Black World-Negro Digest"
+author: "Kushal K Dey"
+date: "4/11/2018"
+output: html_document
+---
+
+```{r}
+library(CountClust)
+library(ggplot2)
+```
+
+## Introduction
+
+We apply CountClust on the word frequencies for yearly data from Negro Digest,
+Black World articles. In one case - we include terms like *black* and *negro*, 
+the usage of which areknown to have changed over the years. In other case, we 
+remove these terms and see which terms affect the clustering now. Here we present 
+the results for the first case study.
+
+We first read the counts table of word occurrences in Black World/Negro Digest
+articles every year.
+
+```{r}
+tab_bl_nd <- get(load("../output/table_word_frequencies_BL_ND.rda"))
+all_words_bl_nd <- get(load("../output/all_words_BL_ND.rda"))
+```
+
+## Filtering words 
+
+Next we fit the CountClust model to the tabulated counts data. We first remove 
+the words that occur in only one or two years of text data. 
+
+```{r}
+low_occur_words <- apply(tab_bl_nd, 2, function(x) return(sum(x[x!=0])))
+tab2_bl_nd <- tab_bl_nd[, which(low_occur_words > 2)]
+```
+
+Also remove the words that have just two characters as they are usually suffix-es or wrongly
+interpreted characters.
+
+```{r}
+tab3_bl_nd <- tab2_bl_nd[, which(nchar(colnames(tab2_bl_nd)) > 2)]
+```
+
+## Fitting CountClust
+
+```{r echo=TRUE, eval=FALSE}
+topic_clus <- list()
+for(k in 2:4){
+  topic_clus[[k]] <- maptpx::topics(tab3_bl_nd, K=k, tol = 1)
+}
+save(topic_clus, file = "../output/BL_ND_CountClust.rda")
+```
+
+
+```{r}
+topic_clus <- get(load("../output/BL_ND_CountClust.rda"))
+```
+
+## K = 2
+
+### STRUCTURE plot 
+
+```{r fig.width = 3, fi.height = 5}
+omega <- topic_clus[[2]]$omega
+annotation <- data.frame(
+  sample_id = paste0("X", c(1:NROW(omega))),
+  tissue_label = factor(rownames(omega),
+                        levels = rownames(omega)))
+
+rownames(omega) <- annotation$sample_id;
+
+StructureGGplot(omega = omega,
+                annotation = annotation,
+                palette = RColorBrewer::brewer.pal(8, "Accent"),
+                yaxis_label = "Years of Publication",
+                order_sample = TRUE,
+                axis_tick = list(axis_ticks_length = .1,
+                                 axis_ticks_lwd_y = .1,
+                                 axis_ticks_lwd_x = .1,
+                                 axis_label_size = 7,
+                                 axis_label_face = "bold"))
+
+```
+
+### Top driving words 
+
+```{r}
+out <- ExtractTopFeatures(topic_clus[[2]]$theta, top_features = 50, method = "poisson", options = "min")
+driving_words <- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
+driving_words[1:20,]
+```
+
+## K = 3
+
+### STRUCTURE plot 
+
+```{r fig.width = 3, fi.height = 5}
+omega <- topic_clus[[3]]$omega
+annotation <- data.frame(
+  sample_id = paste0("X", c(1:NROW(omega))),
+  tissue_label = factor(rownames(omega),
+                        levels = rownames(omega)))
+
+rownames(omega) <- annotation$sample_id;
+
+StructureGGplot(omega = omega,
+                annotation = annotation,
+                palette = RColorBrewer::brewer.pal(8, "Accent"),
+                yaxis_label = "Years of Publication",
+                order_sample = TRUE,
+                axis_tick = list(axis_ticks_length = .1,
+                                 axis_ticks_lwd_y = .1,
+                                 axis_ticks_lwd_x = .1,
+                                 axis_label_size = 7,
+                                 axis_label_face = "bold"))
+
+```
+
+### Top driving words 
+
+```{r}
+out <- ExtractTopFeatures(topic_clus[[3]]$theta, top_features = 50, method = "poisson", options = "min")
+driving_words <- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[3]]$theta)[x])))
+driving_words[1:20,]
+```
+
+## K = 4
+
+### STRUCTURE plot 
+
+```{r fig.width = 3, fi.height = 5}
+omega <- topic_clus[[4]]$omega
+annotation <- data.frame(
+  sample_id = paste0("X", c(1:NROW(omega))),
+  tissue_label = factor(rownames(omega),
+                        levels = rownames(omega)))
+
+rownames(omega) <- annotation$sample_id;
+
+StructureGGplot(omega = omega,
+                annotation = annotation,
+                palette = RColorBrewer::brewer.pal(8, "Accent"),
+                yaxis_label = "Years of Publication",
+                order_sample = TRUE,
+                axis_tick = list(axis_ticks_length = .1,
+                                 axis_ticks_lwd_y = .1,
+                                 axis_ticks_lwd_x = .1,
+                                 axis_label_size = 7,
+                                 axis_label_face = "bold"))
+
+```
+
+### Top driving words 
+
+```{r}
+out <- ExtractTopFeatures(topic_clus[[4]]$theta, top_features = 50, method = "poisson", options = "min")
+driving_words <- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[4]]$theta)[x])))
+driving_words[1:20,]
+```
+
+
+

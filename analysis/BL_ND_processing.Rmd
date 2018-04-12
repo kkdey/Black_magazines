@@ -1,0 +1,109 @@
+---
+title: 'Negro Digest/Black World : 1961-1975, text processing'
+author: "Kushal K Dey"
+date: "4/11/2018"
+output: html_document
+---
+
+```{r include=TRUE, eval=TRUE, warning=FALSE, message = FALSE}
+library(wordVectors)
+```
+
+## Introduction
+
+In this script, we process the text data from Negro Digest/ Black World magazine from 1961-1975 (Negro Digest 
+changed its name to Black World in 1970) and then fit the word2vec model, and save the word2vec results - to be 
+used subsequently by other scripts. In the process, we also create a table of counts of occurrences of each word in Ebony in each year of the magazine's publication.
+
+```{r message=FALSE, warning=FALSE}
+dirs <- c("../Negro_Digest/ND_1961/",
+          "../Negro_Digest/ND_1962/",
+          "../Negro_Digest/ND_1963/",
+          "../Negro_Digest/ND_1964/",
+          "../Negro_Digest/ND_1965/",
+          "../Negro_Digest/ND_1966/",
+          "../Negro_Digest/ND_1967/",
+          "../Negro_Digest/ND_1968/",
+          "../Negro_Digest/ND_1969/",
+          "../Negro_Digest/ND_1970/",
+          "../Black_World/BL_1970/",
+          "../Black_World/BL_1971/",
+          "../Black_World/BL_1972/",
+          "../Black_World/BL_1973/",
+          "../Black_World/BL_1974/",
+          "../Black_World/BL_1975/",
+          "../Black_World/BL_1976/")
+```
+
+
+## Processing texts 
+
+Combining the issues from each year into a pooled text file.
+
+```{r message=FALSE, warning=FALSE}
+for(m in 1:length(dirs)){
+  out <- prep_word2vec(origin = dirs[m], destination = paste0(dirs[m],"pooled.txt"), lowercase = T)
+}
+```
+
+## Words used in Ebony
+
+Making a list of words used by Ebony articles across the 16 years 1961-1976.
+
+```{r message = FALSE, warning=FALSE}
+all_names <- c()
+for(m in 1:length(dirs)){
+  sentences<-scan(paste0(dirs[m], "pooled.txt"),"character",sep="\n");
+  #Replace full stop and comma
+  sentences<-gsub("\\.","",sentences)
+  sentences<-gsub("\\,","",sentences)
+  #Split sentence
+  words<-strsplit(sentences," ")
+  #Calculate word frequencies
+  words.freq<-table(unlist(words));
+  all_names <- union(all_names , names(words.freq))
+}
+```
+
+## Frequencies of the words
+
+Tabulating the counts of the occurrences of these words every year.
+
+```{r}
+tab <- matrix(0, length(dirs), length(all_names))
+colnames(tab) <- all_names
+rownames(tab) <- c(paste0("ND_", 1961:1970), paste0("BL_", 1970:1976))
+
+for(m in 1:length(dirs)){
+  sentences<-scan(paste0(dirs[m], "pooled.txt"),"character",sep="\n");
+  #Replace full stop and comma
+  sentences<-gsub("\\.","",sentences)
+  sentences<-gsub("\\,","",sentences)
+  #Split sentence
+  words<-strsplit(sentences," ")
+  #Calculate word frequencies
+  words.freq<-table(unlist(words));
+  tab[m, match(names(words.freq), colnames(tab))] <- as.numeric(words.freq)
+}
+
+```
+
+We take a sneak peek at the table of counts 
+
+```{r}
+tab[1:5,1:5]
+```
+
+We save both the list of words in Ebony and also the table of their counts of occurrence per year.
+
+```{r}
+save(all_names, file = "../output/all_words_BL_ND.rda")
+save(tab, file = "../output/table_word_frequencies_BL_ND.rda")
+```
+
+## SessionInfo
+
+```{r}
+sessionInfo()
+```
+

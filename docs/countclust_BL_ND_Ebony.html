@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Kushal K Dey" />
+
+
+<title>CountClust on Ebony + Black World/Negro Digest</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Black_Magazines</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/jdblischak/workflowr">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">CountClust on Ebony + Black World/Negro Digest</h1>
+<h4 class="author"><em>Kushal K Dey</em></h4>
+<h4 class="date"><em>4/11/2018</em></h4>
+
+</div>
+
+
+<pre class="r"><code>library(CountClust)</code></pre>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<pre class="r"><code>library(ggplot2)</code></pre>
+<p>We apply CountClust on the word frequencies for yearly data from Ebony articles and Black World/ Negro Digest articles. We exclude terms like <em>black</em>, <em>negro</em> and <em>afroamerican</em> as they are known to be drivers of clusters.</p>
+<p>We first read the counts table of word occurrences in Ebony and Black World/Negro Digest articles for every year.</p>
+<pre class="r"><code>tab_ebony &lt;- get(load(&quot;../output/table_word_frequencies_ebony.rda&quot;))
+all_words_ebony &lt;- get(load(&quot;../output/all_words_ebony.rda&quot;))
+
+tab_bl_nd &lt;- get(load(&quot;../output/table_word_frequencies_BL_ND.rda&quot;))
+all_words_bl_nd &lt;- get(load(&quot;../output/all_words_BL_ND.rda&quot;))</code></pre>
+<p>Combining the data.</p>
+<pre class="r"><code>common_words &lt;- intersect(all_words_ebony, all_words_bl_nd)
+tab_pooled &lt;- rbind(tab_ebony[,match(common_words, all_words_ebony)],
+                    tab_bl_nd[,match(common_words, all_words_bl_nd)])
+
+rownames(tab_pooled) &lt;- c(paste0(&quot;Ebony_&quot;, 1961:1976), 
+                          paste0(&quot;ND_&quot;, 1961:1970), paste0(&quot;BL_&quot;, 1970:1976))</code></pre>
+<p>Filter out words</p>
+<pre class="r"><code>low_occur_words &lt;- apply(tab_pooled, 2, function(x) return(sum(x[x!=0])))
+tab2_pooled &lt;- tab_pooled[, which(low_occur_words &gt; 2)]</code></pre>
+<pre class="r"><code>tab3_pooled &lt;- tab2_pooled[, which(nchar(colnames(tab2_pooled)) &gt; 2)]
+
+negro_words &lt;- grep(&quot;negro&quot;, colnames(tab3_pooled))
+black_words &lt;- match(c(&quot;black&quot;, &quot;blacks&quot;, &quot;blackman&quot;), colnames(tab3_pooled))
+afroamerican_words &lt;- match(c(&quot;african&quot;, &quot;afroamerican&quot;), colnames(tab3_pooled))
+tl_words &lt;- which(substring(colnames(tab3_pooled), 1,2) == &quot;tl&quot;)
+
+tab4_pooled &lt;- tab3_pooled[, - c(negro_words, black_words, afroamerican_words, tl_words)]</code></pre>
+<div id="fitting-countclust" class="section level2">
+<h2>Fitting CountClust</h2>
+<pre class="r"><code>topic_clus &lt;- list()
+for(k in 2:4){
+  topic_clus[[k]] &lt;- maptpx::topics(tab4_pooled, K=k, tol = 1)
+}
+save(topic_clus, file = &quot;../output/BL_ND_Ebony_CountClust_no_black_negro.rda&quot;)</code></pre>
+<pre class="r"><code>topic_clus &lt;- get(load(&quot;../output/BL_ND_Ebony_CountClust_no_black_negro.rda&quot;))</code></pre>
+</div>
+<div id="k-2" class="section level2">
+<h2>K = 2</h2>
+<div id="structure-plot" class="section level3">
+<h3>STRUCTURE plot</h3>
+<pre class="r"><code>omega &lt;- topic_clus[[2]]$omega
+annotation &lt;- data.frame(
+  sample_id = paste0(&quot;X&quot;, c(1:NROW(omega))),
+  tissue_label = factor(rownames(omega),
+                        levels = rownames(omega)))
+
+rownames(omega) &lt;- annotation$sample_id;
+
+StructureGGplot(omega = omega,
+                annotation = annotation,
+                palette = RColorBrewer::brewer.pal(8, &quot;Accent&quot;),
+                yaxis_label = &quot;Years of Publication&quot;,
+                order_sample = TRUE,
+                axis_tick = list(axis_ticks_length = .1,
+                                 axis_ticks_lwd_y = .1,
+                                 axis_ticks_lwd_x = .1,
+                                 axis_label_size = 7,
+                                 axis_label_face = &quot;bold&quot;))</code></pre>
+<p><img src="countclust_BL_ND_Ebony_files/figure-html/unnamed-chunk-8-1.png" width="288" /></p>
+</div>
+<div id="top-driving-words" class="section level3">
+<h3>Top driving words</h3>
+<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[2]]$theta, top_features = 50, method = &quot;poisson&quot;, options = &quot;min&quot;)
+driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
+driving_words[1:20,]</code></pre>
+<pre><code>##       [,1]           [,2]        
+##  [1,] &quot;says&quot;         &quot;fanon&quot;     
+##  [2,] &quot;cent&quot;         &quot;theater&quot;   
+##  [3,] &quot;ebony&quot;        &quot;writers&quot;   
+##  [4,] &quot;arc&quot;          &quot;poetry&quot;    
+##  [5,] &quot;per&quot;          &quot;the&quot;       
+##  [6,] &quot;years&quot;        &quot;literature&quot;
+##  [7,] &quot;dodgers&quot;      &quot;cruse&quot;     
+##  [8,] &quot;wilt&quot;         &quot;africa&quot;    
+##  [9,] &quot;rickey&quot;       &quot;afrikan&quot;   
+## [10,] &quot;baseball&quot;     &quot;unita&quot;     
+## [11,] &quot;chamberlain&quot;  &quot;literary&quot;  
+## [12,] &quot;team&quot;         &quot;poets&quot;     
+## [13,] &quot;onlv&quot;         &quot;shit&quot;      
+## [14,] &quot;coach&quot;        &quot;cesaire&quot;   
+## [15,] &quot;year&quot;         &quot;book&quot;      
+## [16,] &quot;desegregated&quot; &quot;ricky&quot;     
+## [17,] &quot;business&quot;     &quot;chaka&quot;     
+## [18,] &quot;lias&quot;         &quot;mpla&quot;      
+## [19,] &quot;league&quot;       &quot;soyinka&quot;   
+## [20,] &quot;school&quot;       &quot;poem&quot;</code></pre>
+</div>
+</div>
+<div id="k-3" class="section level2">
+<h2>K = 3</h2>
+<div id="structure-plot-1" class="section level3">
+<h3>STRUCTURE plot</h3>
+<pre class="r"><code>omega &lt;- topic_clus[[3]]$omega
+annotation &lt;- data.frame(
+  sample_id = paste0(&quot;X&quot;, c(1:NROW(omega))),
+  tissue_label = factor(rownames(omega),
+                        levels = rownames(omega)))
+
+rownames(omega) &lt;- annotation$sample_id;
+
+StructureGGplot(omega = omega,
+                annotation = annotation,
+                palette = RColorBrewer::brewer.pal(8, &quot;Accent&quot;),
+                yaxis_label = &quot;Years of Publication&quot;,
+                order_sample = TRUE,
+                axis_tick = list(axis_ticks_length = .1,
+                                 axis_ticks_lwd_y = .1,
+                                 axis_ticks_lwd_x = .1,
+                                 axis_label_size = 7,
+                                 axis_label_face = &quot;bold&quot;))</code></pre>
+<p><img src="countclust_BL_ND_Ebony_files/figure-html/unnamed-chunk-10-1.png" width="288" /></p>
+</div>
+<div id="top-driving-words-1" class="section level3">
+<h3>Top driving words</h3>
+<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[3]]$theta, top_features = 50, method = &quot;poisson&quot;, options = &quot;min&quot;)
+driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[3]]$theta)[x])))
+driving_words[1:20,]</code></pre>
+<pre><code>##       [,1]       [,2]            [,3]       
+##  [1,] &quot;says&quot;     &quot;theater&quot;       &quot;lennie&quot;   
+##  [2,] &quot;ebony&quot;    &quot;imamu&quot;         &quot;libby&quot;    
+##  [3,] &quot;arc&quot;      &quot;afrikan&quot;       &quot;smythe&quot;   
+##  [4,] &quot;savs&quot;     &quot;cruse&quot;         &quot;said&quot;     
+##  [5,] &quot;hite&quot;     &quot;unita&quot;         &quot;colored&quot;  
+##  [6,] &quot;million&quot;  &quot;shit&quot;          &quot;mitch&quot;    
+##  [7,] &quot;vear&quot;     &quot;euroamerican&quot;  &quot;bearcat&quot;  
+##  [8,] &quot;recalls&quot;  &quot;mpla&quot;          &quot;amsac&quot;    
+##  [9,] &quot;ith&quot;      &quot;nana&quot;          &quot;suh&quot;      
+## [10,] &quot;hae&quot;      &quot;marxists&quot;      &quot;him&quot;      
+## [11,] &quot;atty&quot;     &quot;poetry&quot;        &quot;you&quot;      
+## [12,] &quot;year&quot;     &quot;africa&quot;        &quot;healy&quot;    
+## [13,] &quot;campy&quot;    &quot;barakas&quot;       &quot;alba&quot;     
+## [14,] &quot;yearold&quot;  &quot;fanons&quot;        &quot;luke&quot;     
+## [15,] &quot;employes&quot; &quot;liberation&quot;    &quot;englands&quot; 
+## [16,] &quot;vve&quot;      &quot;aesthetic&quot;     &quot;amanda&quot;   
+## [17,] &quot;years&quot;    &quot;sonia&quot;         &quot;bogalusa&quot; 
+## [18,] &quot;article&quot;  &quot;literature&quot;    &quot;pigmented&quot;
+## [19,] &quot;football&quot; &quot;cabral&quot;        &quot;wicker&quot;   
+## [20,] &quot;mrs&quot;      &quot;panafricanist&quot; &quot;birchers&quot;</code></pre>
+</div>
+</div>
+<div id="k-4" class="section level2">
+<h2>K = 4</h2>
+<div id="structure-plot-2" class="section level3">
+<h3>STRUCTURE plot</h3>
+<pre class="r"><code>omega &lt;- topic_clus[[4]]$omega
+annotation &lt;- data.frame(
+  sample_id = paste0(&quot;X&quot;, c(1:NROW(omega))),
+  tissue_label = factor(rownames(omega),
+                        levels = rownames(omega)))
+
+rownames(omega) &lt;- annotation$sample_id;
+
+StructureGGplot(omega = omega,
+                annotation = annotation,
+                palette = RColorBrewer::brewer.pal(8, &quot;Accent&quot;),
+                yaxis_label = &quot;Years of Publication&quot;,
+                order_sample = TRUE,
+                axis_tick = list(axis_ticks_length = .1,
+                                 axis_ticks_lwd_y = .1,
+                                 axis_ticks_lwd_x = .1,
+                                 axis_label_size = 7,
+                                 axis_label_face = &quot;bold&quot;))</code></pre>
+<p><img src="countclust_BL_ND_Ebony_files/figure-html/unnamed-chunk-12-1.png" width="288" /></p>
+</div>
+<div id="top-driving-words-2" class="section level3">
+<h3>Top driving words</h3>
+<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[4]]$theta, top_features = 50, method = &quot;poisson&quot;, options = &quot;min&quot;)
+driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[4]]$theta)[x])))
+driving_words[1:20,]</code></pre>
+<pre><code>##       [,1]            [,2]       [,3]             [,4]        
+##  [1,] &quot;theater&quot;       &quot;petey&quot;    &quot;revenuesharing&quot; &quot;you&quot;       
+##  [2,] &quot;afrikan&quot;       &quot;beaubien&quot; &quot;says&quot;           &quot;birchers&quot;  
+##  [3,] &quot;mpla&quot;          &quot;listons&quot;  &quot;diana&quot;          &quot;luke&quot;      
+##  [4,] &quot;aesthetic&quot;     &quot;mclendon&quot; &quot;pollard&quot;        &quot;dorman&quot;    
+##  [5,] &quot;kuumba&quot;        &quot;kennedy&quot;  &quot;ith&quot;            &quot;white&quot;     
+##  [6,] &quot;alsc&quot;          &quot;liston&quot;   &quot;motown&quot;         &quot;lucy&quot;      
+##  [7,] &quot;africa&quot;        &quot;dorothys&quot; &quot;flo&quot;            &quot;howd&quot;      
+##  [8,] &quot;poetry&quot;        &quot;1961&quot;     &quot;ali&quot;            &quot;freedom&quot;   
+##  [9,] &quot;drama&quot;         &quot;blodgett&quot; &quot;stillwater&quot;     &quot;dadie&quot;     
+## [10,] &quot;literature&quot;    &quot;crump&quot;    &quot;inmates&quot;        &quot;gawd&quot;      
+## [11,] &quot;ideology&quot;      &quot;barrows&quot;  &quot;crawfords&quot;      &quot;postulates&quot;
+## [12,] &quot;himes&quot;         &quot;denison&quot;  &quot;campy&quot;          &quot;theatre&quot;   
+## [13,] &quot;poets&quot;         &quot;viet&quot;     &quot;frazier&quot;        &quot;runagate&quot;  
+## [14,] &quot;cultural&quot;      &quot;lennie&quot;   &quot;cosby&quot;          &quot;looked&quot;    
+## [15,] &quot;fabio&quot;         &quot;god&quot;      &quot;arc&quot;            &quot;leadbelly&quot; 
+## [16,] &quot;colonial&quot;      &quot;beins&quot;    &quot;ere&quot;            &quot;boy&quot;       
+## [17,] &quot;poems&quot;         &quot;machen&quot;   &quot;prison&quot;         &quot;they&quot;      
+## [18,] &quot;afroamericans&quot; &quot;hasties&quot;  &quot;astrology&quot;      &quot;man&quot;       
+## [19,] &quot;shit&quot;          &quot;weaver&quot;   &quot;hite&quot;           &quot;revels&quot;    
+## [20,] &quot;jihad&quot;         &quot;nam&quot;      &quot;lot&quot;            &quot;joeys&quot;</code></pre>
+</div>
+</div>
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+<hr>
+<p>
+    This <a href="http://rmarkdown.rstudio.com">R Markdown</a> site was created with <a href="https://github.com/jdblischak/workflowr">workflowr</a>
+</p>
+<hr>
+
+<!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
+
+<!-- disqus
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'rmarkdown'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+-->
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+---
+title: "Word clouds for Ebony"
+author: "Kushal K Dey"
+date: "4/11/2018"
+output: html_document
+---
+
+```{r}
+library(wordVectors)
+library(wordcloud)
+```
+
+## Introduction
+
+In this script, we look at the word clouds of the words connected to a given word
+of interest across the years of publication of the Ebony magazine. The words 
+of interest are *Martin Luther King (Dr. King)*, *civil rights* and *black arts*.
+
+## Load Ebony word2vec models 
+
+```{r message = FALSE, warning=FALSE}
+dirs <- c("../Ebony/1961/", "../Ebony/1962/", "../Ebony/1963/",
+          "../Ebony/1964/", "../Ebony/1965/", "../Ebony/1966/",
+          "../Ebony/1967/", "../Ebony/1968/", "../Ebony/1969/",
+          "../Ebony/1970/", "../Ebony/1971/", "../Ebony/1972/",
+          "../Ebony/1973/", "../Ebony/1974/", "../Ebony/1975/",
+          "../Ebony/1976/")
+
+model_list <- list()
+for(m in 1:length(dirs)){
+  model_list[[m]] = read.vectors(paste0(dirs[m], "pooled_word2vec.bin"))
+}
+
+```
+
+## Extracting contextually similar words 
+
+```{r}
+tmp_dr_king <- list()
+tmp_arts <- list()
+tmp_blues <- list()
+tmp_civil_rights <- list()
+tmp_black_power <- list()
+```
+
+
+```{r}
+for(m in 1:length(dirs)){
+  tmp_dr_king[[m]] <- model_list[[m]] %>% closest_to(c("martin_luther_king", "dr_king"), n = 100)
+  tmp_arts[[m]] <- model_list[[m]] %>% closest_to(c("arts"), n = 100)
+  tmp_blues[[m]] <- model_list[[m]] %>% closest_to(c("blues"), n = 100)
+  tmp_civil_rights[[m]] <- model_list[[m]] %>% closest_to(c("civil_rights"), n = 100)
+  tmp_black_power[[m]] <- model_list[[m]] %>% closest_to(c("black_power", "black_panther"), n = 100)
+}
+```
+
+## Martin Luther King
+
+```{r fig.height=20, fig.width = 20, message = FALSE, warning =FALSE, dpi = 40}
+par(mfrow = c(4, 4))
+for(m in 1:length(tmp_dr_king)){
+  word_list <- setdiff(tmp_dr_king[[m]]$word[1:20], c("martin", "luther", "king", "martin_luther_king",
+                                                     "drking", "dr_king", "rev", "dr", "jr"))
+ wordcloud(word_list, colors = brewer.pal(1, "Dark2"), random.order = FALSE)
+}
+```
+
+## civil rights
+
+```{r fig.height=20, fig.width = 20, message = FALSE, warning =FALSE, dpi = 40}
+par(mfrow = c(4, 4))
+for(m in 1:length(tmp_dr_king)){
+  word_list <- setdiff(tmp_civil_rights[[m]]$word[1:20], c("civilrights", "civil_rights"))
+ wordcloud(word_list, colors = brewer.pal(1, "Dark2"), random.order = FALSE)
+}
+```
+
+## arts
+
+```{r fig.height=20, fig.width = 20, message = FALSE, warning =FALSE, dpi = 40}
+par(mfrow = c(4, 4))
+for(m in 1:length(tmp_dr_king)){
+  word_list <- setdiff(tmp_arts[[m]]$word[1:20], c("arts"))
+ wordcloud(word_list, colors = brewer.pal(1, "Dark2"), random.order = FALSE)
+}
+```
+
+## blues
+
+```{r fig.height=20, fig.width = 20, message = FALSE, warning =FALSE, dpi = 40}
+par(mfrow = c(4, 4))
+for(m in 1:length(tmp_dr_king)){
+  word_list <- setdiff(tmp_blues[[m]]$word[1:20], c("blues"))
+ wordcloud(word_list, colors = brewer.pal(1, "Dark2"), random.order = FALSE)
+}
+```
+
+## black power
+
+Black power and black panther words do not shpw up before 1966 as these movements only started since 1966. 
+
+```{r fig.height=20, fig.width = 20, message = FALSE, warning =FALSE, dpi = 40}
+par(mfrow = c(4, 4))
+for(m in 5:length(tmp_black_power)){
+  word_list <- setdiff(tmp_black_power[[m]]$word[1:20], c("black_power", "black_panther", "black_panthers",
+                                                    "panther", "panthers", "power", "black", "blacks"))
+ wordcloud(word_list, colors = brewer.pal(1, "Dark2"), random.order = FALSE)
+}
+```
+
+
+

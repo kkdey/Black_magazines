@@ -1,0 +1,243 @@
+---
+title: "Trends in word counts over time"
+author: "Kushal K Dey"
+date: "4/11/2018"
+output: html_document
+---
+
+```{r warning=FALSE, message=FALSE, include=TRUE}
+library(ggplot2)
+library(wordVectors)
+```
+
+## Introduction
+
+In this script, we observe the trends in usage of some words of interest
+in the magazines Ebony and Black World/Negro Digest across a time period of 
+16 years from 1961 to 1975.
+
+## Word frequencies
+
+```{r}
+ebony_data <- get(load( "../output/table_word_frequencies_ebony.rda"))
+ebony_data_norm <- t(apply(ebony_data, 1, function(x) return(x/sum(x))))
+
+BL_ND_data <- get(load( "../output/table_word_frequencies_BL_ND.rda"))
+BL_ND_data_norm <- t(apply(BL_ND_data, 1, function(x) return(x/sum(x))))
+
+```
+
+
+## literature
+
+```{r}
+par(mfrow=c(1,2))
+plot(ebony_data_norm[, "literature"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "literature")
+axis(1, at=1:dim(ebony_data_norm)[1], 
+     rownames(ebony_data_norm), las = 2, cex.axis = 0.7)
+
+plot(BL_ND_data_norm[, "literature"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "literature")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+## arts
+
+```{r }
+par(mfrow=c(1,2))
+plot(ebony_data_norm[, "arts"] + ebony_data_norm[, "art"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "arts")
+axis(1, at=1:dim(ebony_data_norm)[1], 
+     rownames(ebony_data_norm), las = 2, cex.axis = 0.7)
+
+plot(BL_ND_data_norm[, "arts"] + BL_ND_data_norm[, "art"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "arts")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+## blues and jazz
+
+```{r}
+par(mfrow=c(1,2))
+plot(ebony_data_norm[, "blues"] + ebony_data_norm[, "jazz"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "blues and jazz")
+axis(1, at=1:dim(ebony_data_norm)[1], 
+     rownames(ebony_data_norm), las = 2, cex.axis = 0.7)
+
+plot(BL_ND_data_norm[, "blues"] + BL_ND_data_norm[, "jazz"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "blues and jazz")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+## blues
+
+```{r}
+par(mfrow=c(1,2))
+plot(ebony_data_norm[, "blues"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "blues")
+axis(1, at=1:dim(ebony_data_norm)[1], 
+     rownames(ebony_data_norm), las = 2, cex.axis = 0.7)
+
+plot(BL_ND_data_norm[, "blues"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "blues")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+## civil rights
+
+```{r}
+par(mfrow=c(1,2))
+plot(ebony_data_norm[, "civil_rights"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "civil rights")
+axis(1, at=1:dim(ebony_data_norm)[1], 
+     rownames(ebony_data_norm), las = 2, cex.axis = 0.7)
+
+plot(BL_ND_data_norm[, "civil_rights"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "civil rights")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+## martin luther king
+
+```{r}
+par(mfrow=c(1,2))
+plot(ebony_data_norm[, "martin_luther_king"] + ebony_data_norm[, "dr_king"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "Martin Luther King")
+axis(1, at=1:dim(ebony_data_norm)[1], 
+     rownames(ebony_data_norm), las = 2, cex.axis = 0.7)
+
+plot(BL_ND_data_norm[, "martin_luther_king"] + BL_ND_data_norm[, "dr_king"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "Martin Luther King")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+## sports
+
+```{r}
+par(mfrow=c(1,2))
+plot(ebony_data_norm[, "baseball"] + ebony_data_norm[, "basketball"] + ebony_data_norm[, "football"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "baseball, basketball, football")
+axis(1, at=1:dim(ebony_data_norm)[1], 
+     rownames(ebony_data_norm), las = 2, cex.axis = 0.7)
+
+plot(BL_ND_data_norm[, "baseball"] + BL_ND_data_norm[, "basketball"] + BL_ND_data_norm[, "football"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "baseball, basketball, football")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+## vietnam
+
+```{r}
+par(mfrow=c(1,2))
+plot(ebony_data_norm[, "vietnam"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "vietnam")
+axis(1, at=1:dim(ebony_data_norm)[1], 
+     rownames(ebony_data_norm), las = 2, cex.axis = 0.7)
+
+plot(BL_ND_data_norm[, "vietnam"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "vietnam")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+## black power
+
+```{r}
+par(mfrow=c(1,2))
+plot(ebony_data_norm[, "black_power"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "black power")
+axis(1, at=1:dim(ebony_data_norm)[1], 
+     rownames(ebony_data_norm), las = 2, cex.axis = 0.7)
+
+plot(BL_ND_data_norm[, "black_power"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "black power")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+## black panther
+
+```{r}
+par(mfrow=c(1,2))
+plot(ebony_data_norm[, "black_panther"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "black panther")
+axis(1, at=1:dim(ebony_data_norm)[1], 
+     rownames(ebony_data_norm), las = 2, cex.axis = 0.7)
+
+plot(BL_ND_data_norm[, "black_panther"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "black panther")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+## afroamerican
+
+```{r}
+par(mfrow=c(1,2))
+plot(ebony_data_norm[, "afroamerican"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "afroamerican")
+axis(1, at=1:dim(ebony_data_norm)[1], 
+     rownames(ebony_data_norm), las = 2, cex.axis = 0.7)
+
+plot(BL_ND_data_norm[, "afroamerican"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "afroamerican")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+## african
+
+```{r}
+par(mfrow=c(1,2))
+plot(ebony_data_norm[, "african"] + ebony_data_norm[, "afrikan"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "african")
+axis(1, at=1:dim(ebony_data_norm)[1], 
+     rownames(ebony_data_norm), las = 2, cex.axis = 0.7)
+
+plot(BL_ND_data_norm[, "african"] + BL_ND_data_norm[, "afrikan"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "african")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+
+## SessionInfo
+
+```{r}
+sessionInfo()
+```
+
+
+

@@ -1,15 +1,47 @@
 ---
-title: "Home"
+title: "Revisiting Black America of 1960s using machine learning of magazine text"
+author: Kushal K Dey, Lei Sun, Lauren M Jackson
 output:
   html_document:
     toc: false
 ---
 
-The goal of this new template is to simplify the setup and maintenance of a research website.
-Specifically,
+We use machine learning and statistical methods to analyze two leading 
+African american magazines of the 1960s-1970s America - 
+**Negro Digest/Black World** and **Ebony**. The Negro Digest/Black world
+magazine was in circulation for a period of 16 years from 1961 to 1976. 
+The Ebony magazine is still in circulation, but we focus on the issues for
+the above time period.
 
-*  Easier to build and extend the website using the new tools in the [rmarkdown][] package and [latest RStudio release][rstudio]
-*  Easier to deploy the website with Git and GitHub by only using one branch
+![home](homepage.png)
 
-[rmarkdown]: http://rmarkdown.rstudio.com/rmarkdown_websites.htm
-[rstudio]: https://www.rstudio.com/products/rstudio/download/preview/
+
+Codes to reproduce the results in paper: 
+
+* **Processing of magazine data**
+    + [*Ebony*](Ebony_processing.html)
+    + [*Black World/ Negro Digest*](BL_ND_processing.html)
+  
+* **Trends in word frequencies over time**
+    + [*Trends in black and negro terms*](trends_in_black_negro.html)
+    + [*Trends in other words of interest*](word_trends.html)
+
+* **Grade of Membership Model on word frequencies data**
+    + [*Ebony :  with black and negro terms*](countclust_ebony.html)
+    + [*Ebony : no black and negro terms*](countclust_ebony_no_black_negro.html)
+    + [*Black World/Negro Digest : with black and negro terms*](countclust_bl_nd.html)
+    + [*Black World/Negro Digest: no black and negro terms*](countclust_bl_nd_no_negro_black.html)
+    + [*Ebony + Black World/Negro Digest combined data*](countclust_BL_ND_Ebony.html)
+  
+* **How word2vec model was fit**
+    + [*script*](word2vec_modeling.html)
+  
+* **Association analysis trends using word2vec similarities**
+     + [*Ebony*](word2vec_analysis_Ebony.html)
+     + [*Black World/Negro Digest*](word2vec_analysis_BL_ND.html)
+  
+* **Word clouds of contextually similar words to word/word sets of interest**
+     + [*Ebony*](word_clouds_Ebony.html)
+     + [*Black World/Negro Digest*](word_clouds_BL_ND.html)
+  
+  
