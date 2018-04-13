@@ -1,0 +1,156 @@
+---
+title: "Association analysis of the opposite identity trending words in Ebony"
+author: "Kushal K Dey"
+date: "4/13/2018"
+output: html_document
+---
+
+## Introduction
+
+In this script, we look at some interesting words that show a contrary to 
+expected trends in their association with identity terms *black* and *negro*.
+
+```{r}
+library(wordVectors)
+library(ggplot2)
+```
+
+## Load word2vec models
+
+We load the word2vec model fits.
+
+### Null identity models
+
+```{r warning = FALSE, message=FALSE}
+dir <- "../Ebony_ID/"
+ll <- list.files(dir, pattern = ".bin")
+model_list_1 <- list()
+for(m in 1:length(ll)){
+  model_list_1[[m]] = read.vectors(paste0(dir, ll[m]))
+}
+```
+
+### Full model
+
+```{r warning = FALSE, message=FALSE}
+dirs <- c("../Ebony/1961/", "../Ebony/1962/", "../Ebony/1963/",
+          "../Ebony/1964/", "../Ebony/1965/", "../Ebony/1966/",
+          "../Ebony/1967/", "../Ebony/1968/", "../Ebony/1969/",
+          "../Ebony/1970/", "../Ebony/1971/", "../Ebony/1972/",
+          "../Ebony/1973/", "../Ebony/1974/", "../Ebony/1975/",
+          "../Ebony/1976/")
+
+model_list_2 <- list()
+for(m in 1:length(dirs)){
+  model_list_2[[m]] = read.vectors(paste0(dirs[m], "pooled_word2vec.bin"))
+}
+```
+
+## Association Trend Plotter 
+
+```{r}
+trend_plotter <- function(word_set_1, word_set_2, model_list){
+  assoc <- c()
+  for(m in 1:length(ll)){
+  
+  assoc <- c(assoc, 
+             cosineSimilarity(model_list[[m]][[word_set_1, average = TRUE]], 
+                              model_list[[m]][[word_set_2, average = TRUE]]))
+  }
+  df <- data.frame("year" =  c(1961:1976),
+                   "score" = assoc)
+  p <- qplot(year, score, data = df, xlab = "year", ylab = "association score") +  
+            geom_smooth(method = "lm", size = 1.5) +
+            ggtitle("trend plot")
+  p
+}
+```
+
+
+## [Black, Negro] vs vote
+
+```{r}
+trend_plotter(c("black", "blacks"), c("vote", "votes"), model_list_1)
+```
+
+## [Black] vs vote
+
+```{r}
+trend_plotter(c("black", "blacks"), c("vote", "votes"), model_list_2)
+```
+
+
+## [Negro] vs vote
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("vote", "votes"), model_list_2)
+```
+
+
+## [Black, Negro] vs muslims
+
+```{r}
+trend_plotter("black", c("muslims"), model_list_1)
+```
+
+## [Black] vs muslims
+
+```{r}
+trend_plotter("black", c("muslims"), model_list_2)
+```
+
+
+## [Negro] vs muslims
+
+```{r}
+trend_plotter("negro",  "muslims", model_list_2)
+```
+
+
+## [Black, Negro] vs white
+
+```{r}
+trend_plotter(c("black", "blacks"), c("white", "whites"), model_list_1)
+```
+
+## [Black] vs white
+
+```{r}
+trend_plotter(c("black", "blacks"), c("white", "whites"), model_list_2)
+```
+
+
+## [Negro] vs white
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("white", "whites"), model_list_2)
+```
+
+
+## [Black, Negro] vs arts
+
+```{r}
+arts <- c("arts", "art", "music", "musicians", "musician",
+   "poem", "poems", "poet", "poets", "writer", "writers",
+   "poetry", "literature", "novels",
+   "fiction", "theatre", "theater",
+   "blues", "jazz", "magazines",
+   "magazine", "painting", "sculpture", "painter", "artist", "artists",
+   "sculpture", "composer", "prose", "ballads", "anthology" )
+trend_plotter(c("blacks"), arts, model_list_1)
+```
+
+## [Black] vs arts
+
+```{r}
+trend_plotter(c("blacks"), arts, model_list_2)
+```
+
+
+## [Negro] vs arts
+
+```{r}
+trend_plotter(c("negroes", "negros"), arts, model_list_2)
+```
+
+
