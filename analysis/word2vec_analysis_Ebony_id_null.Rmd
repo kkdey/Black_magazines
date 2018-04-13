@@ -1,0 +1,141 @@
+---
+title: "Identity null Ebony word2vec association"
+author: "Kushal K Dey"
+date: "4/12/2018"
+output: html_document
+---
+
+## Introduction
+
+In this script, we investigate the association between words or word sets of
+interest for the Ebony magazine when the identity difference between
+black and negro terms has been nullified. We also track the associations across time.
+
+```{r}
+library(wordVectors)
+library(ggplot2)
+```
+
+## Load word2vec models
+
+We load the word2vec model fits.
+
+```{r warning = FALSE, message=FALSE}
+dir <- "../Ebony_ID/"
+ll <- list.files(dir, pattern = ".bin")
+model_list <- list()
+for(m in 1:length(ll)){
+  model_list[[m]] = read.vectors(paste0(dir, ll[m]))
+}
+```
+
+
+## Association Trend Plotter 
+
+```{r}
+trend_plotter <- function(word_set_1, word_set_2){
+  assoc <- c()
+  for(m in 1:length(ll)){
+  
+  assoc <- c(assoc, 
+             cosineSimilarity(model_list[[m]][[word_set_1, average = TRUE]], 
+                              model_list[[m]][[word_set_2, average = TRUE]]))
+  }
+  df <- data.frame("year" =  c(1961:1976),
+                   "score" = assoc)
+  p <- qplot(year, score, data = df, xlab = "year", ylab = "association score") +  
+            geom_smooth(method = "lm", size = 1.5) +
+            ggtitle("trend plot")
+  p
+}
+```
+
+
+##  Black vs Struggle - 1
+
+```{r}
+trend_plotter(c("black", "blacks"), c("struggle"))
+```
+
+
+##  Black vs Struggle - 2
+
+```{r}
+trend_plotter(c("black", "blacks"), c("struggle", "struggles"))
+```
+
+##  Black vs civil rights, MLK
+
+```{r}
+trend_plotter(c("black", "blacks"), c("civil_rights", "martin_luther_king"))
+```
+
+##  Black vs movement 
+
+```{r}
+trend_plotter(c("black", "blacks"), c("movement"))
+```
+
+##  Black vs protests 
+
+```{r}
+trend_plotter(c("black", "blacks"), c("protests", "protest"))
+```
+
+##  Black vs vietnam
+
+```{r}
+trend_plotter(c("black", "blacks"), c("vietnam"))
+```
+
+
+##  Black vs civil rights
+
+```{r}
+trend_plotter(c("black", "blacks"), "civil_rights")
+```
+
+
+## Black vs Revolution 
+
+```{r}
+trend_plotter(c("black", "blacks"), c("revolution", "movement"))
+```
+
+
+## Black vs arts
+
+```{r}
+arts <- c("arts", "art", "music", "musicians", "musician",
+   "poem", "poems", "poet", "poets",
+   "poetry", "literature", "novels",
+   "fiction", "theatre", "theater",
+   "blues", "jazz", "magazines",
+   "magazine", "painting", "sculpture", "painter", "artist", "artists",
+   "sculpture", "composer", "prose", "ballads", "anthology" )
+trend_plotter(c("black", "blacks"), arts)
+```
+
+## Black vs slave
+
+```{r}
+trend_plotter(c("black", "blacks"), c("slave", "slaves"))
+```
+
+## Black vs black_power
+
+```{r}
+trend_plotter(c("black", "blacks"), c("black_power"))
+```
+
+## Black vs blues
+
+```{r}
+trend_plotter(c("black", "blacks"), "blues")
+```
+
+## Black vs blues, jazz
+
+```{r}
+trend_plotter(c("blacks", "black"), c("blues", "jazz"))
+```

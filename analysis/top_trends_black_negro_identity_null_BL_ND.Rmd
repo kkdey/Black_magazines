@@ -1,0 +1,350 @@
+---
+title: "Null identity analysis of top trending words close to (black, negro) for Black World / Negro Digest"
+author: "Kushal K Dey"
+date: "4/12/2018"
+output: html_document
+---
+
+## Introduction
+
+In this script, we look at the top trending words related to black and negro 
+for Black World / Negro Digest magazine and then see what happens to the trend 
+when the black and negro words are combined together. Do we see an identity bias?
+
+```{r}
+library(wordVectors)
+library(ggplot2)
+```
+
+## Load word2vec models
+
+We load the word2vec model fits.
+
+### Null identity models
+
+```{r warning = FALSE, message=FALSE}
+dir <- "../BL_ND_ID/"
+ll <- list.files(dir, pattern = ".bin")
+model_list_1 <- list()
+for(m in 1:length(ll)){
+  model_list_1[[m]] = read.vectors(paste0(dir, ll[m]))
+}
+```
+
+### Full model
+
+```{r warning = FALSE, message=FALSE}
+dirs <- c("../Negro_Digest/ND_1961/",
+          "../Negro_Digest/ND_1962/",
+          "../Negro_Digest/ND_1963/",
+          "../Negro_Digest/ND_1964/",
+          "../Negro_Digest/ND_1965/",
+          "../Negro_Digest/ND_1966/",
+          "../Negro_Digest/ND_1967/",
+          "../Negro_Digest/ND_1968/",
+          "../Negro_Digest/ND_1969/",
+          "../Negro_Digest/ND_1970/",
+          "../Black_World/BL_1970/",
+          "../Black_World/BL_1971/",
+          "../Black_World/BL_1972/",
+          "../Black_World/BL_1973/",
+          "../Black_World/BL_1974/",
+          "../Black_World/BL_1975/",
+          "../Black_World/BL_1976/")
+
+
+model_list_2 <- list()
+for(m in 1:length(dirs)){
+  model_list_2[[m]] = read.vectors(paste0(dirs[m], "pooled_word2vec.bin"))
+}
+```
+
+
+## Association Trend Plotter 
+
+```{r}
+trend_plotter <- function(word_set_1, word_set_2, model_list){
+  assoc <- c()
+  for(m in 1:length(ll)){
+  
+  assoc <- c(assoc, 
+             cosineSimilarity(model_list[[m]][[word_set_1, average = TRUE]], 
+                              model_list[[m]][[word_set_2, average = TRUE]]))
+  }
+  df <- data.frame("year" =  c(1961:1970, 1970:1976),
+                   "score" = assoc)
+  p <- qplot(year, score, data = df, xlab = "year", ylab = "association score") +  
+            geom_smooth(method = "lm", size = 1.5) +
+            ggtitle("trend plot")
+  p
+}
+```
+
+
+## [Black, Negro] vs opportunities
+
+```{r}
+trend_plotter(c("black", "blacks"), c("opportunities"), model_list_1)
+```
+
+## Black vs opportunities 
+
+```{r}
+trend_plotter(c("black", "blacks"), c("opportunities"), model_list_2)
+```
+
+## Negro vs opportunities 
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("opportunities"), model_list_2)
+```
+
+## [Black, Negro] vs qualified
+
+```{r}
+trend_plotter(c("black", "blacks"), c("qualified"), model_list_1)
+```
+
+## [Black] vs qualified
+
+```{r}
+trend_plotter(c("black", "blacks"), c("qualified"), model_list_2)
+```
+
+## [Negro] vs qualified
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("qualified"), model_list_2)
+```
+
+## [Black, Negro] vs progress
+
+```{r}
+trend_plotter(c("black", "blacks"), c("progress"), model_list_1)
+```
+
+## [Black, Negro] vs progress
+
+```{r}
+trend_plotter(c("black", "blacks"), c("progress"), model_list_2)
+```
+
+
+## [Negro] vs progress
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("progress"), model_list_2)
+```
+
+## [Black, Negro] vs leaders
+
+```{r}
+trend_plotter(c("black", "blacks"), c("leaders", "ministers"), model_list_1)
+```
+
+## [Black, Negro] vs leaders
+
+```{r}
+trend_plotter(c("black", "blacks"), c("leaders", "ministers"), model_list_2)
+```
+
+## [Black, Negro] vs leaders
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("leaders", "ministers"), model_list_2)
+```
+
+## [Black, Negro] vs white
+
+```{r}
+trend_plotter(c("black", "blacks"), c("white"), model_list_1)
+```
+
+## [Black] vs white
+
+```{r}
+trend_plotter(c("black", "blacks"), c("white"), model_list_2)
+```
+
+## [Negro] vs white
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("white"), model_list_2)
+```
+
+## [Black, Negro] vs studies
+
+```{r}
+trend_plotter(c("black", "blacks"), c("studies"), model_list_1)
+```
+
+
+## [Black] vs studies
+
+```{r}
+trend_plotter(c("black", "blacks"), c("studies"), model_list_2)
+```
+
+## [Negro] vs studies
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("studies"), model_list_2)
+```
+
+## [Black, Negro] vs bright
+
+```{r}
+trend_plotter(c("black", "blacks"), c("bright"), model_list_1)
+```
+
+## [Black] vs bright
+
+```{r}
+trend_plotter(c("black", "blacks"), c("bright"), model_list_2)
+```
+
+
+## [Negro] vs bright
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("bright"), model_list_2)
+```
+
+
+## [Black, Negro] vs rights
+
+```{r}
+trend_plotter(c("black", "blacks"), c("rights"), model_list_1)
+```
+
+
+## [Black] vs rights
+
+```{r}
+trend_plotter(c("black", "blacks"), c("rights"), model_list_2)
+```
+
+## [Negro]  vs rights
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("rights"), model_list_2)
+```
+
+
+## [Black, Negro] vs employment, jobs
+
+```{r}
+trend_plotter(c("black", "blacks"), c("employment", "jobs", "income", "unemployment"), model_list_1)
+```
+
+## [Black] vs employment, jobs
+
+```{r}
+trend_plotter(c("black", "blacks"), c("employment", "jobs", "income", "unemployment"), model_list_2)
+```
+
+## [Negro] vs employment, jobs
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("employment", "jobs", "income", "unemployment"), model_list_2)
+```
+
+
+## [Black, Negro] vs education
+
+```{r}
+trend_plotter(c("black", "blacks"), c("education"), model_list_1)
+```
+
+## [Black] vs education
+
+```{r}
+trend_plotter(c("black", "blacks"), c("education"), model_list_2)
+```
+
+## [Negro] vs education
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("education"), model_list_2)
+```
+
+## [Black, Negro] vs minorities
+
+```{r}
+trend_plotter(c("black", "blacks"), c("minorities"), model_list_1)
+```
+
+## [Black] vs minorities
+
+```{r}
+trend_plotter(c("black", "blacks"), c("minorities"), model_list_2)
+```
+
+## [Negro] vs minorities
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("minorities"), model_list_2)
+```
+
+## [Black, Negro] vs families
+
+```{r}
+trend_plotter(c("black", "blacks"), c("families"), model_list_1)
+```
+
+## [Black] vs families
+
+```{r}
+trend_plotter(c("black", "blacks"), c("families"), model_list_2)
+```
+
+## [Negro] vs families
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("families"), model_list_2)
+```
+
+## [Black, Negro] vs deprived
+
+```{r}
+trend_plotter(c("black", "blacks"), c("deprived"), model_list_1)
+```
+
+## [Black] vs deprived
+
+```{r}
+trend_plotter(c("black", "blacks"), c("deprived"), model_list_2)
+```
+
+## [Negro] vs deprived
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("deprived"), model_list_2)
+```
+
+## [Black, Negro] vs inferior
+
+```{r}
+trend_plotter(c("black", "blacks"), c("inferior"), model_list_1)
+```
+
+
+## [Black] vs inferior
+
+```{r}
+trend_plotter(c("black", "blacks"), c("inferior"), model_list_2)
+```
+
+## [Negro] vs inferior
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("inferior"), model_list_2)
+```
+
+## SessionInfo
+
+```{r}
+sessionInfo()
+```
+
+

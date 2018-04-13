@@ -76,6 +76,60 @@ p1
 
 ```
 
+
+We now look at identity nullified Ebony and Black World/Negro Digest articles.
+
+## Identity null Ebony
+
+```{r}
+ebony_data <- get(load( "../output/table_word_frequencies_Ebony_identity_null.rda"))
+ebony_data_norm <- t(apply(ebony_data, 1, function(x) return(x/sum(x))))
+black_counts_norm <- apply(ebony_data_norm[, c("black", "blacks")], 1, mean)
+```
+
+
+```{r}
+charts.data <- data.frame("word" = rep("black", 16), 
+                          "year" = factor(c(rownames(ebony_data)), 
+                                          levels = rownames(ebony_data)),
+                          "prop" = c(black_counts_norm))
+
+p1 <- ggplot() + geom_line(aes(y = prop, x = year, colour = word, group=word),
+                           data = charts.data, stat="identity") +
+        theme(axis.text.x=element_text(angle=90, hjust=1)) + xlab("") + 
+        ylab("relative occurrence")
+p1
+
+```
+
+
+
+
+## Identity null Black World/Negro Digest
+
+```{r}
+bl_nd_data <- get(load( "../output/table_word_frequencies_BL_ND_identity_null.rda"))
+bl_nd_data_norm <- t(apply(bl_nd_data, 1, function(x) return(x/sum(x))))
+black_counts_norm <- apply(bl_nd_data_norm[, c("black", "blacks")], 1, mean)
+afroamerican_counts_norm <- apply(bl_nd_data_norm[, c("afroamerican", "africanamerican")], 1, mean)
+```
+
+```{r}
+charts.data <- data.frame("word" = rep("black", 17),
+                          "year" = factor(rownames(bl_nd_data),
+                                          levels = rownames(bl_nd_data)),
+                          "prop" = c(black_counts_norm))
+
+
+p1 <- ggplot() + geom_line(aes(y = prop, x = year, colour = word, group=word),
+                           data = charts.data, stat="identity") +
+        theme(axis.text.x=element_text(angle=90, hjust=1)) + xlab("") + 
+        ylab("relative occurrence")
+p1
+
+```
+
+
 ## SessionInfo
 
 ```{r}

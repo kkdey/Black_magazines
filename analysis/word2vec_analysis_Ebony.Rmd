@@ -59,8 +59,22 @@ trend_plotter <- function(word_set_1, word_set_2){
 ##  Negro vs Struggle 
 
 ```{r}
-trend_plotter(c("negro", "negroes", "negro"), "struggle")
+trend_plotter(c("negro", "negroes", "negro"), c("struggle", "struggles"))
 ```
+
+##  Black vs Struggle 
+
+```{r}
+trend_plotter(c("black", "blacks"), c("struggle", "struggles"))
+```
+
+
+##  [Negro, black] vs Struggle 
+
+```{r}
+trend_plotter(c("negro", "negroes", "negro", "black", "blacks"), c("struggle", "struggles"))
+```
+
 
 ## Negro vs Revolution 
 

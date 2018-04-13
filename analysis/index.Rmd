@@ -43,5 +43,14 @@ Codes to reproduce the results in paper:
 * **Word clouds of contextually similar words to word/word sets of interest**
      + [*Ebony*](word_clouds_Ebony.html)
      + [*Black World/Negro Digest*](word_clouds_BL_ND.html)
-  
-  
+     
+* **Identity null analysis : analysis after combining black and negro terms**
+     + [*Processing identity null text data*](identity_neutral_Ebony_BL_ND_processing.html)
+     + [*word2vec modeling*](word2vec_ID.html)
+     + [*association analysis word2vec Ebony*](word2vec_analysis_Ebony_id_null.html)
+     + [*association analysis word2vec Black World / Negro Digest*](word2vec_analysis_BL_ND_id_null.html)
+     + [*association analysis of top trending words word2vec Black World / Negro Digest*](top_trends_black_negro_identity_null_BL_ND.html)
+     + [*association analysis of top trending words word2vec Ebony*](top_trends_black_negro_identity_null_Ebony.html)
+     
+     
+ 

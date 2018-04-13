@@ -1,0 +1,104 @@
+---
+title: "Identity neutral counts - Ebony and Black World/ Negro Digest"
+author: "Kushal K Dey"
+date: "4/12/2018"
+output: html_document
+---
+
+## Introduction
+
+In this script, we build the counts of words in the vocabulary used in the 
+Ebony articles and the Black World/Negro digest articles after identity
+neutralizing (negro and negros terms merged with black and blacks terms).
+
+```{r include=TRUE, eval=TRUE, warning=FALSE, message = FALSE}
+library(wordVectors)
+```
+
+## Black World/ Negro Digest
+
+```{r message = FALSE, warning=FALSE}
+dir <- "../BL_ND_ID/"
+ll <- list.files (dir, pattern = ".txt")
+all_names <- c()
+for(m in 1:length(ll)){
+  sentences<-scan(paste0(dir, ll[m]),"character",sep="\n");
+  #Replace full stop and comma
+  sentences<-gsub("\\.","",sentences)
+  sentences<-gsub("\\,","",sentences)
+  #Split sentence
+  words<-strsplit(sentences," ")
+  #Calculate word frequencies
+  words.freq<-table(unlist(words));
+  all_names <- union(all_names , names(words.freq))
+}
+
+tab <- matrix(0, length(ll), length(all_names))
+colnames(tab) <- all_names
+rownames(tab) <- c(paste0("ND_", 1961:1970), paste0("BL_", 1970:1976))
+
+for(m in 1:length(ll)){
+  sentences<-scan(paste0(dir, ll[m]),"character",sep="\n");
+  #Replace full stop and comma
+  sentences<-gsub("\\.","",sentences)
+  sentences<-gsub("\\,","",sentences)
+  #Split sentence
+  words<-strsplit(sentences," ")
+  #Calculate word frequencies
+  words.freq<-table(unlist(words));
+  tab[m, match(names(words.freq), colnames(tab))] <- as.numeric(words.freq)
+}
+
+```
+
+```{r}
+save(tab, file = "../output/table_word_frequencies_BL_ND_identity_null.rda")
+```
+
+
+## Ebony
+
+```{r message = FALSE, warning=FALSE}
+dir <- "../Ebony_ID/"
+ll <- list.files (dir, pattern = ".txt")
+all_names <- c()
+for(m in 1:length(ll)){
+  sentences<-scan(paste0(dir, ll[m]),"character",sep="\n");
+  #Replace full stop and comma
+  sentences<-gsub("\\.","",sentences)
+  sentences<-gsub("\\,","",sentences)
+  #Split sentence
+  words<-strsplit(sentences," ")
+  #Calculate word frequencies
+  words.freq<-table(unlist(words));
+  all_names <- union(all_names , names(words.freq))
+}
+
+tab <- matrix(0, length(ll), length(all_names))
+colnames(tab) <- all_names
+rownames(tab) <- paste0("Ebony:", 1961:1976)
+
+for(m in 1:length(ll)){
+  sentences<-scan(paste0(dir, ll[m]),"character",sep="\n");
+  #Replace full stop and comma
+  sentences<-gsub("\\.","",sentences)
+  sentences<-gsub("\\,","",sentences)
+  #Split sentence
+  words<-strsplit(sentences," ")
+  #Calculate word frequencies
+  words.freq<-table(unlist(words));
+  tab[m, match(names(words.freq), colnames(tab))] <- as.numeric(words.freq)
+}
+
+```
+
+```{r}
+save(tab, file = "../output/table_word_frequencies_Ebony_identity_null.rda")
+```
+
+## SessionInfo
+
+```{r}
+sessionInfo()
+```
+

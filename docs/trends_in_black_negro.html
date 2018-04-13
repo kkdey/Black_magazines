@@ -367,6 +367,43 @@ p1 &lt;- ggplot() + geom_line(aes(y = prop, x = year, colour = word, group=word)
         ylab(&quot;relative occurrence&quot;)
 p1</code></pre>
 <p><img src="trends_in_black_negro_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>We now look at identity nullified Ebony and Black World/Negro Digest articles.</p>
+</div>
+<div id="identity-null-ebony" class="section level2">
+<h2>Identity null Ebony</h2>
+<pre class="r"><code>ebony_data &lt;- get(load( &quot;../output/table_word_frequencies_Ebony_identity_null.rda&quot;))
+ebony_data_norm &lt;- t(apply(ebony_data, 1, function(x) return(x/sum(x))))
+black_counts_norm &lt;- apply(ebony_data_norm[, c(&quot;black&quot;, &quot;blacks&quot;)], 1, mean)</code></pre>
+<pre class="r"><code>charts.data &lt;- data.frame(&quot;word&quot; = rep(&quot;black&quot;, 16), 
+                          &quot;year&quot; = factor(c(rownames(ebony_data)), 
+                                          levels = rownames(ebony_data)),
+                          &quot;prop&quot; = c(black_counts_norm))
+
+p1 &lt;- ggplot() + geom_line(aes(y = prop, x = year, colour = word, group=word),
+                           data = charts.data, stat=&quot;identity&quot;) +
+        theme(axis.text.x=element_text(angle=90, hjust=1)) + xlab(&quot;&quot;) + 
+        ylab(&quot;relative occurrence&quot;)
+p1</code></pre>
+<p><img src="trends_in_black_negro_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="identity-null-black-worldnegro-digest" class="section level2">
+<h2>Identity null Black World/Negro Digest</h2>
+<pre class="r"><code>bl_nd_data &lt;- get(load( &quot;../output/table_word_frequencies_BL_ND_identity_null.rda&quot;))
+bl_nd_data_norm &lt;- t(apply(bl_nd_data, 1, function(x) return(x/sum(x))))
+black_counts_norm &lt;- apply(bl_nd_data_norm[, c(&quot;black&quot;, &quot;blacks&quot;)], 1, mean)
+afroamerican_counts_norm &lt;- apply(bl_nd_data_norm[, c(&quot;afroamerican&quot;, &quot;africanamerican&quot;)], 1, mean)</code></pre>
+<pre class="r"><code>charts.data &lt;- data.frame(&quot;word&quot; = rep(&quot;black&quot;, 17),
+                          &quot;year&quot; = factor(rownames(bl_nd_data),
+                                          levels = rownames(bl_nd_data)),
+                          &quot;prop&quot; = c(black_counts_norm))
+
+
+p1 &lt;- ggplot() + geom_line(aes(y = prop, x = year, colour = word, group=word),
+                           data = charts.data, stat=&quot;identity&quot;) +
+        theme(axis.text.x=element_text(angle=90, hjust=1)) + xlab(&quot;&quot;) + 
+        ylab(&quot;relative occurrence&quot;)
+p1</code></pre>
+<p><img src="trends_in_black_negro_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 <div id="sessioninfo" class="section level2">
 <h2>SessionInfo</h2>

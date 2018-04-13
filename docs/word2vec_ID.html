@@ -9,10 +9,10 @@
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="Kushal K Dey, Lei Sun, Lauren M Jackson" />
+<meta name="author" content="Kushal K Dey" />
 
 
-<title>Revisiting Black America of 1960s using machine learning of magazine text</title>
+<title>word2vec model on [Black, Negro] Identity texts</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,6 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -165,6 +168,101 @@ $(document).ready(function () {
 
 
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
 
 
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
@@ -211,61 +309,61 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Revisiting Black America of 1960s using machine learning of magazine text</h1>
-<h4 class="author"><em>Kushal K Dey, Lei Sun, Lauren M Jackson</em></h4>
+<h1 class="title toc-ignore">word2vec model on [Black, Negro] Identity texts</h1>
+<h4 class="author"><em>Kushal K Dey</em></h4>
+<h4 class="date"><em>4/12/2018</em></h4>
 
 </div>
 
 
-<p>We use machine learning and statistical methods to analyze two leading African american magazines of the 1960s-1970s America - <strong>Negro Digest/Black World</strong> and <strong>Ebony</strong>. The Negro Digest/Black world magazine was in circulation for a period of 16 years from 1961 to 1976. The Ebony magazine is still in circulation, but we focus on the issues for the above time period.</p>
-<div class="figure">
-<img src="homepage.png" alt="home" />
-<p class="caption">home</p>
+<p>We fit the word2vec model on the text data from the identity neutralized texts from Ebony and Black world/Negro Digest where the terms negro and negroes are converted to black and blacks respectively.</p>
+<div id="black-world-negro-digest" class="section level2">
+<h2>Black World/ Negro Digest</h2>
+<pre class="r"><code>dir &lt;- &quot;../BL_ND_ID/&quot;
+ll &lt;- list.files(dir, pattern = &quot;.txt&quot;)
+for(m in 1:length(ll)){
+  model = train_word2vec(paste0(dir, ll[m]),
+                         paste0(dir, ll[m], &quot;.bin&quot;),
+                         vectors=100,threads=10,window=10,
+                         iter=30, min_count = 3, negative_samples=0, 
+                         force = TRUE)
+}</code></pre>
 </div>
-<p>Codes to reproduce the results in paper:</p>
-<ul>
-<li><strong>Processing of magazine data</strong>
-<ul>
-<li><a href="Ebony_processing.html"><em>Ebony</em></a></li>
-<li><a href="BL_ND_processing.html"><em>Black World/ Negro Digest</em></a></li>
-</ul></li>
-<li><strong>Trends in word frequencies over time</strong>
-<ul>
-<li><a href="trends_in_black_negro.html"><em>Trends in black and negro terms</em></a></li>
-<li><a href="word_trends.html"><em>Trends in other words of interest</em></a></li>
-</ul></li>
-<li><strong>Grade of Membership Model on word frequencies data</strong>
-<ul>
-<li><a href="countclust_ebony.html"><em>Ebony : with black and negro terms</em></a></li>
-<li><a href="countclust_ebony_no_black_negro.html"><em>Ebony : no black and negro terms</em></a></li>
-<li><a href="countclust_bl_nd.html"><em>Black World/Negro Digest : with black and negro terms</em></a></li>
-<li><a href="countclust_bl_nd_no_negro_black.html"><em>Black World/Negro Digest: no black and negro terms</em></a></li>
-<li><a href="countclust_BL_ND_Ebony.html"><em>Ebony + Black World/Negro Digest combined data</em></a></li>
-</ul></li>
-<li><strong>How word2vec model was fit</strong>
-<ul>
-<li><a href="word2vec_modeling.html"><em>script</em></a></li>
-</ul></li>
-<li><strong>Association analysis trends using word2vec similarities</strong>
-<ul>
-<li><a href="word2vec_analysis_Ebony.html"><em>Ebony</em></a></li>
-<li><a href="word2vec_analysis_BL_ND.html"><em>Black World/Negro Digest</em></a></li>
-</ul></li>
-<li><strong>Word clouds of contextually similar words to word/word sets of interest</strong>
-<ul>
-<li><a href="word_clouds_Ebony.html"><em>Ebony</em></a></li>
-<li><a href="word_clouds_BL_ND.html"><em>Black World/Negro Digest</em></a></li>
-</ul></li>
-<li><strong>Identity null analysis : analysis after combining black and negro terms</strong>
-<ul>
-<li><a href="identity_neutral_Ebony_BL_ND_processing.html"><em>Processing identity null text data</em></a></li>
-<li><a href="word2vec_ID.html"><em>word2vec modeling</em></a></li>
-<li><a href="word2vec_analysis_Ebony_id_null.html"><em>association analysis word2vec Ebony</em></a></li>
-<li><a href="word2vec_analysis_BL_ND_id_null.html"><em>association analysis word2vec Black World / Negro Digest</em></a></li>
-<li><a href="top_trends_black_negro_identity_null_BL_ND.html"><em>association analysis of top trending words word2vec Black World / Negro Digest</em></a></li>
-<li><a href="top_trends_black_negro_identity_null_Ebony.html"><em>association analysis of top trending words word2vec Ebony</em></a></li>
-</ul></li>
-</ul>
+<div id="ebony" class="section level2">
+<h2>Ebony</h2>
+<pre class="r"><code>dir &lt;- &quot;../Ebony_ID/&quot;
+ll &lt;- list.files(dir, pattern = &quot;.txt&quot;)
+for(m in 1:length(ll)){
+  model = train_word2vec(paste0(dir, ll[m]),
+                         paste0(dir, ll[m], &quot;.bin&quot;),
+                         vectors=100,threads=10,window=10,
+                         iter=30, min_count = 3, negative_samples=0, 
+                         force = TRUE)
+}</code></pre>
+</div>
+<div id="sessioninfo" class="section level2">
+<h2>SessionInfo</h2>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.4.4 (2018-03-15)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS Sierra 10.12.6
+## 
+## Matrix products: default
+## BLAS: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## loaded via a namespace (and not attached):
+##  [1] compiler_3.4.4  backports_1.1.2 magrittr_1.5    rprojroot_1.3-2
+##  [5] tools_3.4.4     htmltools_0.3.6 yaml_2.1.18     Rcpp_0.12.16   
+##  [9] stringi_1.1.6   rmarkdown_1.9   knitr_1.20      stringr_1.3.0  
+## [13] digest_0.6.15   evaluate_0.10.1</code></pre>
+</div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
@@ -305,6 +403,8 @@ footer is added to webpages before the MathJax javascript. -->
 -->
 
 
+</div>
+</div>
 
 </div>
 
