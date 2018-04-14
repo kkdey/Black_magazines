@@ -119,6 +119,24 @@ trend_plotter("black", c("muslims"), model_list_2)
 trend_plotter("negro",  "muslims", model_list_2)
 ```
 
+## [Black, Negro] vs islam
+
+```{r}
+trend_plotter("black", c("islam"), model_list_1)
+```
+
+## [Black] vs islam
+
+```{r}
+trend_plotter("black", c("islam"), model_list_2)
+```
+
+
+## [Negro] vs islam
+
+```{r}
+trend_plotter("negro",  "islam", model_list_2)
+```
 
 ## [Black, Negro] vs white
 
