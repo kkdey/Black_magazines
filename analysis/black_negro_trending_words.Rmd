@@ -1,7 +1,17 @@
+---
+title: '[Black, negro] identity word trends :Ebony'
+author: "Kushal K Dey"
+date: "4/16/2018"
+output: html_document
+---
 
+## Introduction
 
-################  word2vec similarities with all black and negro terms ################
+We check on the word trends of the [black, negro] identity words. 
 
+## Ebony words 
+
+```{r}
 dir <- list.files("../Ebony/")
 library(wordVectors)
 w2vec <- list()
@@ -18,7 +28,11 @@ for(l in 1:16){
 
 num_words <- table(words)
 words_filtered <- names(num_words[which(num_words > 5)])
+```
 
+## Association with black, blacks, negro and negros
+
+```{r echo=TRUE, eval=FALSE}
 cor_black_assoc <- c()
 cor_blacks_assoc <- c()
 cor_negro_assoc <- c()
@@ -41,9 +55,12 @@ ll <- list("cor_black_assoc" = cor_black_assoc,
            "cor_negros_assoc" =  cor_negros_assoc)
 
 save(ll, file = "../output/black_negro_assoc_analysis.rda")
+```
 
-################  black   ########################
+## Trending words with black over time 
 
+```{r}
+ll <- get(load("../output/black_negro_assoc_analysis.rda"))
 time_diff <- 1:16 - mean(1:16)
 epoch <- time_diff
 betahat <- array(0, dim(ll$cor_black_assoc)[2])
@@ -88,11 +105,11 @@ df <- data.frame("beta" = betahat, "sebeta" = shat, "beta_fac" = betahat2, "sebe
 rownames(df) <- words_filtered
 
 save(df, file = "../output/black_words_assoc.rda")
+```
 
+## Trending words with blacks over time 
 
-
-####################   blacks  ##############################
-
+```{r}
 time_diff <- 1:16 - mean(1:16)
 epoch <- time_diff
 betahat <- array(0, dim(ll$cor_blacks_assoc)[2])
@@ -138,8 +155,13 @@ rownames(df) <- words_filtered
 
 save(df, file = "../output/blacks_words_assoc.rda")
 
-#################   negro   ###############################
+```
 
+
+## Trending words with negro over time 
+
+
+```{r}
 
 time_diff <- 1:16 - mean(1:16)
 epoch <- time_diff
@@ -186,9 +208,13 @@ rownames(df) <- words_filtered
 
 save(df, file = "../output/negro_words_assoc.rda")
 
+```
 
-##############  negros  ######################
 
+## Trending words with negros over time 
+
+
+```{r}
 time_diff <- 1:16 - mean(1:16)
 epoch <- time_diff
 betahat <- array(0, dim(ll$cor_negros_assoc)[2])
@@ -234,92 +260,109 @@ rownames(df) <- words_filtered
 
 save(df, file = "../output/negros_words_assoc.rda")
 
+```
 
-#####################  Black decreasing trend   #########################
+## Visualize Black words list
 
+### negative
+
+```{r}
 df <- get(load(file = "../output/black_words_assoc.rda"))
 
 z1 <- df[,1]/df[,2]
-z1[order(z1, decreasing = TRUE)[1:100]]
 rownames(df)[order(z1, decreasing = TRUE)[1:100]]
 z2 <- df[,3]/df[,4]
-z2[order(z2, decreasing = TRUE)[1:200]]
 rownames(df)[order(z2, decreasing = TRUE)[1:100]]
 
+```
 
+### positive
+
+```{r}
 z1 <- df[,1]/df[,2]
-z1[order(z1, decreasing = FALSE)[1:200]]
-rownames(df)[order(z1, decreasing = FALSE)[1:200]]
+rownames(df)[order(z1, decreasing = TRUE)[1:200]]
 z2 <- df[,3]/df[,4]
-z2[order(z2, decreasing = FALSE)[1:200]]
-rownames(df)[order(z2, decreasing = FALSE)[1:200]]
+rownames(df)[order(z2, decreasing = TRUE)[1:200]]
+```
 
+
+
+## Visualize Blacks words list
+
+### negative
+
+```{r}
 
 df <- get(load(file = "../output/blacks_words_assoc.rda"))
 
 z1 <- df[,1]/df[,2]
-rownames(df)[order(z1, decreasing = FALSE)[1:100]]
+rownames(df)[order(z1, decreasing = FALSE)[1:200]]
 z2 <- df[,3]/df[,4]
-rownames(df)[order(z2, decreasing = FALSE)[1:100]]
+rownames(df)[order(z2, decreasing = FALSE)[1:200]]
+```
 
-df <- get(load(file = "../output/black_words_assoc_BL_ND.rda"))
+### positive
 
+```{r}
 z1 <- df[,1]/df[,2]
-rownames(df)[order(z1, decreasing = FALSE)[1:100]]
-
-
-
-
-df <- get(load(file = "../output/blacks_words_assoc.rda"))
-
-z1 <- df[,1]/df[,2]
-z1[order(z1, decreasing = TRUE)[1:100]]
 rownames(df)[order(z1, decreasing = TRUE)[1:100]]
 z2 <- df[,3]/df[,4]
-z2[order(z2, decreasing = TRUE)[1:200]]
 rownames(df)[order(z2, decreasing = TRUE)[1:100]]
 
 
-z1 <- df[,1]/df[,2]
-z1[order(z1, decreasing = FALSE)[1:200]]
-rownames(df)[order(z1, decreasing = FALSE)[1:200]]
-z2 <- df[,3]/df[,4]
-z2[order(z2, decreasing = FALSE)[1:200]]
-rownames(df)[order(z2, decreasing = FALSE)[1:200]]
+```
 
+## Visualize Negro words list
 
+### negative
+
+```{r}
 
 df <- get(load(file = "../output/negro_words_assoc.rda"))
 
 z1 <- df[,1]/df[,2]
-z1[order(z1, decreasing = TRUE)[1:100]]
-rownames(df)[order(z1, decreasing = TRUE)[1:100]]
-z2 <- df[,3]/df[,4]
-z2[order(z2, decreasing = TRUE)[1:200]]
-rownames(df)[order(z2, decreasing = TRUE)[1:100]]
-
-
-z1 <- df[,1]/df[,2]
-z1[order(z1, decreasing = FALSE)[1:200]]
 rownames(df)[order(z1, decreasing = FALSE)[1:200]]
 z2 <- df[,3]/df[,4]
-z2[order(z2, decreasing = FALSE)[1:200]]
 rownames(df)[order(z2, decreasing = FALSE)[1:200]]
+```
 
+### positive
+
+```{r}
+z1 <- df[,1]/df[,2]
+rownames(df)[order(z1, decreasing = TRUE)[1:200]]
+z2 <- df[,3]/df[,4]
+rownames(df)[order(z2, decreasing = TRUE)[1:200]]
+```
+
+
+## Visualize Negros words list
+
+### negative
+
+```{r}
 
 df <- get(load(file = "../output/negros_words_assoc.rda"))
 
 z1 <- df[,1]/df[,2]
-z1[order(z1, decreasing = TRUE)[1:100]]
-rownames(df)[order(z1, decreasing = TRUE)[1:100]]
-z2 <- df[,3]/df[,4]
-z2[order(z2, decreasing = TRUE)[1:200]]
-rownames(df)[order(z2, decreasing = TRUE)[1:100]]
-
-
-z1 <- df[,1]/df[,2]
-z1[order(z1, decreasing = FALSE)[1:200]]
 rownames(df)[order(z1, decreasing = FALSE)[1:200]]
 z2 <- df[,3]/df[,4]
-z2[order(z2, decreasing = FALSE)[1:200]]
 rownames(df)[order(z2, decreasing = FALSE)[1:200]]
+```
+
+### positive
+
+```{r}
+z1 <- df[,1]/df[,2]
+rownames(df)[order(z1, decreasing = TRUE)[1:200]]
+z2 <- df[,3]/df[,4]
+rownames(df)[order(z2, decreasing = TRUE)[1:200]]
+```
+
+
+## SessionInfo
+
+```{r}
+sessionInfo()
+```
+

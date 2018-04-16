@@ -46,7 +46,7 @@ for(m in 1:length(dirs)){
 }
 ```
 
-## Words used in Ebony
+## Words used in Black World/ Negro Digest
 
 Making a list of words used by Ebony articles across the 16 years 1961-1976.
 

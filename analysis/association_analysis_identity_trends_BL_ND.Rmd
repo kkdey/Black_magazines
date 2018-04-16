@@ -1,0 +1,204 @@
+---
+title: "Association analysis of trending words Black world/ Negro Digest"
+author: "Kushal K Dey"
+date: "4/16/2018"
+output: html_document
+---
+
+## Introduction
+
+In this script, we look at some interesting words that show a contrary to 
+expected trends in their association with identity terms *black* and *negro*.
+
+```{r}
+library(wordVectors)
+library(ggplot2)
+```
+
+## Load word2vec models
+
+We load the word2vec model fits.
+
+### Null identity models
+
+```{r warning = FALSE, message=FALSE}
+dir <- "../BL_ND_ID/"
+ll <- list.files(dir, pattern = ".bin")
+model_list_1 <- list()
+for(m in 1:length(ll)){
+  model_list_1[[m]] = read.vectors(paste0(dir, ll[m]))
+}
+```
+
+
+### Full model
+
+```{r warning = FALSE, message=FALSE}
+dirs <- c("../Negro_Digest/ND_1961/",
+          "../Negro_Digest/ND_1962/",
+          "../Negro_Digest/ND_1963/",
+          "../Negro_Digest/ND_1964/",
+          "../Negro_Digest/ND_1965/",
+          "../Negro_Digest/ND_1966/",
+          "../Negro_Digest/ND_1967/",
+          "../Negro_Digest/ND_1968/",
+          "../Negro_Digest/ND_1969/",
+          "../Negro_Digest/ND_1970/",
+          "../Black_World/BL_1970/",
+          "../Black_World/BL_1971/",
+          "../Black_World/BL_1972/",
+          "../Black_World/BL_1973/",
+          "../Black_World/BL_1974/",
+          "../Black_World/BL_1975/",
+          "../Black_World/BL_1976/")
+
+
+model_list_2 <- list()
+for(m in 1:length(dirs)){
+  model_list_2[[m]] = read.vectors(paste0(dirs[m], "pooled_word2vec.bin"))
+}
+```
+
+## Association Trend Plotter 
+
+```{r}
+trend_plotter <- function(word_set_1, word_set_2, model_list){
+  assoc <- c()
+  for(m in 1:length(ll)){
+  
+  assoc <- c(assoc, 
+             cosineSimilarity(model_list[[m]][[word_set_1, average = TRUE]], 
+                              model_list[[m]][[word_set_2, average = TRUE]]))
+  }
+  df <- data.frame("year" =  c(1961:1970, 1970:1976),
+                   "score" = assoc)
+  p <- qplot(year, score, data = df, xlab = "year", ylab = "association score") +  
+            geom_smooth(method = "lm", size = 1.5) +
+            ggtitle("trend plot")
+  p
+}
+```
+
+
+## [Black, Negro] vs struggle
+
+```{r}
+trend_plotter(c("black", "blacks"), c("struggle"), model_list_1)
+```
+
+## [Black] vs struggle
+
+```{r}
+trend_plotter(c("black", "blacks"), c("struggle"), model_list_2)
+```
+
+
+## [Negro] vs struggle
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("struggle"), model_list_2)
+```
+
+## [Black, Negro] vs leadership
+
+```{r}
+trend_plotter(c("black", "blacks"), c("leadership"), model_list_1)
+```
+
+## [Black] vs leadership
+
+```{r}
+trend_plotter(c("black", "blacks"), c("leadership"), model_list_2)
+```
+
+## [Negro] vs leadership
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("leadership"), model_list_2)
+```
+
+## [Black, Negro] vs leadership
+
+```{r}
+trend_plotter(c("black", "blacks"), c("independence"), model_list_1)
+```
+
+## [Black] vs leadership
+
+```{r}
+trend_plotter(c("black", "blacks"), c("independence"), model_list_2)
+```
+
+## [Negro] vs leadership
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("independence"), model_list_2)
+```
+
+## [Black, Negro] vs father
+
+```{r}
+trend_plotter(c("black", "blacks"), c("father"), model_list_1)
+```
+
+## [Black] vs leadership
+
+```{r}
+trend_plotter(c("black", "blacks"), c("father"), model_list_2)
+```
+
+## [Negro] vs leadership
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("father"), model_list_2)
+```
+
+## [Black, Negro] vs community
+
+```{r}
+trend_plotter(c("black", "blacks"), c("community"), model_list_1)
+```
+
+## [Black] vs community
+
+```{r}
+trend_plotter(c("black", "blacks"), c("community"), model_list_2)
+```
+
+
+## [Negro] vs community
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("community"), model_list_2)
+```
+
+## [Black, Negro] vs vote
+
+```{r}
+trend_plotter(c("black", "blacks"), c("vote", "voters"), model_list_1)
+```
+
+## [Black] vs vote
+
+```{r}
+trend_plotter(c("black", "blacks"), c("vote", "voters"), model_list_2)
+```
+
+## [negro] vs vote
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("vote", "voter", "voters"), model_list_2)
+```
+
+## [Black] vs father
+
+```{r}
+trend_plotter(c("black"), c("father", "mother"), model_list_2)
+```
+
+## [negro] vs father
+
+```{r}
+trend_plotter(c("negro"), c("mother", "father"), model_list_2)
+```
+

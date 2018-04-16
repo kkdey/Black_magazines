@@ -183,3 +183,95 @@ trend_plotter(c("blacks"), arts, model_list_2)
 ```{r}
 trend_plotter(c("negroes", "negros"), arts, model_list_2)
 ```
+
+
+
+## [Black, Negro] vs father, mother
+
+```{r}
+trend_plotter(c("black"), c("father", "mother"), model_list_1)
+```
+
+## [Black] vs father, mother
+
+```{r}
+trend_plotter(c("black"), c("father", "mother"), model_list_2)
+```
+
+
+## [Negro] vs father, mother
+
+```{r}
+trend_plotter(c("negro"), c("father", "mother"), model_list_2)
+```
+
+
+## [Black, Negro] vs muhammad
+
+```{r}
+trend_plotter(c("black"), c("muhammad"), model_list_1)
+```
+
+## [Black] vs father, muhammad
+
+```{r}
+trend_plotter(c("black"), c("muhammad"), model_list_2)
+```
+
+
+## [Negro] vs father, muhammad
+
+```{r}
+trend_plotter(c("negro"), c("muhammad"), model_list_2)
+```
+
+
+## [Black, Negro] vs brotherhood
+
+```{r}
+trend_plotter(c("black"), c("brotherhood"), model_list_1)
+```
+
+## [Black] vs brotherhood
+
+```{r}
+trend_plotter(c("black"), c("brotherhood"), model_list_2)
+```
+
+
+## [Negro] vs brotherhood
+
+```{r}
+trend_plotter(c("negro"), c("brotherhood"), model_list_2)
+```
+
+## [Black, Negro] vs music
+
+```{r}
+trend_plotter(c("blacks"), c("musician", "song", "songs", "sang"), model_list_1)
+```
+
+## [Black] vs music
+
+```{r}
+trend_plotter(c("blacks"), c("musician", "song", "songs", "sang"), model_list_2)
+```
+
+
+## [Negro] vs music
+
+```{r}
+trend_plotter(c("negros", "negroes"), c("musician", "song", "songs", "sang"), model_list_2)
+```
+
+
+
+## SessionInfo
+
+```{r}
+sessionInfo()
+```
+
+
+
+
