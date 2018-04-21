@@ -1,0 +1,116 @@
+---
+title: 'Consistent word word associations : Ebony and Black World/Negro Digest'
+author: "Kushal K Dey"
+date: "4/20/2018"
+output: html_document
+---
+
+## Introduction
+
+We tabulate the word pairs that show consistently high cosine similarity association score across time. 
+
+## Ebony 
+
+### Top 300 most consistent words
+
+```{r}
+df <- read.table("../output/consistent_words/Ebony/highest_word_pairs_assoc.txt")
+df[1:300,1]
+```
+
+### Top consistent words pre 1968
+
+```{r}
+df2 <- read.table("../output/consistent_words/Ebony/highest_word_pairs_assoc_pre_1968.txt")
+setdiff(as.character(df2[,1]), as.character(df[,1]))
+```
+
+### Top consistent words post 1968
+
+```{r}
+df3 <- read.table("../output/consistent_words/Ebony/highest_word_pairs_assoc_post_1968.txt")
+setdiff(as.character(df3[,1]), as.character(df[,1]))
+```
+
+### Common words (pre and post 1968)
+
+```{r}
+intersect(as.character(df3[,1]), as.character(df2[,1]))
+```
+
+
+## Black World/ Negro Digest
+
+### Top 300 most consistent words
+
+```{r}
+df_BL <- read.table("../output/consistent_words/BL_ND/highest_word_pairs_assoc.txt")
+df_BL[1:300,1]
+```
+
+### Top consistent words pre 1968
+
+```{r}
+df2_BL <- read.table("../output/consistent_words/BL_ND/highest_word_pairs_assoc_pre_1968.txt")
+setdiff(as.character(df2_BL[,1]), as.character(df_BL[,1]))
+```
+
+### Top consistent words post 1968
+
+```{r}
+df3_BL <- read.table("../output/consistent_words/BL_ND/highest_word_pairs_assoc_post_1968.txt")
+setdiff(as.character(df3_BL[,1]), as.character(df_BL[,1]))
+```
+
+### Common words (pre and post 1968)
+
+```{r}
+intersect(as.character(df3_BL[,1]), as.character(df2_BL[,1]))
+```
+
+
+
+### Observation
+
+We focus mainly on interesting common noun pairs that show high association either throughout the 16 years time period from 1961 to 1976, or pre 1968 or post 1968 era. Among the interesting words that show consistency throughout 16 years 
+for Ebony and Black World/Negro Digest are 
+
+Ebony
+
+- *Consistent across all years* : (racial, discrimination), (discrimination, segregation ), (civil_rights, movement),
+     (jazz, music), (emanciptation, proclamation), (economic, social), (political, power), (discrimination, segregation),
+     (race, relations), (power, structure)
+     
+- *Consistent only pre 1968* :  (rock, roll), (uncle, toms), (creed, race), (freed, slaves), (declaration, independence),
+     (constitutional, rights), (state, legislature)
+     
+- *Consistent only post 1968* : (health, care), (blues, sings), (drug, addiction), (blues, jazz), (voting, rights),
+     (black, community), (mental, health), (music, soul), (blues, music)
+     
+     
+Black world/ Negro Digest 
+
+- *Consistent across all years* :  (civil, war), (civil_rights, movement), (jazz, music), (economic, social), (blues, jazz), (emanciptation, proclamation), (discrimination, segeregation), (race, relations), (power, structure)
+
+- *Consistent only pre 1968* : (black, writers), (racism, oppression), (oppression, struggle), (against, oppression),
+(music, rhythm), (blues, spiritual), (nationalist, movement)
+
+- *Consistent only post 1968* : (masters, slaves), (education, schools), (school, teacher), (railroad, underground),
+(college, graduate), (jazz, musician)
+
+## Common top consistent words two magazines 
+
+```{r}
+intersect(as.character(df_BL[,1]), as.character(df[,1]))
+```
+
+
+
+## SessionInfo
+
+```{r}
+sessionInfo()
+```
+
+
+

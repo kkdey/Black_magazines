@@ -1,0 +1,223 @@
+---
+title: 'Consistent word pairs trends : Ebony'
+author: "Kushal K Dey"
+date: "4/20/2018"
+output: html_document
+---
+
+## Introduction
+
+In this script, we look at some interesting words that show a contrary to 
+expected trends in their association with identity terms *black* and *negro*.
+
+```{r}
+library(wordVectors)
+library(ggplot2)
+```
+
+
+## Null identity models
+
+```{r warning = FALSE, message=FALSE}
+dir <- "../Ebony_ID/"
+ll <- list.files(dir, pattern = ".bin")
+model_list <- list()
+for(m in 1:length(ll)){
+  model_list[[m]] = read.vectors(paste0(dir, ll[m]))
+}
+```
+
+## Association Trend Plotter 
+
+```{r}
+trend_plotter <- function(word_set_1, word_set_2, model_list){
+  assoc <- c()
+  for(m in 1:length(ll)){
+  
+  assoc <- c(assoc, 
+             cosineSimilarity(model_list[[m]][[word_set_1, average = TRUE]], 
+                              model_list[[m]][[word_set_2, average = TRUE]]))
+  }
+  df <- data.frame("year" =  c(1961:1976),
+                   "score" = assoc)
+  p <- qplot(year, score, data = df, xlab = "year", ylab = "association score") +  
+            geom_smooth(method = "lm", size = 1.5) +
+            ggtitle("trend plot")
+  p
+}
+```
+
+## Common consistent words
+
+### racial & discrimination 
+
+```{r}
+trend_plotter(c("racial"), c("discrimination"), model_list)
+```
+
+
+### econonic & social
+
+```{r}
+trend_plotter(c("social"), c("economic"), model_list)
+```
+
+
+### civil rights & movement
+
+```{r}
+trend_plotter(c("civil_rights"), c("movement"), model_list)
+```
+
+### jazz & music
+
+```{r}
+trend_plotter(c("jazz"), c("music"), model_list)
+```
+
+
+### discrimination & segregation
+
+```{r}
+trend_plotter(c("discrimination"), c("segregation"), model_list)
+```
+
+
+### race & relations
+
+```{r}
+trend_plotter(c("race"), c("relations"), model_list)
+```
+
+
+## Pre 1968 words
+
+### rock & roll
+
+```{r}
+trend_plotter(c("rock"), c("roll"), model_list)
+```
+
+### uncle & toms
+
+```{r}
+trend_plotter(c("uncle"), c("toms"), model_list)
+```
+
+### creed & race
+
+```{r}
+trend_plotter(c("creed"), c("race"), model_list)
+```
+
+### freed & slaves
+
+```{r}
+trend_plotter(c("freed"), c("slaves"), model_list)
+```
+
+### declaration & independence
+
+```{r}
+trend_plotter(c("declaration"), c("independence"), model_list)
+```
+
+### constitutional & rights
+
+```{r}
+trend_plotter(c("constitutional"), c("rights"), model_list)
+```
+
+## post 1968 words
+
+### health & care
+
+```{r}
+trend_plotter(c("health"), c("care"), model_list)
+```
+
+### health & mental
+
+```{r}
+trend_plotter(c("health"), c("mental"), model_list)
+```
+
+### drug & addiction
+
+```{r}
+trend_plotter(c("drug"), c("addiction"), model_list)
+```
+
+### blues & jazz
+
+```{r}
+trend_plotter(c("blues"), c("jazz"), model_list)
+```
+
+### blues & music
+
+```{r}
+trend_plotter(c("blues"), c("music"), model_list)
+```
+
+### black & community
+
+```{r}
+trend_plotter(c("black"), c("community"), model_list)
+```
+
+
+## Black World/ Negro Digest words
+
+### civil & war
+
+```{r}
+trend_plotter(c("civil"), c("war"), model_list)
+```
+
+
+### racism & oppression
+
+```{r}
+trend_plotter(c("racism"), c("oppression"), model_list)
+```
+
+### struggle & oppression
+
+```{r}
+trend_plotter(c("struggle"), c("oppression"), model_list)
+```
+
+### against & oppression
+
+```{r}
+trend_plotter(c("against"), c("oppression"), model_list)
+```
+
+### blues & spiritual
+
+```{r}
+trend_plotter(c("blues"), c("spiritual"), model_list)
+```
+
+### college & graduate
+
+```{r}
+trend_plotter(c("college"), c("graduate"), model_list)
+```
+
+### education & schools
+
+```{r}
+trend_plotter(c("education"), c("schools"), model_list)
+```
+
+
+
+
+
+
+
+
+
+

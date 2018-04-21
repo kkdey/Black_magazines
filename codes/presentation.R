@@ -114,7 +114,7 @@ rownames(omega) <- annotation$sample_id;
 
 StructureGGplot(omega = omega,
                 annotation = annotation,
-                palette = RColorBrewer::brewer.pal(8, "Accent")[3:4],
+                palette = RColorBrewer::brewer.pal(8, "Accent")[1:2],
                 yaxis_label = "Years of Publication",
                 order_sample = TRUE,
                 axis_tick = list(axis_ticks_length = .1,
@@ -129,7 +129,7 @@ driving_words <- apply(out$indices, c(1,2), function(x) return(rownames(topic_cl
 # tab_bl_nd <- get(load("../output/table_word_frequencies.rda"))
 # negro_words <- grep("negro", colnames(tab_bl_nd))
 # black_words <- match(c("black", "blacks"), colnames(tab_bl_nd))
-# 
+#
 # tab_bl_nd_filtered <- tab_bl_nd[, - union(negro_words, black_words)]
 # one_occur_words_2 <- apply(tab_bl_nd_filtered, 2, function(x) return(sum(x[x!=0])))
 # tab2_bl_nd <- tab_bl_nd_filtered[, which(one_occur_words_2 > 2)]

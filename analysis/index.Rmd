@@ -53,3 +53,12 @@ Codes to reproduce the results in paper:
      + [*association analysis of top trending words word2vec Ebony*](top_trends_black_negro_identity_null_Ebony.html)
      + [*opposite to expected trending words with respect to identity - Ebony*](association_analysis_opposite_identity_trends_Ebony.html)
      + [*opposite to expected trending words with respect to identity - Black World / Negro Digest *](association_analysis_opposite_identity_trends_BL_ND.html)
+     
+     
+* **Word pairs showing consistent high association**
+      + [*Word pairs showing consistency patterns across years, and pre and post 1968*](consistent_word_associations.html)
+      + [*Trends of word pairs across time for consistent words : Ebony*](consistent_word_trends_Ebony.html)
+      + [*Trends of word pairs across time for consistent words : Negro Digest/ Black World*](consistent_word_trends_BL_ND.html)
+      
+      
+      

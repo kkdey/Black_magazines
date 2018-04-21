@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Kushal K Dey" />
+
+
+<title>Consistent word word associations : Ebony and Black World/Negro Digest</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Black_Magazines</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/jdblischak/workflowr">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Consistent word word associations : Ebony and Black World/Negro Digest</h1>
+<h4 class="author"><em>Kushal K Dey</em></h4>
+<h4 class="date"><em>4/20/2018</em></h4>
+
+</div>
+
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>We tabulate the word pairs that show consistently high cosine similarity association score across time.</p>
+</div>
+<div id="ebony" class="section level2">
+<h2>Ebony</h2>
+<div id="top-300-most-consistent-words" class="section level3">
+<h3>Top 300 most consistent words</h3>
+<pre class="r"><code>df &lt;- read.table(&quot;../output/consistent_words/Ebony/highest_word_pairs_assoc.txt&quot;)
+df[1:300,1]</code></pre>
+<pre><code>##   [1] angeles:los                cent:per                  
+##   [3] more:than                  francisco:san             
+##   [5] new:york                   states:united             
+##   [7] neither:nor                her:she                   
+##   [9] bennett:lerone             ago:years                 
+##  [11] las:vegas                  hughes:langston           
+##  [13] duke:ellington             adam:clayton              
+##  [15] adam:powell                been:has                  
+##  [17] court:supreme              douglass:frederick        
+##  [19] high:school                registration:voter        
+##  [21] poitier:sidney             last:year                 
+##  [23] clayton:powell             less:than                 
+##  [25] opposite:page              dont:know                 
+##  [27] puerto:rican               men:women                 
+##  [29] carolina:north             emancipation:proclamation 
+##  [31] dont:want                  you:your                  
+##  [33] ebony:magazine             beings:human              
+##  [35] but:not                    been:have                 
+##  [37] alex:poinsett              air:force                 
+##  [39] three:two                  less:more                 
+##  [41] brothers:sisters           crow:jim                  
+##  [43] president:vice             carolina:south            
+##  [45] baptist:church             alma:mater                
+##  [47] dont:think                 dont:you                  
+##  [49] been:had                   jackie:robinson           
+##  [51] four:three                 belafonte:harry           
+##  [53] champion:heavyweight       klan:klux                 
+##  [55] dick:gregory               north:south               
+##  [57] father:mother              black:white               
+##  [59] her:husband                hong:kong                 
+##  [61] puerto:rico                ali:muhammad              
+##  [63] children:parents           three:years               
+##  [65] howard:university          ebony:issue               
+##  [67] know:want                  their:they                
+##  [69] davis:sammy                does:not                  
+##  [71] know:think                 coordinating:nonviolent   
+##  [73] federal:government         estate:real               
+##  [75] months:years               know:what                 
+##  [77] indies:west                class:middle              
+##  [79] colleges:universities      five:three                
+##  [81] know:you                   five:four                 
+##  [83] hubert:humphrey            civil:war                 
+##  [85] new:orleans                did:not                   
+##  [87] basketball:football        article:issue             
+##  [89] director:executive         and:the                   
+##  [91] months:six                 could:would               
+##  [93] cant:you                   roy:wilkins               
+##  [95] christ:jesus               you:youre                 
+##  [97] four:years                 discrimination:racial     
+##  [99] blacks:whites              five:years                
+## [101] you:yourself               two:years                 
+## [103] college:university         quo:status                
+## [105] democrats:republicans      four:two                  
+## [107] league:urban               college:graduate          
+## [109] baseball:player            six:three                 
+## [111] africa:african             new:yorks                 
+## [113] cant:dont                  graduate:university       
+## [115] herself:she                them:they                 
+## [117] five:six                   baptist:pastor            
+## [119] democratic:republican      equal:opportunity         
+## [121] league:leagues             didnt:know                
+## [123] months:three               episcopal:methodist       
+## [125] city:york                  even:though               
+## [127] school:schools             diego:san                 
+## [129] her:herself                loan:savings              
+## [131] but:that                   want:you                  
+## [133] him:his                    arc:are                   
+## [135] know:say                   marshall:thurgood         
+## [137] females:males              professor:university      
+## [139] york:yorks                 get:you                   
+## [141] football:player            aaron:hank                
+## [143] hotels:restaurants         chairman:committee        
+## [145] rather:than                six:years                 
+## [147] calif:san                  harriet:tubman            
+## [149] football:pro               boxing:heavyweight        
+## [151] philip:randolph            anything:else             
+## [153] know:really                mays:willie               
+## [155] hans:massaquoi             hundreds:thousands        
+## [157] enforcement:law            church:pastor             
+## [159] garvey:marcus              democratic:party          
+## [161] orchestra:symphony         church:methodist          
+## [163] cent:population            gary:ind                  
+## [165] ebony:readers              been:since                
+## [167] months:weeks               carl:rowan                
+## [169] decision:supreme           four:six                  
+## [171] college:school             court:decision            
+## [173] five:two                   billie:holiday            
+## [175] during:period              didnt:dont                
+## [177] coast:west                 armed:forces              
+## [179] really:what                get:want                  
+## [181] orleans:york               harvard:university        
+## [183] deal:great                 color:skin                
+## [185] jazz:music                 economic:political        
+## [187] economic:social            much:too                  
+## [189] court:judge                race:relations            
+## [191] tell:you                   not:that                  
+## [193] per:population             article:ebony             
+## [195] how:know                   husband:she               
+## [197] not:only                   baseball:players          
+## [199] slave:slaves               how:what                  
+## [201] assistant:secretary        basketball:team           
+## [203] man:woman                  has:since                 
+## [205] after:months               college:students          
+## [207] discrimination:segregation know:tell                 
+## [209] schools:students           because:but               
+## [211] seven:years                said:told                 
+## [213] about:talking              six:two                   
+## [215] female:male                abraham:lincoln           
+## [217] are:these                  didnt:want                
+## [219] can:you                    seminary:theological      
+## [221] fact:that                  capitol:hill              
+## [223] graduate:school            ago:months                
+## [225] feel:think                 article:magazine          
+## [227] think:want                 contract:signed           
+## [229] college:student            baseball:league           
+## [231] his:wife                   dollars:million           
+## [233] themselves:they            must:should               
+## [235] minister:prime             blackes:whites            
+## [237] football:players           nat:turner                
+## [239] city:new                   their:them                
+## [241] those:who                  east:west                 
+## [243] dont:get                   after:shortly             
+## [245] say:think                  himself:his               
+## [247] degree:masters             chamberlain:wilt          
+## [249] equal:rights               eight:years               
+## [251] colleges:students          per:total                 
+## [253] student:students           mother:wife               
+## [255] league:national            own:their                 
+## [257] can:will                   ago:three                 
+## [259] elementary:school          school:students           
+## [261] calif:francisco            another:one               
+## [263] feel:know                  court:courts              
+## [265] nashville:tenn             billion:million           
+## [267] football:team              war:world                 
+## [269] else:something             husband:mother            
+## [271] radio:television           church:episcopal          
+## [273] seven:six                  annually:million          
+## [275] baseball:football          doing:what                
+## [277] degree:university          ten:years                 
+## [279] four:months                better:than               
+## [281] really:think               about:talk                
+## [283] political:power            our:ourselves             
+## [285] bell:thompson              seven:three               
+## [287] book:published             company:insurance         
+## [289] father:son                 believe:think             
+## [291] boys:girls                 liston:sonny              
+## [293] party:republican           had:was                   
+## [295] dont:say                   after:later               
+## [297] what:you                   dont:feel                 
+## [299] think:what                 articles:ebony            
+## 500 Levels: aaron:hank about:know about:talk about:talking ... you:yourself</code></pre>
+</div>
+<div id="top-consistent-words-pre-1968" class="section level3">
+<h3>Top consistent words pre 1968</h3>
+<pre class="r"><code>df2 &lt;- read.table(&quot;../output/consistent_words/Ebony/highest_word_pairs_assoc_pre_1968.txt&quot;)
+setdiff(as.character(df2[,1]), as.character(df[,1]))</code></pre>
+<pre><code>##  [1] &quot;rock:roll&quot;                &quot;anderson:marian&quot;         
+##  [3] &quot;booker:simeon&quot;            &quot;bunche:ralph&quot;            
+##  [5] &quot;clark:kenneth&quot;            &quot;toms:uncle&quot;              
+##  [7] &quot;amendments:fourteenth&quot;    &quot;johnson:president&quot;       
+##  [9] &quot;cent:rate&quot;                &quot;floyd:patterson&quot;         
+## [11] &quot;cardinals:louis&quot;          &quot;robert:weaver&quot;           
+## [13] &quot;congress:legislation&quot;     &quot;page:picture&quot;            
+## [15] &quot;club:night&quot;               &quot;alpha:kappa&quot;             
+## [17] &quot;counter:lunch&quot;            &quot;racial:segregation&quot;      
+## [19] &quot;baptist:methodist&quot;        &quot;carolina:virginia&quot;       
+## [21] &quot;morning:night&quot;            &quot;metropolitan:opera&quot;      
+## [23] &quot;coordinating:student&quot;     &quot;amendment:fourteenth&quot;    
+## [25] &quot;democrats:republican&quot;     &quot;english:french&quot;          
+## [27] &quot;accra:ghana&quot;              &quot;election:republican&quot;     
+## [29] &quot;large:number&quot;             &quot;catholic:roman&quot;          
+## [31] &quot;johnson:lyndon&quot;           &quot;carolina:georgia&quot;        
+## [33] &quot;creed:race&quot;               &quot;half:million&quot;            
+## [35] &quot;back:went&quot;                &quot;charles:ray&quot;             
+## [37] &quot;john:kennedy&quot;             &quot;schools:segregated&quot;      
+## [39] &quot;freed:slaves&quot;             &quot;pools:swimming&quot;          
+## [41] &quot;alabama:georgia&quot;          &quot;but:did&quot;                 
+## [43] &quot;better:more&quot;              &quot;edition:issue&quot;           
+## [45] &quot;are:they&quot;                 &quot;tell:what&quot;               
+## [47] &quot;executive:secretary&quot;      &quot;much:very&quot;               
+## [49] &quot;approximately:per&quot;        &quot;magazine:your&quot;           
+## [51] &quot;georgia:louisiana&quot;        &quot;mother:sister&quot;           
+## [53] &quot;day:night&quot;                &quot;declaration:independence&quot;
+## [55] &quot;magazine:publication&quot;     &quot;human:rights&quot;            
+## [57] &quot;pool:swimming&quot;            &quot;know:let&quot;                
+## [59] &quot;florida:louisiana&quot;        &quot;coffee:cup&quot;              
+## [61] &quot;approximately:cent&quot;       &quot;business:industry&quot;       
+## [63] &quot;internal:revenue&quot;         &quot;that:would&quot;              
+## [65] &quot;and:with&quot;                 &quot;conn:haven&quot;              
+## [67] &quot;opposite:picture&quot;         &quot;deputy:secretary&quot;        
+## [69] &quot;ask:why&quot;                  &quot;annually:billion&quot;        
+## [71] &quot;days:later&quot;               &quot;martin_luther_king:rev&quot;  
+## [73] &quot;cent:increase&quot;            &quot;eight:ten&quot;               
+## [75] &quot;going:want&quot;               &quot;award:won&quot;               
+## [77] &quot;that:there&quot;               &quot;howard:professor&quot;        
+## [79] &quot;ebony:edition&quot;            &quot;black:blackes&quot;           
+## [81] &quot;constitutional:rights&quot;    &quot;legislature:state&quot;       
+## [83] &quot;enrolled:school&quot;          &quot;increase:per&quot;            
+## [85] &quot;may:will&quot;</code></pre>
+</div>
+<div id="top-consistent-words-post-1968" class="section level3">
+<h3>Top consistent words post 1968</h3>
+<pre class="r"><code>df3 &lt;- read.table(&quot;../output/consistent_words/Ebony/highest_word_pairs_assoc_post_1968.txt&quot;)
+setdiff(as.character(df3[,1]), as.character(df[,1]))</code></pre>
+<pre><code>##  [1] &quot;diana:ross&quot;                   &quot;bond:julian&quot;                 
+##  [3] &quot;abernathy:ralph&quot;              &quot;diego:francisco&quot;             
+##  [5] &quot;bucks:milwaukee&quot;              &quot;aretha:franklin&quot;             
+##  [7] &quot;care:health&quot;                  &quot;addiction:drug&quot;              
+##  [9] &quot;indentured:servants&quot;          &quot;shows:television&quot;            
+## [11] &quot;radio:station&quot;                &quot;development:economic&quot;        
+## [13] &quot;football:teams&quot;               &quot;motion:picture&quot;              
+## [15] &quot;inmates:prison&quot;               &quot;ball:game&quot;                   
+## [17] &quot;brooke:sen&quot;                   &quot;elijah:muhammad&quot;             
+## [19] &quot;general:motors&quot;               &quot;hours:week&quot;                  
+## [21] &quot;basketball:nba&quot;               &quot;basketball:pro&quot;              
+## [23] &quot;dwight:eisenhower&quot;            &quot;college:colleges&quot;            
+## [25] &quot;associate:professor&quot;          &quot;bell:era&quot;                    
+## [27] &quot;beverly:hills&quot;                &quot;africa:south&quot;                
+## [29] &quot;hen:ith&quot;                      &quot;highest:ranking&quot;             
+## [31] &quot;blues:jazz&quot;                   &quot;malcolm_x:martin_luther_king&quot;
+## [33] &quot;blues:music&quot;                  &quot;james:weldon&quot;                
+## [35] &quot;player:team&quot;                  &quot;jackson:jesse&quot;               
+## [37] &quot;northwestern:university&quot;      &quot;just:really&quot;                 
+## [39] &quot;blues:sings&quot;                  &quot;basketball:game&quot;             
+## [41] &quot;liberation:movement&quot;          &quot;gospel:music&quot;                
+## [43] &quot;diploma:school&quot;               &quot;labor:unions&quot;                
+## [45] &quot;largest:nations&quot;              &quot;jesse:rev&quot;                   
+## [47] &quot;thats:what&quot;                   &quot;elected:officials&quot;           
+## [49] &quot;rights:voting&quot;                &quot;melvin:van&quot;                  
+## [51] &quot;nations:united&quot;               &quot;health:mental&quot;               
+## [53] &quot;jackson:rev&quot;                  &quot;ebony:editor&quot;                
+## [55] &quot;black:women&quot;                  &quot;colleges:schools&quot;            
+## [57] &quot;governor:lieutenant&quot;          &quot;graduated:school&quot;            
+## [59] &quot;vietnam:war&quot;                  &quot;coats:slacks&quot;                
+## [61] &quot;vou:you&quot;                      &quot;black:community&quot;             
+## [63] &quot;five:nine&quot;                    &quot;ore:portland&quot;                
+## [65] &quot;else:nothing&quot;                 &quot;political:politics&quot;          
+## [67] &quot;brother:sister&quot;               &quot;day:hours&quot;                   
+## [69] &quot;lady:sings&quot;                   &quot;cant:want&quot;                   
+## [71] &quot;chairman:president&quot;           &quot;ark:rock&quot;                    
+## [73] &quot;program:training&quot;             &quot;music:soul&quot;                  
+## [75] &quot;always:ive&quot;                   &quot;court:ruled&quot;                 
+## [77] &quot;know:thats&quot;                   &quot;historian:lerone&quot;            
+## [79] &quot;hans:managing&quot;                &quot;bishop:episcopal&quot;            
+## [81] &quot;get:see&quot;                      &quot;heavyweight:muhammad&quot;        
+## [83] &quot;ask:dont&quot;                     &quot;nixon:richard&quot;               
+## [85] &quot;husband:wife&quot;                 &quot;knew:thought&quot;                
+## [87] &quot;basie:count&quot;                  &quot;player:pro&quot;                  
+## [89] &quot;just:like&quot;                    &quot;garden:square&quot;               
+## [91] &quot;basketball:players&quot;           &quot;arms:legs&quot;                   
+## [93] &quot;get:try&quot;</code></pre>
+</div>
+<div id="common-words-pre-and-post-1968" class="section level3">
+<h3>Common words (pre and post 1968)</h3>
+<pre class="r"><code>intersect(as.character(df3[,1]), as.character(df2[,1]))</code></pre>
+<pre><code>##   [1] &quot;angeles:los&quot;                &quot;las:vegas&quot;                 
+##   [3] &quot;more:than&quot;                  &quot;cent:per&quot;                  
+##   [5] &quot;francisco:san&quot;              &quot;states:united&quot;             
+##   [7] &quot;new:york&quot;                   &quot;registration:voter&quot;        
+##   [9] &quot;neither:nor&quot;                &quot;her:she&quot;                   
+##  [11] &quot;ago:years&quot;                  &quot;duke:ellington&quot;            
+##  [13] &quot;bennett:lerone&quot;             &quot;adam:clayton&quot;              
+##  [15] &quot;douglass:frederick&quot;         &quot;puerto:rican&quot;              
+##  [17] &quot;been:has&quot;                   &quot;high:school&quot;               
+##  [19] &quot;men:women&quot;                  &quot;brothers:sisters&quot;          
+##  [21] &quot;less:than&quot;                  &quot;adam:powell&quot;               
+##  [23] &quot;last:year&quot;                  &quot;klan:klux&quot;                 
+##  [25] &quot;alex:poinsett&quot;              &quot;clayton:powell&quot;            
+##  [27] &quot;poitier:sidney&quot;             &quot;court:supreme&quot;             
+##  [29] &quot;alma:mater&quot;                 &quot;champion:heavyweight&quot;      
+##  [31] &quot;dont:know&quot;                  &quot;ebony:magazine&quot;            
+##  [33] &quot;beings:human&quot;               &quot;dont:want&quot;                 
+##  [35] &quot;less:more&quot;                  &quot;carolina:north&quot;            
+##  [37] &quot;hubert:humphrey&quot;            &quot;three:two&quot;                 
+##  [39] &quot;four:three&quot;                 &quot;hughes:langston&quot;           
+##  [41] &quot;dick:gregory&quot;               &quot;been:have&quot;                 
+##  [43] &quot;director:executive&quot;         &quot;roy:wilkins&quot;               
+##  [45] &quot;but:not&quot;                    &quot;dont:think&quot;                
+##  [47] &quot;air:force&quot;                  &quot;baptist:church&quot;            
+##  [49] &quot;father:mother&quot;              &quot;three:years&quot;               
+##  [51] &quot;belafonte:harry&quot;            &quot;dont:you&quot;                  
+##  [53] &quot;you:your&quot;                   &quot;federal:government&quot;        
+##  [55] &quot;opposite:page&quot;              &quot;president:vice&quot;            
+##  [57] &quot;females:males&quot;              &quot;jackie:robinson&quot;           
+##  [59] &quot;football:pro&quot;               &quot;quo:status&quot;                
+##  [61] &quot;harriet:tubman&quot;             &quot;five:three&quot;                
+##  [63] &quot;carolina:south&quot;             &quot;north:south&quot;               
+##  [65] &quot;been:had&quot;                   &quot;aaron:hank&quot;                
+##  [67] &quot;colleges:universities&quot;      &quot;four:years&quot;                
+##  [69] &quot;know:think&quot;                 &quot;cant:you&quot;                  
+##  [71] &quot;her:husband&quot;                &quot;class:middle&quot;              
+##  [73] &quot;emancipation:proclamation&quot;  &quot;black:white&quot;               
+##  [75] &quot;children:parents&quot;           &quot;enforcement:law&quot;           
+##  [77] &quot;episcopal:methodist&quot;        &quot;basketball:football&quot;       
+##  [79] &quot;know:want&quot;                  &quot;gary:ind&quot;                  
+##  [81] &quot;howard:university&quot;          &quot;indies:west&quot;               
+##  [83] &quot;crow:jim&quot;                   &quot;anything:else&quot;             
+##  [85] &quot;their:they&quot;                 &quot;you:yourself&quot;              
+##  [87] &quot;boxing:heavyweight&quot;         &quot;league:leagues&quot;            
+##  [89] &quot;baseball:player&quot;            &quot;five:four&quot;                 
+##  [91] &quot;equal:opportunity&quot;          &quot;five:years&quot;                
+##  [93] &quot;estate:real&quot;                &quot;know:what&quot;                 
+##  [95] &quot;davis:sammy&quot;                &quot;college:university&quot;        
+##  [97] &quot;football:player&quot;            &quot;democrats:republicans&quot;     
+##  [99] &quot;ebony:issue&quot;                &quot;five:six&quot;                  
+## [101] &quot;months:years&quot;               &quot;and:the&quot;                   
+## [103] &quot;know:you&quot;                   &quot;them:they&quot;                 
+## [105] &quot;arc:are&quot;                    &quot;civil:war&quot;                 
+## [107] &quot;does:not&quot;                   &quot;herself:she&quot;               
+## [109] &quot;cant:dont&quot;                  &quot;months:six&quot;                
+## [111] &quot;you:youre&quot;                  &quot;puerto:rico&quot;               
+## [113] &quot;four:two&quot;                   &quot;could:would&quot;               
+## [115] &quot;six:three&quot;                  &quot;about:talking&quot;             
+## [117] &quot;democratic:republican&quot;      &quot;new:orleans&quot;               
+## [119] &quot;even:though&quot;                &quot;rather:than&quot;               
+## [121] &quot;but:that&quot;                   &quot;baptist:pastor&quot;            
+## [123] &quot;africa:african&quot;             &quot;did:not&quot;                   
+## [125] &quot;christ:jesus&quot;               &quot;ebony:readers&quot;             
+## [127] &quot;hundreds:thousands&quot;         &quot;college:graduate&quot;          
+## [129] &quot;professor:university&quot;       &quot;basketball:team&quot;           
+## [131] &quot;him:his&quot;                    &quot;female:male&quot;               
+## [133] &quot;article:issue&quot;              &quot;two:years&quot;                 
+## [135] &quot;college:school&quot;             &quot;new:yorks&quot;                 
+## [137] &quot;man:woman&quot;                  &quot;didnt:know&quot;                
+## [139] &quot;know:say&quot;                   &quot;jazz:music&quot;                
+## [141] &quot;church:pastor&quot;              &quot;mays:willie&quot;               
+## [143] &quot;discrimination:racial&quot;      &quot;know:really&quot;               
+## [145] &quot;five:two&quot;                   &quot;slave:slaves&quot;              
+## [147] &quot;court:judge&quot;                &quot;baseball:league&quot;           
+## [149] &quot;months:three&quot;               &quot;colleges:students&quot;         
+## [151] &quot;hong:kong&quot;                  &quot;economic:social&quot;           
+## [153] &quot;must:should&quot;                &quot;york:yorks&quot;                
+## [155] &quot;coordinating:nonviolent&quot;    &quot;her:herself&quot;               
+## [157] &quot;his:wife&quot;                   &quot;because:but&quot;               
+## [159] &quot;been:since&quot;                 &quot;harvard:university&quot;        
+## [161] &quot;assistant:secretary&quot;        &quot;schools:students&quot;          
+## [163] &quot;economic:political&quot;         &quot;get:you&quot;                   
+## [165] &quot;calif:san&quot;                  &quot;decision:supreme&quot;          
+## [167] &quot;seven:years&quot;                &quot;graduate:university&quot;       
+## [169] &quot;city:york&quot;                  &quot;four:six&quot;                  
+## [171] &quot;much:too&quot;                   &quot;billion:million&quot;           
+## [173] &quot;didnt:dont&quot;                 &quot;graduate:school&quot;           
+## [175] &quot;know:tell&quot;                  &quot;get:want&quot;                  
+## [177] &quot;school:schools&quot;             &quot;elementary:school&quot;         
+## [179] &quot;after:shortly&quot;              &quot;six:years&quot;                 
+## [181] &quot;coast:west&quot;                 &quot;months:weeks&quot;              
+## [183] &quot;ten:years&quot;                  &quot;college:students&quot;          
+## [185] &quot;how:know&quot;                   &quot;want:you&quot;                  
+## [187] &quot;football:team&quot;              &quot;seven:six&quot;                 
+## [189] &quot;another:one&quot;                &quot;court:decision&quot;            
+## [191] &quot;really:think&quot;               &quot;our:ourselves&quot;             
+## [193] &quot;during:period&quot;              &quot;are:these&quot;                 
+## [195] &quot;democratic:party&quot;           &quot;really:what&quot;               
+## [197] &quot;else:something&quot;             &quot;can:you&quot;                   
+## [199] &quot;nat:turner&quot;                 &quot;degree:masters&quot;            
+## [201] &quot;not:only&quot;                   &quot;doing:what&quot;                
+## [203] &quot;husband:she&quot;                &quot;tell:you&quot;                  
+## [205] &quot;six:two&quot;                    &quot;how:what&quot;                  
+## [207] &quot;think:want&quot;                 &quot;boys:girls&quot;                
+## [209] &quot;assistant:director&quot;         &quot;didnt:want&quot;                
+## [211] &quot;eight:years&quot;                &quot;orleans:york&quot;              
+## [213] &quot;article:your&quot;               &quot;their:them&quot;                
+## [215] &quot;said:told&quot;                  &quot;her:mother&quot;                
+## [217] &quot;ago:three&quot;                  &quot;has:since&quot;                 
+## [219] &quot;dont:say&quot;                   &quot;student:students&quot;          
+## [221] &quot;about:talk&quot;                 &quot;team:teams&quot;                
+## [223] &quot;those:who&quot;                  &quot;believe:think&quot;             
+## [225] &quot;dont:get&quot;                   &quot;own:their&quot;                 
+## [227] &quot;feel:think&quot;                 &quot;baseball:players&quot;          
+## [229] &quot;school:students&quot;            &quot;husband:mother&quot;            
+## [231] &quot;something:what&quot;             &quot;anything:dont&quot;             
+## [233] &quot;not:that&quot;                   &quot;political:power&quot;           
+## [235] &quot;father:son&quot;                 &quot;seven:three&quot;               
+## [237] &quot;mother:wife&quot;                &quot;radio:television&quot;          
+## [239] &quot;joe:louis&quot;                  &quot;himself:his&quot;               
+## [241] &quot;say:think&quot;                  &quot;say:want&quot;                  
+## [243] &quot;dont:just&quot;                  &quot;league:urban&quot;              
+## [245] &quot;say:you&quot;                    &quot;church:methodist&quot;          
+## [247] &quot;college:student&quot;            &quot;after:months&quot;              
+## [249] &quot;baseball:football&quot;          &quot;civil_rights:movement&quot;     
+## [251] &quot;continue:will&quot;              &quot;chairman:committee&quot;        
+## [253] &quot;cent:population&quot;            &quot;eight:seven&quot;               
+## [255] &quot;are:many&quot;                   &quot;feel:know&quot;                 
+## [257] &quot;dont:feel&quot;                  &quot;deal:great&quot;                
+## [259] &quot;armed:forces&quot;               &quot;capitol:hill&quot;              
+## [261] &quot;couldnt:didnt&quot;              &quot;company:insurance&quot;         
+## [263] &quot;loan:savings&quot;               &quot;see:you&quot;                   
+## [265] &quot;season:year&quot;                &quot;city:new&quot;                  
+## [267] &quot;dollars:million&quot;            &quot;war:world&quot;                 
+## [269] &quot;after:later&quot;                &quot;say:what&quot;                  
+## [271] &quot;anything:know&quot;              &quot;four:months&quot;               
+## [273] &quot;cant:get&quot;                   &quot;themselves:they&quot;           
+## [275] &quot;ago:months&quot;                 &quot;minister:prime&quot;            
+## [277] &quot;had:was&quot;                    &quot;important:most&quot;            
+## [279] &quot;article:ebony&quot;              &quot;just:know&quot;                 
+## [281] &quot;league:national&quot;            &quot;football:players&quot;          
+## [283] &quot;player:players&quot;             &quot;per:total&quot;                 
+## [285] &quot;anything:something&quot;         &quot;contract:signed&quot;           
+## [287] &quot;per:population&quot;             &quot;cant:know&quot;                 
+## [289] &quot;fact:that&quot;                  &quot;court:courts&quot;              
+## [291] &quot;how:tell&quot;                   &quot;orchestra:symphony&quot;        
+## [293] &quot;article:magazine&quot;           &quot;can:must&quot;                  
+## [295] &quot;get:going&quot;                  &quot;east:west&quot;                 
+## [297] &quot;discrimination:segregation&quot; &quot;games:team&quot;                
+## [299] &quot;believe:know&quot;               &quot;dont:thats&quot;                
+## [301] &quot;later:months&quot;               &quot;calif:francisco&quot;           
+## [303] &quot;ruling:supreme&quot;             &quot;two:weeks&quot;                 
+## [305] &quot;five:months&quot;                &quot;how:you&quot;                   
+## [307] &quot;never:seen&quot;                 &quot;can:cant&quot;                  
+## [309] &quot;alabama:mississippi&quot;        &quot;they:were&quot;                 
+## [311] &quot;can:will&quot;                   &quot;later:years&quot;               
+## [313] &quot;court:ruling&quot;               &quot;believe:that&quot;              
+## [315] &quot;but:know&quot;                   &quot;nelson:rockefeller&quot;        
+## [317] &quot;bell:thompson&quot;              &quot;got:youve&quot;                 
+## [319] &quot;game:games&quot;                 &quot;think:what&quot;                
+## [321] &quot;color:skin&quot;                 &quot;daughter:mother&quot;           
+## [323] &quot;get:know&quot;                   &quot;what:you&quot;                  
+## [325] &quot;game:season&quot;                &quot;hotels:restaurants&quot;        
+## [327] &quot;had:have&quot;                   &quot;between:gap&quot;</code></pre>
+</div>
+</div>
+<div id="black-world-negro-digest" class="section level2">
+<h2>Black World/ Negro Digest</h2>
+<div id="top-300-most-consistent-words-1" class="section level3">
+<h3>Top 300 most consistent words</h3>
+<pre class="r"><code>df_BL &lt;- read.table(&quot;../output/consistent_words/BL_ND/highest_word_pairs_assoc.txt&quot;)
+df_BL[1:300,1]</code></pre>
+<pre><code>##   [1] angeles:los               states:united            
+##   [3] douglass:frederick        more:than                
+##   [5] her:she                   new:york                 
+##   [7] hughes:langston           neither:nor              
+##   [9] brooks:gwendolyn          francisco:san            
+##  [11] leopold:senghor           ago:years                
+##  [13] you:your                  been:has                 
+##  [15] dont:you                  garvey:marcus            
+##  [17] been:have                 claude:mckay             
+##  [19] dont:know                 less:than                
+##  [21] richard:wright            carmichael:stokely       
+##  [23] know:you                  but:not                  
+##  [25] and:the                   fuller:hoyt              
+##  [27] been:had                  indies:west              
+##  [29] those:who                 class:middle             
+##  [31] carolina:north            rather:than              
+##  [33] cent:per                  less:more                
+##  [35] countee:cullen            howard:university        
+##  [37] court:supreme             economic:political       
+##  [39] dont:want                 civil:war                
+##  [41] economic:social           kwame:nkrumah            
+##  [43] brothers:sisters          did:not                  
+##  [45] herself:she               men:women                
+##  [47] century:twentieth         does:not                 
+##  [49] jones:leroi               high:school              
+##  [51] them:they                 alain:locke              
+##  [53] our:ourselves             city:york                
+##  [55] know:what                 cant:you                 
+##  [57] james:weldon              colleges:universities    
+##  [59] each:other                three:two                
+##  [61] their:they                blacks:whites            
+##  [63] johnson:weldon            arna:bontemps            
+##  [65] dont:think                quo:status               
+##  [67] know:think                africa:south             
+##  [69] baldwin:james             phillis:wheatley         
+##  [71] beings:human              college:university       
+##  [73] indian:west               cant:dont                
+##  [75] could:would               klan:klux                
+##  [77] black:white               even:though              
+##  [79] want:you                  ellison:ralph            
+##  [81] her:herself               africa:african           
+##  [83] political:social          clarke:henrik            
+##  [85] crow:jim                  know:want                
+##  [87] him:his                   are:these                
+##  [89] dunbar:laurence           century:nineteenth       
+##  [91] didnt:know                toms:uncle               
+##  [93] had:was                   north:south              
+##  [95] booker:washington         aint:got                 
+##  [97] get:you                   didnt:dont               
+##  [99] aint:gonna                fanon:frantz             
+## [101] months:years              eyes:face                
+## [103] four:three                but:that                 
+## [105] themselves:they           tell:you                 
+## [107] james:johnson             you:youre                
+## [109] her:husband               nat:turner               
+## [111] own:their                 you:yourself             
+## [113] not:that                  aint:you                 
+## [115] during:period             new:orleans              
+## [117] gonna:you                 thats:you                
+## [119] not:only                  africa:west              
+## [121] get:got                   aint:dont                
+## [123] frame:reference           know:say                 
+## [125] they:were                 been:since               
+## [127] said:you                  paul:robeson             
+## [129] their:them                dont:get                 
+## [131] another:one               say:you                  
+## [133] eyes:her                  dont:say                 
+## [135] their:themselves          city:new                 
+## [137] man:woman                 slave:slaves             
+## [139] anything:else             emancipation:proclamation
+## [141] coast:west                book:published           
+## [143] himself:his               female:male              
+## [145] last:year                 how:know                 
+## [147] africa:asia               couldnt:didnt            
+## [149] must:will                 what:you                 
+## [151] three:years               think:you                
+## [153] about:talking             important:most           
+## [155] know:tell                 just:you                 
+## [157] east:west                 slave:trade              
+## [159] tom:uncle                 africa:africans          
+## [161] jazz:music                can:will                 
+## [163] fact:that                 leopold:senegal          
+## [165] senegal:senghor           point:view               
+## [167] eyes:looked               much:too                 
+## [169] father:mother             back:down                
+## [171] back:went                 see:you                  
+## [173] college:students          got:you                  
+## [175] had:knew                  away:from                
+## [177] harlem:renaissance        later:years              
+## [179] say:what                  hundred:years            
+## [181] dont:thats                asked:said               
+## [183] didnt:you                 adam:powell              
+## [185] professor:university      wont:you                 
+## [187] five:years                cant:get                 
+## [189] cant:know                 dont:tell                
+## [191] margaret:walker           down:sat                 
+## [193] say:think                 ill:you                  
+## [195] john:killens              are:people               
+## [197] her:mother                think:what               
+## [199] really:what               american:society         
+## [201] dance:music               dont:your                
+## [203] didnt:said                doing:what               
+## [205] between:difference        can:must                 
+## [207] dont:got                  cullen:mckay             
+## [209] african:africans          cannot:must              
+## [211] carter:woodson            between:relationship     
+## [213] franklin:frazier          dont:youre               
+## [215] say:want                  know:said                
+## [217] poems:poetry              dont:said                
+## [219] didnt:wasnt               laurence:paul            
+## [221] didnt:want                federal:government       
+## [223] eyes:mouth                jean:toomer              
+## [225] months:three              deal:great               
+## [227] better:than               didnt:got                
+## [229] must:should               but:only                 
+## [231] before:had                carolina:south           
+## [233] that:this                 know:why                 
+## [235] poetry:poets              mean:what                
+## [237] but:did                   about:what               
+## [239] because:not               league:urban             
+## [241] dignity:human             knew:was                 
+## [243] ten:years                 ghana:nkrumah            
+## [245] know:mean                 civil_rights:movement    
+## [247] think:want                black:community          
+## [249] didnt:just                know:thats               
+## [251] door:walked               dont:just                
+## [253] eyes:head                 orleans:york             
+## [255] didnt:wouldnt             same:time                
+## [257] four:years                husband:she              
+## [259] him:she                   back:out                 
+## [261] could:did                 african:continent        
+## [263] are:they                  get:want                 
+## [265] school:schools            hughes:mckay             
+## [267] clayton:powell            door:opened              
+## [269] dunbar:paul               south:southern           
+## [271] why:you                   davis:ossie              
+## [273] back:came                 about:talk               
+## [275] eyes:lips                 how:you                  
+## [277] coffee:cup                just:thats               
+## [279] dont:wont                 colleges:schools         
+## [281] first:second              black:people             
+## [283] color:skin                can:cannot               
+## [285] few:years                 more:rather              
+## [287] africa:america            college:school           
+## [289] two:years                 else:something           
+## [291] minister:prime            aint:thats               
+## [293] are:many                  looked:looking           
+## [295] know:really               else:nothing             
+## [297] gonna:got                 answer:question          
+## [299] but:know                  blues:jazz               
+## 500 Levels: about:know about:talk about:talking about:what ... your:yourself</code></pre>
+</div>
+<div id="top-consistent-words-pre-1968-1" class="section level3">
+<h3>Top consistent words pre 1968</h3>
+<pre class="r"><code>df2_BL &lt;- read.table(&quot;../output/consistent_words/BL_ND/highest_word_pairs_assoc_pre_1968.txt&quot;)
+setdiff(as.character(df2_BL[,1]), as.character(df_BL[,1]))</code></pre>
+<pre><code>##   [1] &quot;mckay:toomer&quot;                 &quot;cullen:toomer&quot;               
+##   [3] &quot;countee:mckay&quot;                &quot;bois:web&quot;                    
+##   [5] &quot;third:world&quot;                  &quot;claude:countee&quot;              
+##   [7] &quot;johnsons:weldon&quot;              &quot;black:writers&quot;               
+##   [9] &quot;langston:mckay&quot;               &quot;college:howard&quot;              
+##  [11] &quot;claude:toomer&quot;                &quot;materials:raw&quot;               
+##  [13] &quot;cane:toomer&quot;                  &quot;claude:langston&quot;             
+##  [15] &quot;malcolm_x:martin_luther_king&quot; &quot;liberation:movements&quot;        
+##  [17] &quot;hughes:toomer&quot;                &quot;countee:toomer&quot;              
+##  [19] &quot;anthology:edited&quot;             &quot;africa:southern&quot;             
+##  [21] &quot;bigger:thomas&quot;                &quot;our:struggle&quot;                
+##  [23] &quot;books:published&quot;              &quot;cullen:langston&quot;             
+##  [25] &quot;gwendolyn:margaret&quot;           &quot;development:political&quot;       
+##  [27] &quot;award:winner&quot;                 &quot;lorraine:raisin&quot;             
+##  [29] &quot;east:middle&quot;                  &quot;cullen:jean&quot;                 
+##  [31] &quot;college:professor&quot;            &quot;africa:east&quot;                 
+##  [33] &quot;elected:officials&quot;            &quot;edition:paperback&quot;           
+##  [35] &quot;gon:you&quot;                      &quot;literary:literature&quot;         
+##  [37] &quot;bout:talkin&quot;                  &quot;deal:with&quot;                   
+##  [39] &quot;countee:langston&quot;             &quot;clarke:john&quot;                 
+##  [41] &quot;blues:spirituals&quot;             &quot;times:york&quot;                  
+##  [43] &quot;gwendolyn:poems&quot;              &quot;english:language&quot;            
+##  [45] &quot;george:jackson&quot;               &quot;arts:performing&quot;             
+##  [47] &quot;didnt:think&quot;                  &quot;edited:published&quot;            
+##  [49] &quot;festival:lagos&quot;               &quot;ghana:guinea&quot;                
+##  [51] &quot;angola:rhodesia&quot;              &quot;african:independence&quot;        
+##  [53] &quot;native:son&quot;                   &quot;cleveland:ohio&quot;              
+##  [55] &quot;richard:wrights&quot;              &quot;democratic:party&quot;            
+##  [57] &quot;countee:hughes&quot;               &quot;george:james&quot;                
+##  [59] &quot;billion:dollars&quot;              &quot;brooks:margaret&quot;             
+##  [61] &quot;percent:population&quot;           &quot;didnt:really&quot;                
+##  [63] &quot;colonialism:imperialism&quot;      &quot;published:volume&quot;            
+##  [65] &quot;fisk:university&quot;              &quot;community:theater&quot;           
+##  [67] &quot;poets:writers&quot;                &quot;tell:want&quot;                   
+##  [69] &quot;howard:professor&quot;             &quot;out:pointed&quot;                 
+##  [71] &quot;class:ruling&quot;                 &quot;doesnt:know&quot;                 
+##  [73] &quot;criticism:literary&quot;           &quot;music:rhythm&quot;                
+##  [75] &quot;anybody:else&quot;                 &quot;ali:muhammad&quot;                
+##  [77] &quot;looked:staring&quot;               &quot;circumstances:under&quot;         
+##  [79] &quot;langston:toomer&quot;              &quot;novels:stories&quot;              
+##  [81] &quot;oppression:racism&quot;            &quot;our:own&quot;                     
+##  [83] &quot;africans:americas&quot;            &quot;mean:say&quot;                    
+##  [85] &quot;coast:gold&quot;                   &quot;but:could&quot;                   
+##  [87] &quot;knew:wasnt&quot;                   &quot;essays:fiction&quot;              
+##  [89] &quot;got:him&quot;                      &quot;days:years&quot;                  
+##  [91] &quot;congress:panafrican&quot;          &quot;how:matter&quot;                  
+##  [93] &quot;foreign:policy&quot;               &quot;say:that&quot;                    
+##  [95] &quot;point:this&quot;                   &quot;oppression:struggle&quot;         
+##  [97] &quot;poems:poets&quot;                  &quot;health:housing&quot;              
+##  [99] &quot;door:sat&quot;                     &quot;state:university&quot;            
+## [101] &quot;africa:caribbean&quot;             &quot;eyes:smile&quot;                  
+## [103] &quot;aint:gon&quot;                     &quot;jean:mckay&quot;                  
+## [105] &quot;award:awards&quot;                 &quot;countee:jean&quot;                
+## [107] &quot;minutes:ten&quot;                  &quot;collection:poems&quot;            
+## [109] &quot;said:think&quot;                   &quot;dawn:dusk&quot;                   
+## [111] &quot;dont:hear&quot;                    &quot;president:secretary&quot;         
+## [113] &quot;renaissance:twenties&quot;         &quot;had:him&quot;                     
+## [115] &quot;press:published&quot;              &quot;that:would&quot;                  
+## [117] &quot;necessarily:not&quot;              &quot;studies:university&quot;          
+## [119] &quot;really:you&quot;                   &quot;between:conflict&quot;            
+## [121] &quot;panafrican:panafricanism&quot;     &quot;that:think&quot;                  
+## [123] &quot;else:everything&quot;              &quot;kent:rivers&quot;                 
+## [125] &quot;face:looked&quot;                  &quot;thirties:twenties&quot;           
+## [127] &quot;couldnt:wasnt&quot;                &quot;guess:just&quot;                  
+## [129] &quot;him:knew&quot;                     &quot;against:oppression&quot;          
+## [131] &quot;movement:nationalist&quot;         &quot;movement:movements&quot;</code></pre>
+</div>
+<div id="top-consistent-words-post-1968-1" class="section level3">
+<h3>Top consistent words post 1968</h3>
+<pre class="r"><code>df3_BL &lt;- read.table(&quot;../output/consistent_words/BL_ND/highest_word_pairs_assoc_post_1968.txt&quot;)
+setdiff(as.character(df3_BL[,1]), as.character(df_BL[,1]))</code></pre>
+<pre><code>##  [1] &quot;jefferson:thomas&quot;          &quot;abraham:lincoln&quot;          
+##  [3] &quot;economically:socially&quot;     &quot;masters:slaves&quot;           
+##  [5] &quot;equal:opportunity&quot;         &quot;five:hundred&quot;             
+##  [7] &quot;decision:supreme&quot;          &quot;problems:solve&quot;           
+##  [9] &quot;philip:randolph&quot;           &quot;ever:never&quot;               
+## [11] &quot;girl:woman&quot;                &quot;milner:ronald&quot;            
+## [13] &quot;negritude:senghor&quot;         &quot;hair:skin&quot;                
+## [15] &quot;employment:opportunities&quot;  &quot;railroad:underground&quot;     
+## [17] &quot;group:minority&quot;            &quot;court:decision&quot;           
+## [19] &quot;education:schools&quot;         &quot;aint:goin&quot;                
+## [21] &quot;employment:housing&quot;        &quot;war:world&quot;                
+## [23] &quot;four:months&quot;               &quot;skills:technical&quot;         
+## [25] &quot;asia:latin&quot;                &quot;said:youre&quot;               
+## [27] &quot;nineteenth:twentieth&quot;      &quot;boys:girls&quot;               
+## [29] &quot;discrimination:housing&quot;    &quot;institute:tuskegee&quot;       
+## [31] &quot;ago:hundred&quot;               &quot;civilization:western&quot;     
+## [33] &quot;education:higher&quot;          &quot;hair:nose&quot;                
+## [35] &quot;college:graduate&quot;          &quot;chicago:detroit&quot;          
+## [37] &quot;master:slave&quot;              &quot;jazz:musicians&quot;           
+## [39] &quot;consciously:unconsciously&quot; &quot;looked:stared&quot;            
+## [41] &quot;brutality:police&quot;          &quot;groups:minority&quot;          
+## [43] &quot;thats:whats&quot;               &quot;association:national&quot;     
+## [45] &quot;him:himself&quot;               &quot;discrimination:racial&quot;    
+## [47] &quot;american:history&quot;          &quot;door:front&quot;               
+## [49] &quot;looked:turned&quot;             &quot;columbia:district&quot;        
+## [51] &quot;aint:git&quot;                  &quot;march:washington&quot;         
+## [53] &quot;believe:know&quot;              &quot;ago:ten&quot;                  
+## [55] &quot;coast:east&quot;                &quot;head:shaking&quot;             
+## [57] &quot;you:youve&quot;                 &quot;degrees:varying&quot;          
+## [59] &quot;dont:yeah&quot;                 &quot;after:months&quot;             
+## [61] &quot;during:year&quot;               &quot;radio:television&quot;         
+## [63] &quot;per:rate&quot;                  &quot;but:really&quot;               
+## [65] &quot;she:woman&quot;                 &quot;directly:indirectly&quot;      
+## [67] &quot;hair:her&quot;                  &quot;back:get&quot;                 
+## [69] &quot;doctors:lawyers&quot;           &quot;kitchen:room&quot;             
+## [71] &quot;seven:years&quot;               &quot;got:out&quot;                  
+## [73] &quot;problem:solution&quot;          &quot;look:looking&quot;             
+## [75] &quot;knew:never&quot;                &quot;ago:five&quot;                 
+## [77] &quot;baldwin:baldwins&quot;          &quot;down:looked&quot;              
+## [79] &quot;look:see&quot;                  &quot;cities:northern&quot;          
+## [81] &quot;later:months&quot;              &quot;bed:her&quot;                  
+## [83] &quot;school:teacher&quot;            &quot;her:looked&quot;               
+## [85] &quot;back:home&quot;                 &quot;read:write&quot;               
+## [87] &quot;hand:hands&quot;                &quot;head:her&quot;                 
+## [89] &quot;after:before&quot;              &quot;clothing:food&quot;            
+## [91] &quot;columbia:university&quot;       &quot;eyes:hands&quot;               
+## [93] &quot;dont:really&quot;               &quot;education:educational&quot;    
+## [95] &quot;got:youve&quot;</code></pre>
+</div>
+<div id="common-words-pre-and-post-1968-1" class="section level3">
+<h3>Common words (pre and post 1968)</h3>
+<pre class="r"><code>intersect(as.character(df3_BL[,1]), as.character(df2_BL[,1]))</code></pre>
+<pre><code>##   [1] &quot;angeles:los&quot;           &quot;states:united&quot;        
+##   [3] &quot;more:than&quot;             &quot;her:she&quot;              
+##   [5] &quot;douglass:frederick&quot;    &quot;new:york&quot;             
+##   [7] &quot;leopold:senghor&quot;       &quot;francisco:san&quot;        
+##   [9] &quot;hughes:langston&quot;       &quot;neither:nor&quot;          
+##  [11] &quot;class:middle&quot;          &quot;ago:years&quot;            
+##  [13] &quot;you:your&quot;              &quot;dont:you&quot;             
+##  [15] &quot;dont:know&quot;             &quot;less:than&quot;            
+##  [17] &quot;been:has&quot;              &quot;been:have&quot;            
+##  [19] &quot;arna:bontemps&quot;         &quot;court:supreme&quot;        
+##  [21] &quot;carolina:north&quot;        &quot;know:you&quot;             
+##  [23] &quot;brooks:gwendolyn&quot;      &quot;but:not&quot;              
+##  [25] &quot;richard:wright&quot;        &quot;been:had&quot;             
+##  [27] &quot;less:more&quot;             &quot;century:twentieth&quot;    
+##  [29] &quot;and:the&quot;               &quot;jones:leroi&quot;          
+##  [31] &quot;toms:uncle&quot;            &quot;north:south&quot;          
+##  [33] &quot;civil:war&quot;             &quot;economic:social&quot;      
+##  [35] &quot;phillis:wheatley&quot;      &quot;garvey:marcus&quot;        
+##  [37] &quot;baldwin:james&quot;         &quot;crow:jim&quot;             
+##  [39] &quot;indies:west&quot;           &quot;did:not&quot;              
+##  [41] &quot;century:nineteenth&quot;    &quot;colleges:universities&quot;
+##  [43] &quot;dont:want&quot;             &quot;rather:than&quot;          
+##  [45] &quot;those:who&quot;             &quot;high:school&quot;          
+##  [47] &quot;herself:she&quot;           &quot;economic:political&quot;   
+##  [49] &quot;know:what&quot;             &quot;them:they&quot;            
+##  [51] &quot;black:white&quot;           &quot;aint:gonna&quot;           
+##  [53] &quot;quo:status&quot;            &quot;know:want&quot;            
+##  [55] &quot;cant:you&quot;              &quot;men:women&quot;            
+##  [57] &quot;know:think&quot;            &quot;beings:human&quot;         
+##  [59] &quot;our:ourselves&quot;         &quot;three:two&quot;            
+##  [61] &quot;their:they&quot;            &quot;does:not&quot;             
+##  [63] &quot;dont:think&quot;            &quot;city:york&quot;            
+##  [65] &quot;cant:dont&quot;             &quot;are:these&quot;            
+##  [67] &quot;months:years&quot;          &quot;each:other&quot;           
+##  [69] &quot;political:social&quot;      &quot;africa:african&quot;       
+##  [71] &quot;want:you&quot;              &quot;could:would&quot;          
+##  [73] &quot;didnt:know&quot;            &quot;howard:university&quot;    
+##  [75] &quot;her:herself&quot;           &quot;aint:got&quot;             
+##  [77] &quot;aint:you&quot;              &quot;paul:robeson&quot;         
+##  [79] &quot;eyes:face&quot;             &quot;him:his&quot;              
+##  [81] &quot;been:since&quot;            &quot;had:was&quot;              
+##  [83] &quot;you:youre&quot;             &quot;even:though&quot;          
+##  [85] &quot;new:orleans&quot;           &quot;ellison:ralph&quot;        
+##  [87] &quot;college:university&quot;    &quot;four:three&quot;           
+##  [89] &quot;you:yourself&quot;          &quot;hundred:years&quot;        
+##  [91] &quot;slave:slaves&quot;          &quot;aint:dont&quot;            
+##  [93] &quot;her:husband&quot;           &quot;themselves:they&quot;      
+##  [95] &quot;during:period&quot;         &quot;eyes:her&quot;             
+##  [97] &quot;their:themselves&quot;      &quot;senegal:senghor&quot;      
+##  [99] &quot;booker:washington&quot;     &quot;not:that&quot;             
+## [101] &quot;kwame:nkrumah&quot;         &quot;get:got&quot;              
+## [103] &quot;coast:west&quot;            &quot;said:you&quot;             
+## [105] &quot;last:year&quot;             &quot;another:one&quot;          
+## [107] &quot;anything:else&quot;         &quot;gonna:you&quot;            
+## [109] &quot;east:west&quot;             &quot;didnt:dont&quot;           
+## [111] &quot;brothers:sisters&quot;      &quot;get:you&quot;              
+## [113] &quot;countee:cullen&quot;        &quot;but:that&quot;             
+## [115] &quot;indian:west&quot;           &quot;college:students&quot;     
+## [117] &quot;back:down&quot;             &quot;their:them&quot;           
+## [119] &quot;claude:mckay&quot;          &quot;carmichael:stokely&quot;   
+## [121] &quot;can:will&quot;              &quot;five:years&quot;           
+## [123] &quot;must:will&quot;             &quot;nat:turner&quot;           
+## [125] &quot;tell:you&quot;              &quot;book:published&quot;       
+## [127] &quot;thats:you&quot;             &quot;city:new&quot;             
+## [129] &quot;american:society&quot;      &quot;really:what&quot;          
+## [131] &quot;africa:west&quot;           &quot;about:talking&quot;        
+## [133] &quot;man:woman&quot;             &quot;franklin:frazier&quot;     
+## [135] &quot;know:say&quot;              &quot;own:their&quot;            
+## [137] &quot;not:only&quot;              &quot;dont:say&quot;             
+## [139] &quot;himself:his&quot;           &quot;her:mother&quot;           
+## [141] &quot;dont:get&quot;              &quot;had:knew&quot;             
+## [143] &quot;father:mother&quot;         &quot;can:must&quot;             
+## [145] &quot;see:you&quot;               &quot;fact:that&quot;            
+## [147] &quot;what:you&quot;              &quot;africa:africans&quot;      
+## [149] &quot;they:were&quot;             &quot;slave:trade&quot;          
+## [151] &quot;asked:said&quot;            &quot;cannot:must&quot;          
+## [153] &quot;away:from&quot;             &quot;months:three&quot;         
+## [155] &quot;how:know&quot;              &quot;mean:what&quot;            
+## [157] &quot;dont:said&quot;             &quot;james:weldon&quot;         
+## [159] &quot;league:urban&quot;          &quot;know:said&quot;            
+## [161] &quot;think:what&quot;            &quot;know:tell&quot;            
+## [163] &quot;cant:know&quot;             &quot;clarke:henrik&quot;        
+## [165] &quot;but:did&quot;               &quot;eyes:mouth&quot;           
+## [167] &quot;dont:thats&quot;            &quot;couldnt:didnt&quot;        
+## [169] &quot;james:johnson&quot;         &quot;africa:south&quot;         
+## [171] &quot;blacks:whites&quot;         &quot;because:not&quot;          
+## [173] &quot;fuller:hoyt&quot;           &quot;three:years&quot;          
+## [175] &quot;say:you&quot;               &quot;between:difference&quot;   
+## [177] &quot;civil_rights:movement&quot; &quot;back:went&quot;            
+## [179] &quot;knew:was&quot;              &quot;before:had&quot;           
+## [181] &quot;dignity:human&quot;         &quot;think:you&quot;            
+## [183] &quot;dont:got&quot;              &quot;just:you&quot;             
+## [185] &quot;orleans:york&quot;          &quot;didnt:said&quot;           
+## [187] &quot;jazz:music&quot;            &quot;know:why&quot;             
+## [189] &quot;better:than&quot;           &quot;husband:she&quot;          
+## [191] &quot;africa:asia&quot;           &quot;important:most&quot;       
+## [193] &quot;know:thats&quot;            &quot;get:want&quot;             
+## [195] &quot;alain:locke&quot;           &quot;down:sat&quot;             
+## [197] &quot;four:years&quot;            &quot;dont:youre&quot;           
+## [199] &quot;much:too&quot;              &quot;eyes:looked&quot;          
+## [201] &quot;know:mean&quot;             &quot;later:years&quot;          
+## [203] &quot;dance:music&quot;           &quot;about:talk&quot;           
+## [205] &quot;african:africans&quot;      &quot;didnt:want&quot;           
+## [207] &quot;didnt:wouldnt&quot;         &quot;deal:great&quot;           
+## [209] &quot;must:should&quot;           &quot;didnt:you&quot;            
+## [211] &quot;dont:your&quot;             &quot;doing:what&quot;           
+## [213] &quot;didnt:got&quot;             &quot;say:think&quot;            
+## [215] &quot;point:view&quot;            &quot;that:this&quot;            
+## [217] &quot;got:you&quot;               &quot;johnson:weldon&quot;       
+## [219] &quot;are:they&quot;              &quot;why:you&quot;              
+## [221] &quot;didnt:wasnt&quot;           &quot;about:what&quot;           
+## [223] &quot;two:years&quot;             &quot;colleges:schools&quot;     
+## [225] &quot;say:want&quot;              &quot;looked:looking&quot;       
+## [227] &quot;large:number&quot;          &quot;didnt:just&quot;           
+## [229] &quot;dont:tell&quot;             &quot;but:only&quot;             
+## [231] &quot;cant:get&quot;              &quot;frame:reference&quot;      
+## [233] &quot;same:time&quot;             &quot;are:people&quot;           
+## [235] &quot;looked:smiled&quot;         &quot;poems:poetry&quot;         
+## [237] &quot;dunbar:laurence&quot;       &quot;eyes:lips&quot;            
+## [239] &quot;between:relationship&quot;  &quot;wont:you&quot;             
+## [241] &quot;first:second&quot;          &quot;think:want&quot;           
+## [243] &quot;how:you&quot;               &quot;because:but&quot;          
+## [245] &quot;ghana:nkrumah&quot;         &quot;back:out&quot;             
+## [247] &quot;can:cannot&quot;            &quot;dont:mean&quot;            
+## [249] &quot;say:what&quot;              &quot;short:stories&quot;        
+## [251] &quot;eyes:head&quot;             &quot;him:she&quot;              
+## [253] &quot;after:years&quot;           &quot;christ:jesus&quot;         
+## [255] &quot;five:four&quot;             &quot;just:thats&quot;           
+## [257] &quot;could:knew&quot;            &quot;john:killens&quot;         
+## [259] &quot;african:continent&quot;     &quot;dollars:million&quot;      
+## [261] &quot;didnt:get&quot;             &quot;dont:just&quot;            
+## [263] &quot;american:black&quot;        &quot;back:came&quot;            
+## [265] &quot;blues:jazz&quot;            &quot;last:years&quot;           
+## [267] &quot;said:told&quot;             &quot;african:culture&quot;      
+## [269] &quot;are:many&quot;              &quot;never:seen&quot;           
+## [271] &quot;else:nothing&quot;          &quot;africa:america&quot;       
+## [273] &quot;father:son&quot;            &quot;got:thats&quot;            
+## [275] &quot;just:know&quot;             &quot;equality:justice&quot;     
+## [277] &quot;few:years&quot;             &quot;how:what&quot;             
+## [279] &quot;gonna:got&quot;             &quot;damn:you&quot;             
+## [281] &quot;could:did&quot;             &quot;professor:university&quot; 
+## [283] &quot;more:rather&quot;           &quot;first:time&quot;           
+## [285] &quot;her:woman&quot;             &quot;happened:what&quot;        
+## [287] &quot;understand:what&quot;       &quot;back:turned&quot;</code></pre>
+</div>
+<div id="observation" class="section level3">
+<h3>Observation</h3>
+<p>We focus mainly on interesting common noun pairs that show high association either throughout the 16 years time period from 1961 to 1976, or pre 1968 or post 1968 era. Among the interesting words that show consistency throughout 16 years for Ebony and Black World/Negro Digest are</p>
+<p>Ebony</p>
+<ul>
+<li><p><em>Consistent across all years</em> : (racial, discrimination), (discrimination, segregation ), (civil_rights, movement), (jazz, music), (emanciptation, proclamation), (economic, social), (political, power), (discrimination, segregation), (race, relations), (power, structure)</p></li>
+<li><p><em>Consistent only pre 1968</em> : (rock, roll), (uncle, toms), (creed, race), (freed, slaves), (declaration, independence), (constitutional, rights), (state, legislature)</p></li>
+<li><p><em>Consistent only post 1968</em> : (health, care), (blues, sings), (drug, addiction), (blues, jazz), (voting, rights), (black, community), (mental, health), (music, soul), (blues, music)</p></li>
+</ul>
+<p>Black world/ Negro Digest</p>
+<ul>
+<li><p><em>Consistent across all years</em> : (civil, war), (civil_rights, movement), (jazz, music), (economic, social), (blues, jazz), (emanciptation, proclamation), (discrimination, segeregation), (race, relations), (power, structure)</p></li>
+<li><p><em>Consistent only pre 1968</em> : (black, writers), (racism, oppression), (oppression, struggle), (against, oppression), (music, rhythm), (blues, spiritual), (nationalist, movement)</p></li>
+<li><p><em>Consistent only post 1968</em> : (masters, slaves), (education, schools), (school, teacher), (railroad, underground), (college, graduate), (jazz, musician)</p></li>
+</ul>
+</div>
+</div>
+<div id="common-top-consistent-words-two-magazines" class="section level2">
+<h2>Common top consistent words two magazines</h2>
+<pre class="r"><code>intersect(as.character(df_BL[,1]), as.character(df[,1]))</code></pre>
+<pre><code>##   [1] &quot;angeles:los&quot;                &quot;states:united&quot;             
+##   [3] &quot;douglass:frederick&quot;         &quot;more:than&quot;                 
+##   [5] &quot;her:she&quot;                    &quot;new:york&quot;                  
+##   [7] &quot;hughes:langston&quot;            &quot;neither:nor&quot;               
+##   [9] &quot;brooks:gwendolyn&quot;           &quot;francisco:san&quot;             
+##  [11] &quot;ago:years&quot;                  &quot;you:your&quot;                  
+##  [13] &quot;been:has&quot;                   &quot;dont:you&quot;                  
+##  [15] &quot;garvey:marcus&quot;              &quot;been:have&quot;                 
+##  [17] &quot;dont:know&quot;                  &quot;less:than&quot;                 
+##  [19] &quot;know:you&quot;                   &quot;but:not&quot;                   
+##  [21] &quot;and:the&quot;                    &quot;been:had&quot;                  
+##  [23] &quot;indies:west&quot;                &quot;those:who&quot;                 
+##  [25] &quot;class:middle&quot;               &quot;carolina:north&quot;            
+##  [27] &quot;rather:than&quot;                &quot;cent:per&quot;                  
+##  [29] &quot;less:more&quot;                  &quot;howard:university&quot;         
+##  [31] &quot;court:supreme&quot;              &quot;economic:political&quot;        
+##  [33] &quot;dont:want&quot;                  &quot;civil:war&quot;                 
+##  [35] &quot;economic:social&quot;            &quot;brothers:sisters&quot;          
+##  [37] &quot;did:not&quot;                    &quot;herself:she&quot;               
+##  [39] &quot;men:women&quot;                  &quot;does:not&quot;                  
+##  [41] &quot;high:school&quot;                &quot;them:they&quot;                 
+##  [43] &quot;our:ourselves&quot;              &quot;city:york&quot;                 
+##  [45] &quot;know:what&quot;                  &quot;cant:you&quot;                  
+##  [47] &quot;colleges:universities&quot;      &quot;each:other&quot;                
+##  [49] &quot;three:two&quot;                  &quot;their:they&quot;                
+##  [51] &quot;blacks:whites&quot;              &quot;dont:think&quot;                
+##  [53] &quot;quo:status&quot;                 &quot;know:think&quot;                
+##  [55] &quot;baldwin:james&quot;              &quot;beings:human&quot;              
+##  [57] &quot;college:university&quot;         &quot;cant:dont&quot;                 
+##  [59] &quot;could:would&quot;                &quot;klan:klux&quot;                 
+##  [61] &quot;black:white&quot;                &quot;even:though&quot;               
+##  [63] &quot;want:you&quot;                   &quot;her:herself&quot;               
+##  [65] &quot;africa:african&quot;             &quot;crow:jim&quot;                  
+##  [67] &quot;know:want&quot;                  &quot;him:his&quot;                   
+##  [69] &quot;are:these&quot;                  &quot;didnt:know&quot;                
+##  [71] &quot;had:was&quot;                    &quot;north:south&quot;               
+##  [73] &quot;booker:washington&quot;          &quot;get:you&quot;                   
+##  [75] &quot;didnt:dont&quot;                 &quot;aint:gonna&quot;                
+##  [77] &quot;months:years&quot;               &quot;four:three&quot;                
+##  [79] &quot;but:that&quot;                   &quot;themselves:they&quot;           
+##  [81] &quot;tell:you&quot;                   &quot;you:youre&quot;                 
+##  [83] &quot;her:husband&quot;                &quot;nat:turner&quot;                
+##  [85] &quot;own:their&quot;                  &quot;you:yourself&quot;              
+##  [87] &quot;not:that&quot;                   &quot;during:period&quot;             
+##  [89] &quot;new:orleans&quot;                &quot;not:only&quot;                  
+##  [91] &quot;know:say&quot;                   &quot;they:were&quot;                 
+##  [93] &quot;been:since&quot;                 &quot;their:them&quot;                
+##  [95] &quot;dont:get&quot;                   &quot;another:one&quot;               
+##  [97] &quot;say:you&quot;                    &quot;dont:say&quot;                  
+##  [99] &quot;their:themselves&quot;           &quot;city:new&quot;                  
+## [101] &quot;man:woman&quot;                  &quot;slave:slaves&quot;              
+## [103] &quot;anything:else&quot;              &quot;emancipation:proclamation&quot; 
+## [105] &quot;coast:west&quot;                 &quot;book:published&quot;            
+## [107] &quot;himself:his&quot;                &quot;female:male&quot;               
+## [109] &quot;last:year&quot;                  &quot;how:know&quot;                  
+## [111] &quot;africa:asia&quot;                &quot;couldnt:didnt&quot;             
+## [113] &quot;must:will&quot;                  &quot;what:you&quot;                  
+## [115] &quot;three:years&quot;                &quot;think:you&quot;                 
+## [117] &quot;about:talking&quot;              &quot;important:most&quot;            
+## [119] &quot;know:tell&quot;                  &quot;east:west&quot;                 
+## [121] &quot;tom:uncle&quot;                  &quot;africa:africans&quot;           
+## [123] &quot;jazz:music&quot;                 &quot;can:will&quot;                  
+## [125] &quot;fact:that&quot;                  &quot;much:too&quot;                  
+## [127] &quot;father:mother&quot;              &quot;see:you&quot;                   
+## [129] &quot;college:students&quot;           &quot;away:from&quot;                 
+## [131] &quot;later:years&quot;                &quot;say:what&quot;                  
+## [133] &quot;dont:thats&quot;                 &quot;adam:powell&quot;               
+## [135] &quot;professor:university&quot;       &quot;five:years&quot;                
+## [137] &quot;cant:get&quot;                   &quot;cant:know&quot;                 
+## [139] &quot;dont:tell&quot;                  &quot;say:think&quot;                 
+## [141] &quot;her:mother&quot;                 &quot;think:what&quot;                
+## [143] &quot;really:what&quot;                &quot;doing:what&quot;                
+## [145] &quot;can:must&quot;                   &quot;say:want&quot;                  
+## [147] &quot;didnt:want&quot;                 &quot;federal:government&quot;        
+## [149] &quot;months:three&quot;               &quot;deal:great&quot;                
+## [151] &quot;better:than&quot;                &quot;must:should&quot;               
+## [153] &quot;but:only&quot;                   &quot;carolina:south&quot;            
+## [155] &quot;know:why&quot;                   &quot;about:what&quot;                
+## [157] &quot;because:not&quot;                &quot;league:urban&quot;              
+## [159] &quot;knew:was&quot;                   &quot;ten:years&quot;                 
+## [161] &quot;civil_rights:movement&quot;      &quot;think:want&quot;                
+## [163] &quot;dont:just&quot;                  &quot;orleans:york&quot;              
+## [165] &quot;didnt:wouldnt&quot;              &quot;four:years&quot;                
+## [167] &quot;husband:she&quot;                &quot;get:want&quot;                  
+## [169] &quot;school:schools&quot;             &quot;clayton:powell&quot;            
+## [171] &quot;about:talk&quot;                 &quot;how:you&quot;                   
+## [173] &quot;color:skin&quot;                 &quot;more:rather&quot;               
+## [175] &quot;college:school&quot;             &quot;two:years&quot;                 
+## [177] &quot;else:something&quot;             &quot;minister:prime&quot;            
+## [179] &quot;are:many&quot;                   &quot;know:really&quot;               
+## [181] &quot;answer:question&quot;            &quot;but:know&quot;                  
+## [183] &quot;christ:jesus&quot;               &quot;said:told&quot;                 
+## [185] &quot;dollars:million&quot;            &quot;four:two&quot;                  
+## [187] &quot;just:know&quot;                  &quot;after:years&quot;               
+## [189] &quot;chairman:committee&quot;         &quot;because:but&quot;               
+## [191] &quot;six:three&quot;                  &quot;children:parents&quot;          
+## [193] &quot;never:seen&quot;                 &quot;who:young&quot;                 
+## [195] &quot;five:four&quot;                  &quot;know:see&quot;                  
+## [197] &quot;armstrong:louis&quot;            &quot;months:weeks&quot;              
+## [199] &quot;ago:months&quot;                 &quot;months:six&quot;                
+## [201] &quot;had:have&quot;                   &quot;blackes:whites&quot;            
+## [203] &quot;get:going&quot;                  &quot;has:since&quot;                 
+## [205] &quot;how:what&quot;                   &quot;father:son&quot;                
+## [207] &quot;should:would&quot;               &quot;about:know&quot;                
+## [209] &quot;can:you&quot;                    &quot;want:what&quot;                 
+## [211] &quot;see:want&quot;                   &quot;dont:why&quot;                  
+## [213] &quot;power:structure&quot;            &quot;after:shortly&quot;             
+## [215] &quot;should:will&quot;                &quot;had:never&quot;                 
+## [217] &quot;you:youll&quot;                  &quot;adam:clayton&quot;              
+## [219] &quot;race:relations&quot;             &quot;five:six&quot;                  
+## [221] &quot;africa:continent&quot;           &quot;believe:that&quot;              
+## [223] &quot;director:executive&quot;         &quot;discrimination:segregation&quot;
+## [225] &quot;hundreds:thousands&quot;         &quot;ask:you&quot;                   
+## [227] &quot;are:were&quot;                   &quot;baptist:church&quot;</code></pre>
+</div>
+<div id="sessioninfo" class="section level2">
+<h2>SessionInfo</h2>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.4.4 (2018-03-15)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS Sierra 10.12.6
+## 
+## Matrix products: default
+## BLAS: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## loaded via a namespace (and not attached):
+##  [1] compiler_3.4.4  backports_1.1.2 magrittr_1.5    rprojroot_1.3-2
+##  [5] tools_3.4.4     htmltools_0.3.6 yaml_2.1.18     Rcpp_0.12.16   
+##  [9] stringi_1.1.6   rmarkdown_1.9   knitr_1.20      stringr_1.3.0  
+## [13] digest_0.6.15   evaluate_0.10.1</code></pre>
+</div>
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+<hr>
+<p>
+    This <a href="http://rmarkdown.rstudio.com">R Markdown</a> site was created with <a href="https://github.com/jdblischak/workflowr">workflowr</a>
+</p>
+<hr>
+
+<!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
+
+<!-- disqus
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'rmarkdown'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+-->
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
