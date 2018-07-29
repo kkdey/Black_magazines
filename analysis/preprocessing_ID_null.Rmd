@@ -1,0 +1,51 @@
+---
+title: "ID null pre-processing of Ebony and Black World and Negro Digest"
+author: "Kushal K Dey"
+date: "7/27/2018"
+output: html_document
+---
+
+## Intro
+
+In this first tutorial chapter, we explain how to aggregate the yearly text data for each magazine 
+of interest - Black World/Negro Digest and Ebony - and then train a word2vec model on the aggregated text data.
+
+*Why yearly analysis*? 
+
+We carry out our analysis at the yearly level, because the monthly text data are more noisy
+and also contains very few occurrences of most words to accurately train the word2vec model.
+
+## Packages
+
+```{r message=FALSE, warning=FALSE}
+library(wordVectors)
+```
+
+## Black World/Negro Digest
+
+We have saved the Black World/Negro Digest magazines in the folder `BL_ND` in the 
+Github repo `Black_Magazines` with a designated folder for each year - `BL_ND_1961` 
+subfolder inside `BL_ND` consists of raw magazine text data for each month of 1961.
+We aggregate these monthly text data into one single text data file called `pooled.txt`
+and then run word2vec on this aggregated text to generate the model output 
+`pooled_word2vec.bin`.
+
+WARNING : The chunk below would take approximately 1 hour to run. You can submit
+them as parallel batch jobs to quicken the process.
+
+```{r echo=TRUE, eval=FALSE}
+dir <- c("../BL_ND_ID/")
+filelist <- list.files(dir, pattern = ".txt")
+
+
+for(m in 1:length(filelist)){
+  
+  ############  Train word2vec model on the yearly text data  #####################
+  
+  model = train_word2vec(paste0(dir, filelist[m]),
+                         paste0(dir, filelist[m], "_word2vec.bin"),
+                         vectors=100,threads=10,window=10,
+                         iter=50, min_count = 3, negative_samples=0,
+                         force = TRUE)
+}
+```

@@ -81,6 +81,45 @@ trend_plotter <- function(word_set_1, word_set_2, model_list){
 ```
 
 
+
+## [Black, Negro] vs civil rights
+
+```{r}
+trend_plotter(c("black", "blacks"), c("civil_rights"), model_list_1)
+```
+
+## Black vs civil rights
+
+```{r}
+trend_plotter(c("black", "blacks"), c("civil_rights"), model_list_2)
+```
+
+## Negro vs civil rights 
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("civil_rights"), model_list_2)
+```
+
+
+## [Black, Negro] vs economy
+
+```{r}
+trend_plotter(c("black", "blacks"), c("economy"), model_list_1)
+```
+
+## Black vs economy
+
+```{r}
+trend_plotter(c("black", "blacks"), c("economy"), model_list_2)
+```
+
+## Negro vs economy 
+
+```{r}
+trend_plotter(c("negro", "negros", "negroes"), c("economy"), model_list_2)
+```
+
+
 ## [Black, Negro] vs opportunities
 
 ```{r}

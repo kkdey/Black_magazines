@@ -12,7 +12,7 @@
 <meta name="author" content="Kushal K Dey" />
 
 
-<title>CountClust on Ebony + Black World/Negro Digest</title>
+<title>CountClust on combined Ebony + Black World/Negro Digest</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -309,33 +309,46 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">CountClust on Ebony + Black World/Negro Digest</h1>
+<h1 class="title toc-ignore">CountClust on combined Ebony + Black World/Negro Digest</h1>
 <h4 class="author"><em>Kushal K Dey</em></h4>
 <h4 class="date"><em>4/11/2018</em></h4>
 
 </div>
 
 
+<div id="intro" class="section level2">
+<h2>Intro</h2>
+<p>We apply CountClust on the word frequencies for yearly data from Ebony articles and Black World/ Negro Digest articles. We exclude terms like <em>black</em>, <em>negro</em> and <em>afroamerican</em> as they are known to be drivers of clusters.</p>
+</div>
+<div id="packages" class="section level2">
+<h2>Packages</h2>
 <pre class="r"><code>library(CountClust)</code></pre>
 <pre><code>## Loading required package: ggplot2</code></pre>
-<pre class="r"><code>library(ggplot2)</code></pre>
-<p>We apply CountClust on the word frequencies for yearly data from Ebony articles and Black World/ Negro Digest articles. We exclude terms like <em>black</em>, <em>negro</em> and <em>afroamerican</em> as they are known to be drivers of clusters.</p>
+<pre class="r"><code>library(ggplot2)
+library(maptpx)</code></pre>
+</div>
+<div id="load-data" class="section level2">
+<h2>Load Data</h2>
 <p>We first read the counts table of word occurrences in Ebony and Black World/Negro Digest articles for every year.</p>
-<pre class="r"><code>tab_ebony &lt;- get(load(&quot;../output/table_word_frequencies_ebony.rda&quot;))
+<pre class="r"><code>tab_ebony &lt;- get(load(&quot;../output/Document_Term_Matrix_Ebony.rda&quot;))
 all_words_ebony &lt;- get(load(&quot;../output/all_words_ebony.rda&quot;))
 
-tab_bl_nd &lt;- get(load(&quot;../output/table_word_frequencies_BL_ND.rda&quot;))
-all_words_bl_nd &lt;- get(load(&quot;../output/all_words_BL_ND.rda&quot;))</code></pre>
+tab_bl_nd &lt;- get(load(&quot;../output/Document_Term_Matrix_BW_ND.rda&quot;))
+all_words_bl_nd &lt;- get(load(&quot;../output/all_words_BW_ND.rda&quot;))</code></pre>
+</div>
+<div id="processing-and-filtering-data" class="section level2">
+<h2>Processing and Filtering Data</h2>
 <p>Combining the data.</p>
 <pre class="r"><code>common_words &lt;- intersect(all_words_ebony, all_words_bl_nd)
 tab_pooled &lt;- rbind(tab_ebony[,match(common_words, all_words_ebony)],
                     tab_bl_nd[,match(common_words, all_words_bl_nd)])
 
 rownames(tab_pooled) &lt;- c(paste0(&quot;Ebony_&quot;, 1961:1976), 
-                          paste0(&quot;ND_&quot;, 1961:1970), paste0(&quot;BL_&quot;, 1970:1976))</code></pre>
-<p>Filter out words</p>
+                          paste0(&quot;BW/ND_&quot;, 1961:1976))</code></pre>
+<p>Filter out low occurrence words</p>
 <pre class="r"><code>low_occur_words &lt;- apply(tab_pooled, 2, function(x) return(sum(x[x!=0])))
 tab2_pooled &lt;- tab_pooled[, which(low_occur_words &gt; 2)]</code></pre>
+<p>Filter out identity words like <code>black(s)</code> and <code>negro(s)</code> and <code>afroamerican</code>.</p>
 <pre class="r"><code>tab3_pooled &lt;- tab2_pooled[, which(nchar(colnames(tab2_pooled)) &gt; 2)]
 
 negro_words &lt;- grep(&quot;negro&quot;, colnames(tab3_pooled))
@@ -344,19 +357,21 @@ afroamerican_words &lt;- match(c(&quot;african&quot;, &quot;afroamerican&quot;),
 tl_words &lt;- which(substring(colnames(tab3_pooled), 1,2) == &quot;tl&quot;)
 
 tab4_pooled &lt;- tab3_pooled[, - c(negro_words, black_words, afroamerican_words, tl_words)]</code></pre>
-<div id="fitting-countclust" class="section level2">
-<h2>Fitting CountClust</h2>
+</div>
+<div id="fit-countclust" class="section level2">
+<h2>Fit CountClust</h2>
+<p>WARNING: The chunk below (silenced) takes around 30 minutes to run for all the Ks listed.</p>
 <pre class="r"><code>topic_clus &lt;- list()
-for(k in 2:4){
+for(k in 2:5){
   topic_clus[[k]] &lt;- maptpx::topics(tab4_pooled, K=k, tol = 1)
 }
-save(topic_clus, file = &quot;../output/BL_ND_Ebony_CountClust_no_black_negro.rda&quot;)</code></pre>
-<pre class="r"><code>topic_clus &lt;- get(load(&quot;../output/BL_ND_Ebony_CountClust_no_black_negro.rda&quot;))</code></pre>
+save(topic_clus, file = &quot;../output/CountClust_BW_ND_filter_identity.rda&quot;)</code></pre>
+<pre class="r"><code>topic_clus &lt;- get(load(&quot;../output/CountClust_BW_ND_filter_identity.rda&quot;))</code></pre>
 </div>
-<div id="k-2" class="section level2">
-<h2>K = 2</h2>
-<div id="structure-plot" class="section level3">
-<h3>STRUCTURE plot</h3>
+<div id="visualization" class="section level2">
+<h2>Visualization</h2>
+<div id="k2" class="section level3">
+<h3>K=2</h3>
 <pre class="r"><code>omega &lt;- topic_clus[[2]]$omega
 annotation &lt;- data.frame(
   sample_id = paste0(&quot;X&quot;, c(1:NROW(omega))),
@@ -377,39 +392,31 @@ StructureGGplot(omega = omega,
                                  axis_label_face = &quot;bold&quot;))</code></pre>
 <p><img src="countclust_BL_ND_Ebony_files/figure-html/unnamed-chunk-8-1.png" width="288" /></p>
 </div>
-<div id="top-driving-words" class="section level3">
-<h3>Top driving words</h3>
-<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[2]]$theta, top_features = 50, method = &quot;poisson&quot;, options = &quot;min&quot;)
-driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
-driving_words[1:20,]</code></pre>
-<pre><code>##       [,1]           [,2]        
-##  [1,] &quot;says&quot;         &quot;fanon&quot;     
-##  [2,] &quot;cent&quot;         &quot;theater&quot;   
-##  [3,] &quot;ebony&quot;        &quot;writers&quot;   
-##  [4,] &quot;arc&quot;          &quot;poetry&quot;    
-##  [5,] &quot;per&quot;          &quot;the&quot;       
-##  [6,] &quot;years&quot;        &quot;literature&quot;
-##  [7,] &quot;dodgers&quot;      &quot;cruse&quot;     
-##  [8,] &quot;wilt&quot;         &quot;africa&quot;    
-##  [9,] &quot;rickey&quot;       &quot;afrikan&quot;   
-## [10,] &quot;baseball&quot;     &quot;unita&quot;     
-## [11,] &quot;chamberlain&quot;  &quot;literary&quot;  
-## [12,] &quot;team&quot;         &quot;poets&quot;     
-## [13,] &quot;onlv&quot;         &quot;shit&quot;      
-## [14,] &quot;coach&quot;        &quot;cesaire&quot;   
-## [15,] &quot;year&quot;         &quot;book&quot;      
-## [16,] &quot;desegregated&quot; &quot;ricky&quot;     
-## [17,] &quot;business&quot;     &quot;chaka&quot;     
-## [18,] &quot;lias&quot;         &quot;mpla&quot;      
-## [19,] &quot;league&quot;       &quot;soyinka&quot;   
-## [20,] &quot;school&quot;       &quot;poem&quot;</code></pre>
-</div>
-</div>
-<div id="k-3" class="section level2">
-<h2>K = 3</h2>
-<div id="structure-plot-1" class="section level3">
-<h3>STRUCTURE plot</h3>
+<div id="k-3" class="section level3">
+<h3>K = 3</h3>
 <pre class="r"><code>omega &lt;- topic_clus[[3]]$omega
+annotation &lt;- data.frame(
+  sample_id = paste0(&quot;X&quot;, c(1:NROW(omega))),
+  tissue_label = factor(rownames(omega),
+                        levels = rownames(omega)))
+
+rownames(omega) &lt;- annotation$sample_id;
+
+StructureGGplot(omega = omega,
+                annotation = annotation,
+                palette = RColorBrewer::brewer.pal(8, &quot;Accent&quot;),
+                yaxis_label = &quot;Years of Publication&quot;,
+                order_sample = TRUE,
+                axis_tick = list(axis_ticks_length = .1,
+                                 axis_ticks_lwd_y = .1,
+                                 axis_ticks_lwd_x = .1,
+                                 axis_label_size = 7,
+                                 axis_label_face = &quot;bold&quot;))</code></pre>
+<p><img src="countclust_BL_ND_Ebony_files/figure-html/unnamed-chunk-9-1.png" width="288" /></p>
+</div>
+<div id="k-4" class="section level3">
+<h3>K = 4</h3>
+<pre class="r"><code>omega &lt;- topic_clus[[4]]$omega
 annotation &lt;- data.frame(
   sample_id = paste0(&quot;X&quot;, c(1:NROW(omega))),
   tissue_label = factor(rownames(omega),
@@ -429,39 +436,9 @@ StructureGGplot(omega = omega,
                                  axis_label_face = &quot;bold&quot;))</code></pre>
 <p><img src="countclust_BL_ND_Ebony_files/figure-html/unnamed-chunk-10-1.png" width="288" /></p>
 </div>
-<div id="top-driving-words-1" class="section level3">
-<h3>Top driving words</h3>
-<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[3]]$theta, top_features = 50, method = &quot;poisson&quot;, options = &quot;min&quot;)
-driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[3]]$theta)[x])))
-driving_words[1:20,]</code></pre>
-<pre><code>##       [,1]       [,2]            [,3]       
-##  [1,] &quot;says&quot;     &quot;theater&quot;       &quot;lennie&quot;   
-##  [2,] &quot;ebony&quot;    &quot;imamu&quot;         &quot;libby&quot;    
-##  [3,] &quot;arc&quot;      &quot;afrikan&quot;       &quot;smythe&quot;   
-##  [4,] &quot;savs&quot;     &quot;cruse&quot;         &quot;said&quot;     
-##  [5,] &quot;hite&quot;     &quot;unita&quot;         &quot;colored&quot;  
-##  [6,] &quot;million&quot;  &quot;shit&quot;          &quot;mitch&quot;    
-##  [7,] &quot;vear&quot;     &quot;euroamerican&quot;  &quot;bearcat&quot;  
-##  [8,] &quot;recalls&quot;  &quot;mpla&quot;          &quot;amsac&quot;    
-##  [9,] &quot;ith&quot;      &quot;nana&quot;          &quot;suh&quot;      
-## [10,] &quot;hae&quot;      &quot;marxists&quot;      &quot;him&quot;      
-## [11,] &quot;atty&quot;     &quot;poetry&quot;        &quot;you&quot;      
-## [12,] &quot;year&quot;     &quot;africa&quot;        &quot;healy&quot;    
-## [13,] &quot;campy&quot;    &quot;barakas&quot;       &quot;alba&quot;     
-## [14,] &quot;yearold&quot;  &quot;fanons&quot;        &quot;luke&quot;     
-## [15,] &quot;employes&quot; &quot;liberation&quot;    &quot;englands&quot; 
-## [16,] &quot;vve&quot;      &quot;aesthetic&quot;     &quot;amanda&quot;   
-## [17,] &quot;years&quot;    &quot;sonia&quot;         &quot;bogalusa&quot; 
-## [18,] &quot;article&quot;  &quot;literature&quot;    &quot;pigmented&quot;
-## [19,] &quot;football&quot; &quot;cabral&quot;        &quot;wicker&quot;   
-## [20,] &quot;mrs&quot;      &quot;panafricanist&quot; &quot;birchers&quot;</code></pre>
-</div>
-</div>
-<div id="k-4" class="section level2">
-<h2>K = 4</h2>
-<div id="structure-plot-2" class="section level3">
-<h3>STRUCTURE plot</h3>
-<pre class="r"><code>omega &lt;- topic_clus[[4]]$omega
+<div id="k-5" class="section level3">
+<h3>K = 5</h3>
+<pre class="r"><code>omega &lt;- topic_clus[[5]]$omega
 annotation &lt;- data.frame(
   sample_id = paste0(&quot;X&quot;, c(1:NROW(omega))),
   tissue_label = factor(rownames(omega),
@@ -479,34 +456,139 @@ StructureGGplot(omega = omega,
                                  axis_ticks_lwd_x = .1,
                                  axis_label_size = 7,
                                  axis_label_face = &quot;bold&quot;))</code></pre>
-<p><img src="countclust_BL_ND_Ebony_files/figure-html/unnamed-chunk-12-1.png" width="288" /></p>
+<p><img src="countclust_BL_ND_Ebony_files/figure-html/unnamed-chunk-11-1.png" width="288" /></p>
 </div>
-<div id="top-driving-words-2" class="section level3">
-<h3>Top driving words</h3>
-<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[4]]$theta, top_features = 50, method = &quot;poisson&quot;, options = &quot;min&quot;)
-driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[4]]$theta)[x])))
+</div>
+<div id="driving-words-in-clusters" class="section level2">
+<h2>Driving words in Clusters</h2>
+<div id="k2-top-driving-words" class="section level3">
+<h3>K=2 Top driving words</h3>
+<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[2]]$theta, top_features = 50, method = &quot;poisson&quot;, options = &quot;min&quot;)
+driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
 driving_words[1:20,]</code></pre>
-<pre><code>##       [,1]            [,2]       [,3]             [,4]        
-##  [1,] &quot;theater&quot;       &quot;petey&quot;    &quot;revenuesharing&quot; &quot;you&quot;       
-##  [2,] &quot;afrikan&quot;       &quot;beaubien&quot; &quot;says&quot;           &quot;birchers&quot;  
-##  [3,] &quot;mpla&quot;          &quot;listons&quot;  &quot;diana&quot;          &quot;luke&quot;      
-##  [4,] &quot;aesthetic&quot;     &quot;mclendon&quot; &quot;pollard&quot;        &quot;dorman&quot;    
-##  [5,] &quot;kuumba&quot;        &quot;kennedy&quot;  &quot;ith&quot;            &quot;white&quot;     
-##  [6,] &quot;alsc&quot;          &quot;liston&quot;   &quot;motown&quot;         &quot;lucy&quot;      
-##  [7,] &quot;africa&quot;        &quot;dorothys&quot; &quot;flo&quot;            &quot;howd&quot;      
-##  [8,] &quot;poetry&quot;        &quot;1961&quot;     &quot;ali&quot;            &quot;freedom&quot;   
-##  [9,] &quot;drama&quot;         &quot;blodgett&quot; &quot;stillwater&quot;     &quot;dadie&quot;     
-## [10,] &quot;literature&quot;    &quot;crump&quot;    &quot;inmates&quot;        &quot;gawd&quot;      
-## [11,] &quot;ideology&quot;      &quot;barrows&quot;  &quot;crawfords&quot;      &quot;postulates&quot;
-## [12,] &quot;himes&quot;         &quot;denison&quot;  &quot;campy&quot;          &quot;theatre&quot;   
-## [13,] &quot;poets&quot;         &quot;viet&quot;     &quot;frazier&quot;        &quot;runagate&quot;  
-## [14,] &quot;cultural&quot;      &quot;lennie&quot;   &quot;cosby&quot;          &quot;looked&quot;    
-## [15,] &quot;fabio&quot;         &quot;god&quot;      &quot;arc&quot;            &quot;leadbelly&quot; 
-## [16,] &quot;colonial&quot;      &quot;beins&quot;    &quot;ere&quot;            &quot;boy&quot;       
-## [17,] &quot;poems&quot;         &quot;machen&quot;   &quot;prison&quot;         &quot;they&quot;      
-## [18,] &quot;afroamericans&quot; &quot;hasties&quot;  &quot;astrology&quot;      &quot;man&quot;       
-## [19,] &quot;shit&quot;          &quot;weaver&quot;   &quot;hite&quot;           &quot;revels&quot;    
-## [20,] &quot;jihad&quot;         &quot;nam&quot;      &quot;lot&quot;            &quot;joeys&quot;</code></pre>
+<pre><code>##       [,1]          [,2]        
+##  [1,] &quot;says&quot;        &quot;theater&quot;   
+##  [2,] &quot;coach&quot;       &quot;the&quot;       
+##  [3,] &quot;cent&quot;        &quot;writers&quot;   
+##  [4,] &quot;ebony&quot;       &quot;africa&quot;    
+##  [5,] &quot;arc&quot;         &quot;literature&quot;
+##  [6,] &quot;per&quot;         &quot;poetry&quot;    
+##  [7,] &quot;sen&quot;         &quot;cruse&quot;     
+##  [8,] &quot;employes&quot;    &quot;literary&quot;  
+##  [9,] &quot;years&quot;       &quot;afrikan&quot;   
+## [10,] &quot;wilt&quot;        &quot;unita&quot;     
+## [11,] &quot;rickey&quot;      &quot;cesaire&quot;   
+## [12,] &quot;dodgers&quot;     &quot;poets&quot;     
+## [13,] &quot;assn&quot;        &quot;ricky&quot;     
+## [14,] &quot;team&quot;        &quot;africans&quot;  
+## [15,] &quot;savs&quot;        &quot;book&quot;      
+## [16,] &quot;chamberlain&quot; &quot;bois&quot;      
+## [17,] &quot;baseball&quot;    &quot;culture&quot;   
+## [18,] &quot;onlv&quot;        &quot;chaka&quot;     
+## [19,] &quot;year&quot;        &quot;mpla&quot;      
+## [20,] &quot;business&quot;    &quot;fanon&quot;</code></pre>
+</div>
+<div id="k3-top-driving-words" class="section level3">
+<h3>K=3 Top driving words</h3>
+<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[3]]$theta, top_features = 50, method = &quot;poisson&quot;, options = &quot;min&quot;)
+driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
+driving_words[1:20,]</code></pre>
+<pre><code>##       [,1]          [,2]           [,3]            
+##  [1,] &quot;theater&quot;     &quot;lennie&quot;       &quot;pollard&quot;       
+##  [2,] &quot;writers&quot;     &quot;pinchback&quot;    &quot;says&quot;          
+##  [3,] &quot;cruse&quot;       &quot;petey&quot;        &quot;sterilization&quot; 
+##  [4,] &quot;literature&quot;  &quot;civil_rights&quot; &quot;dymally&quot;       
+##  [5,] &quot;afrikan&quot;     &quot;whitmore&quot;     &quot;revenuesharing&quot;
+##  [6,] &quot;africa&quot;      &quot;beaubien&quot;     &quot;ali&quot;           
+##  [7,] &quot;poetry&quot;      &quot;mitch&quot;        &quot;garys&quot;         
+##  [8,] &quot;the&quot;         &quot;alba&quot;         &quot;mayoral&quot;       
+##  [9,] &quot;literary&quot;    &quot;canonization&quot; &quot;diana&quot;         
+## [10,] &quot;chaka&quot;       &quot;colored&quot;      &quot;lockhart&quot;      
+## [11,] &quot;book&quot;        &quot;listons&quot;      &quot;ith&quot;           
+## [12,] &quot;poets&quot;       &quot;mclendon&quot;     &quot;artis&quot;         
+## [13,] &quot;africans&quot;    &quot;bahaullah&quot;    &quot;acupuncture&quot;   
+## [14,] &quot;culture&quot;     &quot;barrows&quot;      &quot;motown&quot;        
+## [15,] &quot;mpla&quot;        &quot;bahais&quot;       &quot;arc&quot;           
+## [16,] &quot;cultural&quot;    &quot;god&quot;          &quot;havens&quot;        
+## [17,] &quot;poem&quot;        &quot;healy&quot;        &quot;labelle&quot;       
+## [18,] &quot;poems&quot;       &quot;musket&quot;       &quot;foursome&quot;      
+## [19,] &quot;nationalism&quot; &quot;liston&quot;       &quot;inmates&quot;       
+## [20,] &quot;woodie&quot;      &quot;kennedy&quot;      &quot;flo&quot;</code></pre>
+</div>
+<div id="k4-top-driving-words" class="section level3">
+<h3>K=4 Top driving words</h3>
+<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[4]]$theta, top_features = 50, method = &quot;poisson&quot;, options = &quot;min&quot;)
+driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
+driving_words[1:20,]</code></pre>
+<pre><code>##       [,1]            [,2]         [,3]             [,4]          
+##  [1,] &quot;theater&quot;       &quot;petey&quot;      &quot;revenuesharing&quot; &quot;keckley&quot;     
+##  [2,] &quot;afrikan&quot;       &quot;beaubien&quot;   &quot;pollard&quot;        &quot;coloureds&quot;   
+##  [3,] &quot;cruse&quot;         &quot;listons&quot;    &quot;ali&quot;            &quot;pye&quot;         
+##  [4,] &quot;mpla&quot;          &quot;kennedy&quot;    &quot;lockhart&quot;       &quot;birchers&quot;    
+##  [5,] &quot;africa&quot;        &quot;mclendon&quot;   &quot;says&quot;           &quot;jennings&quot;    
+##  [6,] &quot;literature&quot;    &quot;blodgett&quot;   &quot;diana&quot;          &quot;shindig&quot;     
+##  [7,] &quot;poetry&quot;        &quot;barrows&quot;    &quot;stillwater&quot;     &quot;medgars&quot;     
+##  [8,] &quot;poets&quot;         &quot;viet&quot;       &quot;campy&quot;          &quot;luke&quot;        
+##  [9,] &quot;writers&quot;       &quot;crump&quot;      &quot;frazier&quot;        &quot;howd&quot;        
+## [10,] &quot;aesthetic&quot;     &quot;1961&quot;       &quot;flo&quot;            &quot;you&quot;         
+## [11,] &quot;literary&quot;      &quot;dorothys&quot;   &quot;prison&quot;         &quot;persians&quot;    
+## [12,] &quot;ideology&quot;      &quot;nam&quot;        &quot;ith&quot;            &quot;they&quot;        
+## [13,] &quot;drama&quot;         &quot;rickey&quot;     &quot;motown&quot;         &quot;lucy&quot;        
+## [14,] &quot;cultural&quot;      &quot;denison&quot;    &quot;inmates&quot;        &quot;trueblood&quot;   
+## [15,] &quot;afroamericans&quot; &quot;weaver&quot;     &quot;curtis&quot;         &quot;had&quot;         
+## [16,] &quot;colonial&quot;      &quot;god&quot;        &quot;nixon&quot;          &quot;francie&quot;     
+## [17,] &quot;plays&quot;         &quot;liston&quot;     &quot;sexual&quot;         &quot;postulates&quot;  
+## [18,] &quot;poems&quot;         &quot;beins&quot;      &quot;burglaries&quot;     &quot;dwarfism&quot;    
+## [19,] &quot;poem&quot;          &quot;republican&quot; &quot;percent&quot;        &quot;them&quot;        
+## [20,] &quot;himes&quot;         &quot;club&quot;       &quot;norton&quot;         &quot;noncommunist&quot;</code></pre>
+</div>
+<div id="k5-top-driving-words" class="section level3">
+<h3>K=5 Top driving words</h3>
+<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[5]]$theta, top_features = 50, method = &quot;poisson&quot;, options = &quot;min&quot;)
+driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
+driving_words[1:20,]</code></pre>
+<pre><code>##       [,1]         [,2]           [,3]             [,4]       
+##  [1,] &quot;theater&quot;    &quot;keckley&quot;      &quot;revenuesharing&quot; &quot;god&quot;      
+##  [2,] &quot;afrikan&quot;    &quot;coloureds&quot;    &quot;pollard&quot;        &quot;beaubien&quot; 
+##  [3,] &quot;mpla&quot;       &quot;pye&quot;          &quot;diana&quot;          &quot;listons&quot;  
+##  [4,] &quot;africa&quot;     &quot;birchers&quot;     &quot;frazier&quot;        &quot;mclendon&quot; 
+##  [5,] &quot;literature&quot; &quot;you&quot;          &quot;percent&quot;        &quot;liston&quot;   
+##  [6,] &quot;poetry&quot;     &quot;howd&quot;         &quot;cicely&quot;         &quot;blodgett&quot; 
+##  [7,] &quot;aesthetic&quot;  &quot;persians&quot;     &quot;burglaries&quot;     &quot;honduras&quot; 
+##  [8,] &quot;ideology&quot;   &quot;trueblood&quot;    &quot;prison&quot;         &quot;crump&quot;    
+##  [9,] &quot;poets&quot;      &quot;luke&quot;         &quot;sexual&quot;         &quot;1961&quot;     
+## [10,] &quot;writers&quot;    &quot;postulates&quot;   &quot;dymally&quot;        &quot;continued&quot;
+## [11,] &quot;literary&quot;   &quot;francie&quot;      &quot;demoted&quot;        &quot;hasties&quot;  
+## [12,] &quot;colonial&quot;   &quot;gawd&quot;         &quot;album&quot;          &quot;kushite&quot;  
+## [13,] &quot;cultural&quot;   &quot;lucy&quot;         &quot;twro&quot;           &quot;dwight&quot;   
+## [14,] &quot;fabio&quot;      &quot;senselessly&quot;  &quot;says&quot;           &quot;1960&quot;     
+## [15,] &quot;drama&quot;      &quot;noncommunist&quot; &quot;curtis&quot;         &quot;pepsicola&quot;
+## [16,] &quot;himes&quot;      &quot;them&quot;         &quot;dellums&quot;        &quot;john&quot;     
+## [17,] &quot;plays&quot;      &quot;gans&quot;         &quot;jackson&quot;        &quot;seafarers&quot;
+## [18,] &quot;poems&quot;      &quot;refunds&quot;      &quot;lot&quot;            &quot;verwoerd&quot; 
+## [19,] &quot;poem&quot;       &quot;alaikum&quot;      &quot;eaves&quot;          &quot;rumford&quot;  
+## [20,] &quot;european&quot;   &quot;weltner&quot;      &quot;films&quot;          &quot;kitt&quot;     
+##       [,5]        
+##  [1,] &quot;rickey&quot;    
+##  [2,] &quot;viet&quot;      
+##  [3,] &quot;barrows&quot;   
+##  [4,] &quot;hae&quot;       
+##  [5,] &quot;nam&quot;       
+##  [6,] &quot;doby&quot;      
+##  [7,] &quot;mcgee&quot;     
+##  [8,] &quot;humphrey&quot;  
+##  [9,] &quot;ghetto&quot;    
+## [10,] &quot;veeck&quot;     
+## [11,] &quot;australian&quot;
+## [12,] &quot;cent&quot;      
+## [13,] &quot;petey&quot;     
+## [14,] &quot;cubs&quot;      
+## [15,] &quot;satch&quot;     
+## [16,] &quot;safari&quot;    
+## [17,] &quot;per&quot;       
+## [18,] &quot;ery&quot;       
+## [19,] &quot;adam&quot;      
+## [20,] &quot;pickett&quot;</code></pre>
 </div>
 </div>
 

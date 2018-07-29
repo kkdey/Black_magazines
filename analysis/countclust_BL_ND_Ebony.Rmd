@@ -1,31 +1,39 @@
 ---
-title: "CountClust on Ebony + Black World/Negro Digest"
+title: "CountClust on combined Ebony + Black World/Negro Digest"
 author: "Kushal K Dey"
 date: "4/11/2018"
 output: html_document
 ---
 
-```{r}
-library(CountClust)
-library(ggplot2)
-```
-
+## Intro
 
 We apply CountClust on the word frequencies for yearly data from Ebony 
 articles and Black World/ Negro Digest articles. We exclude terms like 
 *black*, *negro* and *afroamerican* as they are known to be drivers of 
 clusters.
 
+## Packages
+
+```{r}
+library(CountClust)
+library(ggplot2)
+library(maptpx)
+```
+
+## Load Data
+
 We first read the counts table of word occurrences in Ebony 
 and Black World/Negro Digest articles for every year.
 
 ```{r}
-tab_ebony <- get(load("../output/table_word_frequencies_ebony.rda"))
+tab_ebony <- get(load("../output/Document_Term_Matrix_Ebony.rda"))
 all_words_ebony <- get(load("../output/all_words_ebony.rda"))
 
-tab_bl_nd <- get(load("../output/table_word_frequencies_BL_ND.rda"))
-all_words_bl_nd <- get(load("../output/all_words_BL_ND.rda"))
+tab_bl_nd <- get(load("../output/Document_Term_Matrix_BW_ND.rda"))
+all_words_bl_nd <- get(load("../output/all_words_BW_ND.rda"))
 ```
+
+## Processing and Filtering Data
 
 Combining the data.
 
@@ -35,16 +43,19 @@ tab_pooled <- rbind(tab_ebony[,match(common_words, all_words_ebony)],
                     tab_bl_nd[,match(common_words, all_words_bl_nd)])
 
 rownames(tab_pooled) <- c(paste0("Ebony_", 1961:1976), 
-                          paste0("ND_", 1961:1970), paste0("BL_", 1970:1976))
+                          paste0("BW/ND_", 1961:1976))
 
 ```
 
-Filter out words
+Filter out low occurrence words
 
 ```{r}
 low_occur_words <- apply(tab_pooled, 2, function(x) return(sum(x[x!=0])))
 tab2_pooled <- tab_pooled[, which(low_occur_words > 2)]
 ```
+
+Filter out identity words like `black(s)` and `negro(s)` and `afroamerican`.
+
 
 ```{r}
 tab3_pooled <- tab2_pooled[, which(nchar(colnames(tab2_pooled)) > 2)]
@@ -57,24 +68,26 @@ tl_words <- which(substring(colnames(tab3_pooled), 1,2) == "tl")
 tab4_pooled <- tab3_pooled[, - c(negro_words, black_words, afroamerican_words, tl_words)]
 ```
 
-## Fitting CountClust
+## Fit CountClust
+
+WARNING: The chunk below (silenced) takes around 30 minutes to run for all the Ks  listed.
 
 ```{r echo=TRUE, eval=FALSE}
 topic_clus <- list()
-for(k in 2:4){
+for(k in 2:5){
   topic_clus[[k]] <- maptpx::topics(tab4_pooled, K=k, tol = 1)
 }
-save(topic_clus, file = "../output/BL_ND_Ebony_CountClust_no_black_negro.rda")
+save(topic_clus, file = "../output/CountClust_BW_ND_filter_identity.rda")
 
 ```
 
 ```{r}
-topic_clus <- get(load("../output/BL_ND_Ebony_CountClust_no_black_negro.rda"))
+topic_clus <- get(load("../output/CountClust_BW_ND_filter_identity.rda"))
 ```
 
-## K = 2
+## Visualization
 
-### STRUCTURE plot 
+### K=2 
 
 ```{r fig.width = 3, fi.height = 5}
 omega <- topic_clus[[2]]$omega
@@ -98,17 +111,9 @@ StructureGGplot(omega = omega,
 
 ```
 
-### Top driving words 
 
-```{r}
-out <- ExtractTopFeatures(topic_clus[[2]]$theta, top_features = 50, method = "poisson", options = "min")
-driving_words <- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
-driving_words[1:20,]
-```
 
-## K = 3
-
-### STRUCTURE plot 
+### K = 3
 
 ```{r fig.width = 3, fi.height = 5}
 omega <- topic_clus[[3]]$omega
@@ -132,17 +137,9 @@ StructureGGplot(omega = omega,
 
 ```
 
-### Top driving words 
 
-```{r}
-out <- ExtractTopFeatures(topic_clus[[3]]$theta, top_features = 50, method = "poisson", options = "min")
-driving_words <- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[3]]$theta)[x])))
-driving_words[1:20,]
-```
+### K = 4
 
-## K = 4
-
-### STRUCTURE plot 
 
 ```{r fig.width = 3, fi.height = 5}
 omega <- topic_clus[[4]]$omega
@@ -166,11 +163,60 @@ StructureGGplot(omega = omega,
 
 ```
 
-### Top driving words 
+### K = 5
+
+```{r fig.width = 3, fi.height = 5}
+omega <- topic_clus[[5]]$omega
+annotation <- data.frame(
+  sample_id = paste0("X", c(1:NROW(omega))),
+  tissue_label = factor(rownames(omega),
+                        levels = rownames(omega)))
+
+rownames(omega) <- annotation$sample_id;
+
+StructureGGplot(omega = omega,
+                annotation = annotation,
+                palette = RColorBrewer::brewer.pal(8, "Accent"),
+                yaxis_label = "Years of Publication",
+                order_sample = TRUE,
+                axis_tick = list(axis_ticks_length = .1,
+                                 axis_ticks_lwd_y = .1,
+                                 axis_ticks_lwd_x = .1,
+                                 axis_label_size = 7,
+                                 axis_label_face = "bold"))
+
+```
+
+## Driving words in Clusters
+
+### K=2 Top driving words 
 
 ```{r}
-out <- ExtractTopFeatures(topic_clus[[4]]$theta, top_features = 50, method = "poisson", options = "min")
-driving_words <- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[4]]$theta)[x])))
+out <- ExtractTopFeatures(topic_clus[[2]]$theta, top_features = 50, method = "poisson", options = "min")
+driving_words <- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
 driving_words[1:20,]
 ```
 
+### K=3 Top driving words 
+
+```{r}
+out <- ExtractTopFeatures(topic_clus[[3]]$theta, top_features = 50, method = "poisson", options = "min")
+driving_words <- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
+driving_words[1:20,]
+```
+
+### K=4 Top driving words 
+
+```{r}
+out <- ExtractTopFeatures(topic_clus[[4]]$theta, top_features = 50, method = "poisson", options = "min")
+driving_words <- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
+driving_words[1:20,]
+```
+
+### K=5 Top driving words 
+
+```{r}
+out <- ExtractTopFeatures(topic_clus[[5]]$theta, top_features = 50, method = "poisson", options = "min")
+driving_words <- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
+driving_words[1:20,]
+```

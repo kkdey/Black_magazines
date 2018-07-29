@@ -316,17 +316,22 @@ div.section {
 </div>
 
 
-<pre class="r"><code>library(CountClust)</code></pre>
-<pre><code>## Loading required package: ggplot2</code></pre>
-<pre class="r"><code>library(ggplot2)</code></pre>
-<div id="introduction" class="section level2">
-<h2>Introduction</h2>
-<p>We apply CountClust on the word frequencies for yearly data from Negro Digest, Black World articles. In one case - we include terms like <em>black</em>, <em>negro</em> and <em>afroamerican</em> terms, the usage of which are known to have changed over the years. In other case, we remove these terms and see which terms affect the clustering now. Here we present the results for the second case study.</p>
-<pre class="r"><code>tab_bl_nd &lt;- get(load(&quot;../output/table_word_frequencies_BL_ND.rda&quot;))
-all_words_bl_nd &lt;- get(load(&quot;../output/all_words_BL_ND.rda&quot;))</code></pre>
+<div id="intro" class="section level2">
+<h2>Intro</h2>
+<p>We apply CountClust on the word frequencies for yearly data from Black World/Negro Digest articles. We remove identity terms - <em>black</em>, <em>negro</em> and <em>afroamerican</em> - and see which terms affect the clustering now. Here we present the results for the second case study.</p>
 </div>
-<div id="filtering-words" class="section level2">
-<h2>Filtering words</h2>
+<div id="packages" class="section level2">
+<h2>Packages</h2>
+<pre class="r"><code>library(CountClust)
+library(ggplot2)</code></pre>
+</div>
+<div id="load-data" class="section level2">
+<h2>Load Data</h2>
+<pre class="r"><code>tab_bl_nd &lt;- get(load(&quot;../output/Document_Term_Matrix_BW_ND.rda&quot;))
+all_words_bl_nd &lt;- get(load(&quot;../output/all_words_BW_ND.rda&quot;))</code></pre>
+</div>
+<div id="processing-and-filtering-data" class="section level2">
+<h2>Processing and Filtering Data</h2>
 <p>Next we fit the CountClust model to the tabulated counts data. We first remove the words that occur in only one or two years of text data.</p>
 <pre class="r"><code>low_occur_words &lt;- apply(tab_bl_nd, 2, function(x) return(sum(x[x!=0])))
 tab2_bl_nd &lt;- tab_bl_nd[, which(low_occur_words &gt; 2)]</code></pre>
@@ -339,19 +344,19 @@ afroamerican_words &lt;- match(c(&quot;african&quot;, &quot;afroamerican&quot;),
 
 tab4_bl_nd &lt;- tab3_bl_nd[, - c(negro_words, black_words, afroamerican_words)]</code></pre>
 </div>
-<div id="fitting-countclust" class="section level2">
-<h2>Fitting CountClust</h2>
+<div id="fit-countclust" class="section level2">
+<h2>Fit CountClust</h2>
 <pre class="r"><code>topic_clus &lt;- list()
-for(k in 2:4){
+for(k in 2:5){
   topic_clus[[k]] &lt;- maptpx::topics(tab4_bl_nd, K=k, tol = 1)
 }
 save(topic_clus, file = &quot;../output/BL_ND_CountClust_no_black_negro.rda&quot;)</code></pre>
 <pre class="r"><code>topic_clus &lt;- get(load(&quot;../output/BL_ND_CountClust_no_black_negro.rda&quot;))</code></pre>
 </div>
-<div id="k-2" class="section level2">
-<h2>K = 2</h2>
-<div id="structure-plot" class="section level3">
-<h3>STRUCTURE plot</h3>
+<div id="visualization" class="section level2">
+<h2>Visualization</h2>
+<div id="k-2" class="section level3">
+<h3>K= 2</h3>
 <pre class="r"><code>omega &lt;- topic_clus[[2]]$omega
 annotation &lt;- data.frame(
   sample_id = paste0(&quot;X&quot;, c(1:NROW(omega))),
@@ -372,39 +377,31 @@ StructureGGplot(omega = omega,
                                  axis_label_face = &quot;bold&quot;))</code></pre>
 <p><img src="countclust_bl_nd_no_black_negro_files/figure-html/unnamed-chunk-7-1.png" width="288" /></p>
 </div>
-<div id="top-driving-words" class="section level3">
-<h3>Top driving words</h3>
-<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[2]]$theta, top_features = 50, method = &quot;poisson&quot;, options = &quot;min&quot;)
-driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
-driving_words[1:20,]</code></pre>
-<pre><code>##       [,1]           [,2]          
-##  [1,] &quot;baraka&quot;       &quot;chenault&quot;    
-##  [2,] &quot;theater&quot;      &quot;civil_rights&quot;
-##  [3,] &quot;yuh&quot;          &quot;libby&quot;       
-##  [4,] &quot;tanzania&quot;     &quot;cent&quot;        
-##  [5,] &quot;imamu&quot;        &quot;lennie&quot;      
-##  [6,] &quot;oau&quot;          &quot;barney&quot;      
-##  [7,] &quot;liberation&quot;   &quot;joey&quot;        
-##  [8,] &quot;afrikan&quot;      &quot;smythe&quot;      
-##  [9,] &quot;moma&quot;         &quot;dilman&quot;      
-## [10,] &quot;unita&quot;        &quot;segregation&quot; 
-## [11,] &quot;broadside&quot;    &quot;baptists&quot;    
-## [12,] &quot;ali&quot;          &quot;rashman&quot;     
-## [13,] &quot;amiri&quot;        &quot;maury&quot;       
-## [14,] &quot;afro&quot;         &quot;twain&quot;       
-## [15,] &quot;euroamerican&quot; &quot;righters&quot;    
-## [16,] &quot;nana&quot;         &quot;eaton&quot;       
-## [17,] &quot;mpla&quot;         &quot;henson&quot;      
-## [18,] &quot;ezeulu&quot;       &quot;said&quot;        
-## [19,] &quot;angela&quot;       &quot;talley&quot;      
-## [20,] &quot;barakas&quot;      &quot;colored&quot;</code></pre>
-</div>
-</div>
-<div id="k-3" class="section level2">
-<h2>K = 3</h2>
-<div id="structure-plot-1" class="section level3">
-<h3>STRUCTURE plot</h3>
+<div id="k-3" class="section level3">
+<h3>K= 3</h3>
 <pre class="r"><code>omega &lt;- topic_clus[[3]]$omega
+annotation &lt;- data.frame(
+  sample_id = paste0(&quot;X&quot;, c(1:NROW(omega))),
+  tissue_label = factor(rownames(omega),
+                        levels = rownames(omega)))
+
+rownames(omega) &lt;- annotation$sample_id;
+
+StructureGGplot(omega = omega,
+                annotation = annotation,
+                palette = RColorBrewer::brewer.pal(8, &quot;Accent&quot;),
+                yaxis_label = &quot;Years of Publication&quot;,
+                order_sample = TRUE,
+                axis_tick = list(axis_ticks_length = .1,
+                                 axis_ticks_lwd_y = .1,
+                                 axis_ticks_lwd_x = .1,
+                                 axis_label_size = 7,
+                                 axis_label_face = &quot;bold&quot;))</code></pre>
+<p><img src="countclust_bl_nd_no_black_negro_files/figure-html/unnamed-chunk-8-1.png" width="288" /></p>
+</div>
+<div id="k-4" class="section level3">
+<h3>K= 4</h3>
+<pre class="r"><code>omega &lt;- topic_clus[[4]]$omega
 annotation &lt;- data.frame(
   sample_id = paste0(&quot;X&quot;, c(1:NROW(omega))),
   tissue_label = factor(rownames(omega),
@@ -424,39 +421,9 @@ StructureGGplot(omega = omega,
                                  axis_label_face = &quot;bold&quot;))</code></pre>
 <p><img src="countclust_bl_nd_no_black_negro_files/figure-html/unnamed-chunk-9-1.png" width="288" /></p>
 </div>
-<div id="top-driving-words-1" class="section level3">
-<h3>Top driving words</h3>
-<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[3]]$theta, top_features = 50, method = &quot;poisson&quot;, options = &quot;min&quot;)
-driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[3]]$theta)[x])))
-driving_words[1:20,]</code></pre>
-<pre><code>##       [,1]          [,2]         [,3]       
-##  [1,] &quot;afrikan&quot;     &quot;libby&quot;      &quot;chenault&quot; 
-##  [2,] &quot;unita&quot;       &quot;dilman&quot;     &quot;johnnyboy&quot;
-##  [3,] &quot;mpla&quot;        &quot;smythe&quot;     &quot;yuh&quot;      
-##  [4,] &quot;angela&quot;      &quot;maury&quot;      &quot;reva&quot;     
-##  [5,] &quot;barakas&quot;     &quot;eaton&quot;      &quot;rashman&quot;  
-##  [6,] &quot;naz&quot;         &quot;mitch&quot;      &quot;kurunmi&quot;  
-##  [7,] &quot;kuumba&quot;      &quot;hosea&quot;      &quot;shug&quot;     
-##  [8,] &quot;alsc&quot;        &quot;nalc&quot;       &quot;veneuse&quot;  
-##  [9,] &quot;zaire&quot;       &quot;sokagakkai&quot; &quot;baga&quot;     
-## [10,] &quot;ignatius&quot;    &quot;manny&quot;      &quot;davey&quot;    
-## [11,] &quot;prez&quot;        &quot;bearcat&quot;    &quot;moma&quot;     
-## [12,] &quot;eec&quot;         &quot;despres&quot;    &quot;mckissick&quot;
-## [13,] &quot;evonne&quot;      &quot;segun&quot;      &quot;hondo&quot;    
-## [14,] &quot;theater&quot;     &quot;fremont&quot;    &quot;mma&quot;      
-## [15,] &quot;watergate&quot;   &quot;peary&quot;      &quot;nell&quot;     
-## [16,] &quot;brierre&quot;     &quot;pastors&quot;    &quot;lorca&quot;    
-## [17,] &quot;olaad&quot;       &quot;kabbo&quot;      &quot;sri&quot;      
-## [18,] &quot;ald&quot;         &quot;satch&quot;      &quot;sug&quot;      
-## [19,] &quot;winesellers&quot; &quot;essie&quot;      &quot;apa&quot;      
-## [20,] &quot;burnside&quot;    &quot;luke&quot;       &quot;pip&quot;</code></pre>
-</div>
-</div>
-<div id="k-4" class="section level2">
-<h2>K = 4</h2>
-<div id="structure-plot-2" class="section level3">
-<h3>STRUCTURE plot</h3>
-<pre class="r"><code>omega &lt;- topic_clus[[4]]$omega
+<div id="k-5" class="section level3">
+<h3>K= 5</h3>
+<pre class="r"><code>omega &lt;- topic_clus[[5]]$omega
 annotation &lt;- data.frame(
   sample_id = paste0(&quot;X&quot;, c(1:NROW(omega))),
   tissue_label = factor(rownames(omega),
@@ -474,35 +441,328 @@ StructureGGplot(omega = omega,
                                  axis_ticks_lwd_x = .1,
                                  axis_label_size = 7,
                                  axis_label_face = &quot;bold&quot;))</code></pre>
-<p><img src="countclust_bl_nd_no_black_negro_files/figure-html/unnamed-chunk-11-1.png" width="288" /></p>
+<p><img src="countclust_bl_nd_no_black_negro_files/figure-html/unnamed-chunk-10-1.png" width="288" /></p>
 </div>
-<div id="top-driving-words-2" class="section level3">
-<h3>Top driving words</h3>
-<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[4]]$theta, top_features = 50, method = &quot;poisson&quot;, options = &quot;min&quot;)
-driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[4]]$theta)[x])))
-driving_words[1:20,]</code></pre>
-<pre><code>##       [,1]        [,2]          [,3]           [,4]       
-##  [1,] &quot;johnnyboy&quot; &quot;afrikan&quot;     &quot;chenault&quot;     &quot;nalc&quot;     
-##  [2,] &quot;yuh&quot;       &quot;unita&quot;       &quot;libby&quot;        &quot;bearcat&quot;  
-##  [3,] &quot;reva&quot;      &quot;mpla&quot;        &quot;smythe&quot;       &quot;satch&quot;    
-##  [4,] &quot;kurunmi&quot;   &quot;angela&quot;      &quot;dilman&quot;       &quot;corinna&quot;  
-##  [5,] &quot;shug&quot;      &quot;barakas&quot;     &quot;rashman&quot;      &quot;keckley&quot;  
-##  [6,] &quot;selby&quot;     &quot;naz&quot;         &quot;eaton&quot;        &quot;marihuana&quot;
-##  [7,] &quot;arkestra&quot;  &quot;kuumba&quot;      &quot;righters&quot;     &quot;mumba&quot;    
-##  [8,] &quot;baga&quot;      &quot;alsc&quot;        &quot;manny&quot;        &quot;somers&quot;   
-##  [9,] &quot;moma&quot;      &quot;zaire&quot;       &quot;mitch&quot;        &quot;labresch&quot; 
-## [10,] &quot;davey&quot;     &quot;ignatius&quot;    &quot;despres&quot;      &quot;puddin&quot;   
-## [11,] &quot;hondo&quot;     &quot;prez&quot;        &quot;sokagakkai&quot;   &quot;corinnas&quot; 
-## [12,] &quot;mma&quot;       &quot;eec&quot;         &quot;henson&quot;       &quot;ciaa&quot;     
-## [13,] &quot;students&quot;  &quot;evonne&quot;      &quot;segun&quot;        &quot;carsons&quot;  
-## [14,] &quot;mckissick&quot; &quot;watergate&quot;   &quot;kabbo&quot;        &quot;jabloski&quot; 
-## [15,] &quot;lorca&quot;     &quot;brierre&quot;     &quot;essie&quot;        &quot;innings&quot;  
-## [16,] &quot;sug&quot;       &quot;olaad&quot;       &quot;echewa&quot;       &quot;diocese&quot;  
-## [17,] &quot;sri&quot;       &quot;ald&quot;         &quot;peary&quot;        &quot;tca&quot;      
-## [18,] &quot;pip&quot;       &quot;winesellers&quot; &quot;veneuse&quot;      &quot;bratton&quot;  
-## [19,] &quot;cdc&quot;       &quot;burnside&quot;    &quot;macrinus&quot;     &quot;lennie&quot;   
-## [20,] &quot;soulbook&quot;  &quot;umuaro&quot;      &quot;civil_rights&quot; &quot;flynn&quot;</code></pre>
 </div>
+<div id="top-driving-words-in-clusters" class="section level2">
+<h2>Top driving words in clusters</h2>
+<div id="k2" class="section level3">
+<h3>K=2</h3>
+<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[2]]$theta, top_features = 100, method = &quot;poisson&quot;, options = &quot;min&quot;)
+driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
+driving_words[1:50,]</code></pre>
+<pre><code>##       [,1]            [,2]            
+##  [1,] &quot;theater&quot;       &quot;chenault&quot;      
+##  [2,] &quot;baraka&quot;        &quot;civil_rights&quot;  
+##  [3,] &quot;yuh&quot;           &quot;libby&quot;         
+##  [4,] &quot;tanzania&quot;      &quot;cent&quot;          
+##  [5,] &quot;imamu&quot;         &quot;joey&quot;          
+##  [6,] &quot;liberation&quot;    &quot;lennie&quot;        
+##  [7,] &quot;oau&quot;           &quot;barney&quot;        
+##  [8,] &quot;afro&quot;          &quot;smythe&quot;        
+##  [9,] &quot;afrikan&quot;       &quot;dilman&quot;        
+## [10,] &quot;moma&quot;          &quot;baptists&quot;      
+## [11,] &quot;unita&quot;         &quot;rashman&quot;       
+## [12,] &quot;broadside&quot;     &quot;maury&quot;         
+## [13,] &quot;amiri&quot;         &quot;twain&quot;         
+## [14,] &quot;ali&quot;           &quot;segregation&quot;   
+## [15,] &quot;euroamerican&quot;  &quot;righters&quot;      
+## [16,] &quot;nana&quot;          &quot;eaton&quot;         
+## [17,] &quot;mpla&quot;          &quot;henson&quot;        
+## [18,] &quot;ezeulu&quot;        &quot;per&quot;           
+## [19,] &quot;kurunmi&quot;       &quot;colored&quot;       
+## [20,] &quot;angela&quot;        &quot;she&quot;           
+## [21,] &quot;lifestyle&quot;     &quot;talley&quot;        
+## [22,] &quot;aesthetic&quot;     &quot;manny&quot;         
+## [23,] &quot;literature&quot;    &quot;luke&quot;          
+## [24,] &quot;barakas&quot;       &quot;russ&quot;          
+## [25,] &quot;ideology&quot;      &quot;mitch&quot;         
+## [26,] &quot;addison&quot;       &quot;hosea&quot;         
+## [27,] &quot;studies&quot;       &quot;despres&quot;       
+## [28,] &quot;karenga&quot;       &quot;nalc&quot;          
+## [29,] &quot;sonia&quot;         &quot;sokagakkai&quot;    
+## [30,] &quot;africa&quot;        &quot;confederacy&quot;   
+## [31,] &quot;afroamericans&quot; &quot;buyer&quot;         
+## [32,] &quot;johnnyboy&quot;     &quot;bearcat&quot;       
+## [33,] &quot;carolyn&quot;       &quot;segun&quot;         
+## [34,] &quot;people&quot;        &quot;fremont&quot;       
+## [35,] &quot;guineabissau&quot;  &quot;median&quot;        
+## [36,] &quot;panafricanist&quot; &quot;pastors&quot;       
+## [37,] &quot;poetry&quot;        &quot;peary&quot;         
+## [38,] &quot;naz&quot;           &quot;kabbo&quot;         
+## [39,] &quot;kuumba&quot;        &quot;said&quot;          
+## [40,] &quot;political&quot;     &quot;satch&quot;         
+## [41,] &quot;bibliography&quot;  &quot;essie&quot;         
+## [42,] &quot;alsc&quot;          &quot;tina&quot;          
+## [43,] &quot;cabral&quot;        &quot;corinna&quot;       
+## [44,] &quot;guyana&quot;        &quot;employment&quot;    
+## [45,] &quot;sonnet&quot;        &quot;amsac&quot;         
+## [46,] &quot;fuck&quot;          &quot;echewa&quot;        
+## [47,] &quot;vol&quot;           &quot;boxers&quot;        
+## [48,] &quot;zaire&quot;         &quot;discrimination&quot;
+## [49,] &quot;bois&quot;          &quot;levee&quot;         
+## [50,] &quot;bullins&quot;       &quot;veneuse&quot;</code></pre>
+</div>
+<div id="k3" class="section level3">
+<h3>K=3</h3>
+<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[3]]$theta, top_features = 100, method = &quot;poisson&quot;, options = &quot;min&quot;)
+driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
+driving_words[1:50,]</code></pre>
+<pre><code>##       [,1]             [,2]             [,3]         
+##  [1,] &quot;libby&quot;          &quot;afrikan&quot;        &quot;kurunmi&quot;    
+##  [2,] &quot;civil_rights&quot;   &quot;unita&quot;          &quot;chenault&quot;   
+##  [3,] &quot;cent&quot;           &quot;mpla&quot;           &quot;johnnyboy&quot;  
+##  [4,] &quot;lennie&quot;         &quot;angela&quot;         &quot;yuh&quot;        
+##  [5,] &quot;barney&quot;         &quot;barakas&quot;        &quot;reva&quot;       
+##  [6,] &quot;smythe&quot;         &quot;naz&quot;            &quot;arkestra&quot;   
+##  [7,] &quot;dilman&quot;         &quot;kuumba&quot;         &quot;baga&quot;       
+##  [8,] &quot;baptists&quot;       &quot;alsc&quot;           &quot;hondo&quot;      
+##  [9,] &quot;maury&quot;          &quot;zaire&quot;          &quot;mma&quot;        
+## [10,] &quot;eaton&quot;          &quot;ignatius&quot;       &quot;rashman&quot;    
+## [11,] &quot;twain&quot;          &quot;prez&quot;           &quot;students&quot;   
+## [12,] &quot;henson&quot;         &quot;eec&quot;            &quot;sri&quot;        
+## [13,] &quot;colored&quot;        &quot;evonne&quot;         &quot;pip&quot;        
+## [14,] &quot;segregation&quot;    &quot;watergate&quot;      &quot;shug&quot;       
+## [15,] &quot;talley&quot;         &quot;brierre&quot;        &quot;carie&quot;      
+## [16,] &quot;mitch&quot;          &quot;olaad&quot;          &quot;hawa&quot;       
+## [17,] &quot;hosea&quot;          &quot;ald&quot;            &quot;ogunmola&quot;   
+## [18,] &quot;manny&quot;          &quot;winesellers&quot;    &quot;veneuse&quot;    
+## [19,] &quot;nalc&quot;           &quot;burnside&quot;       &quot;swahili&quot;    
+## [20,] &quot;sokagakkai&quot;     &quot;hoodoo&quot;         &quot;randalene&quot;  
+## [21,] &quot;confederacy&quot;    &quot;umuaro&quot;         &quot;moma&quot;       
+## [22,] &quot;despres&quot;        &quot;frelimo&quot;        &quot;davey&quot;      
+## [23,] &quot;righters&quot;       &quot;blackamerican&quot;  &quot;fuseni&quot;     
+## [24,] &quot;luke&quot;           &quot;kalamu&quot;         &quot;mckissick&quot;  
+## [25,] &quot;bearcat&quot;        &quot;mcgovern&quot;       &quot;black_power&quot;
+## [26,] &quot;segun&quot;          &quot;kabnis&quot;         &quot;sug&quot;        
+## [27,] &quot;fremont&quot;        &quot;brisbane&quot;       &quot;simples&quot;    
+## [28,] &quot;pastors&quot;        &quot;panafrikanists&quot; &quot;lorca&quot;      
+## [29,] &quot;peary&quot;          &quot;panafricanists&quot; &quot;mothafuckin&quot;
+## [30,] &quot;kabbo&quot;          &quot;ayi&quot;            &quot;bumper&quot;     
+## [31,] &quot;per&quot;            &quot;armah&quot;          &quot;apa&quot;        
+## [32,] &quot;satch&quot;          &quot;ulu&quot;            &quot;soulbook&quot;   
+## [33,] &quot;essie&quot;          &quot;fnla&quot;           &quot;cdc&quot;        
+## [34,] &quot;corinna&quot;        &quot;pittman&quot;        &quot;leroi&quot;      
+## [35,] &quot;echewa&quot;         &quot;gary&quot;           &quot;scheid&quot;     
+## [36,] &quot;boxers&quot;         &quot;oshea&quot;          &quot;shona&quot;      
+## [37,] &quot;employment&quot;     &quot;baraka&quot;         &quot;dap&quot;        
+## [38,] &quot;caliver&quot;        &quot;haki&quot;           &quot;jimbo&quot;      
+## [39,] &quot;discrimination&quot; &quot;madhubuti&quot;      &quot;pseudocreep&quot;
+## [40,] &quot;keckley&quot;        &quot;bta&quot;            &quot;nmc&quot;        
+## [41,] &quot;macrinus&quot;       &quot;awoonor&quot;        &quot;sonny&quot;      
+## [42,] &quot;rowan&quot;          &quot;biedermann&quot;     &quot;calladay&quot;   
+## [43,] &quot;rights&quot;         &quot;sisterwoman&quot;    &quot;kearney&quot;    
+## [44,] &quot;theatres&quot;       &quot;amilcar&quot;        &quot;lapido&quot;     
+## [45,] &quot;meetrie&quot;        &quot;himes&quot;          &quot;skoboloff&quot;  
+## [46,] &quot;nongraded&quot;      &quot;gospel&quot;         &quot;benji&quot;      
+## [47,] &quot;amanda&quot;         &quot;afrika&quot;         &quot;harolds&quot;    
+## [48,] &quot;morrie&quot;         &quot;chaka&quot;          &quot;khartoum&quot;   
+## [49,] &quot;marihuana&quot;      &quot;vol&quot;            &quot;wright&quot;     
+## [50,] &quot;tsolo&quot;          &quot;ralokae&quot;        &quot;perf&quot;</code></pre>
+</div>
+<div id="k4" class="section level3">
+<h3>K=4</h3>
+<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[4]]$theta, top_features = 100, method = &quot;poisson&quot;, options = &quot;min&quot;)
+driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
+driving_words[1:50,]</code></pre>
+<pre><code>##       [,1]           [,2]             [,3]             [,4]           
+##  [1,] &quot;libby&quot;        &quot;afrikan&quot;        &quot;chenault&quot;       &quot;kurunmi&quot;      
+##  [2,] &quot;smythe&quot;       &quot;unita&quot;          &quot;johnnyboy&quot;      &quot;arkestra&quot;     
+##  [3,] &quot;dilman&quot;       &quot;mpla&quot;           &quot;reva&quot;           &quot;baga&quot;         
+##  [4,] &quot;baptists&quot;     &quot;angela&quot;         &quot;ignatius&quot;       &quot;hondo&quot;        
+##  [5,] &quot;maury&quot;        &quot;barakas&quot;        &quot;rashman&quot;        &quot;mma&quot;          
+##  [6,] &quot;eaton&quot;        &quot;naz&quot;            &quot;yuh&quot;            &quot;sri&quot;          
+##  [7,] &quot;henson&quot;       &quot;kuumba&quot;         &quot;shug&quot;           &quot;carie&quot;        
+##  [8,] &quot;hosea&quot;        &quot;alsc&quot;           &quot;veneuse&quot;        &quot;hawa&quot;         
+##  [9,] &quot;mitch&quot;        &quot;zaire&quot;          &quot;oshea&quot;          &quot;ogunmola&quot;     
+## [10,] &quot;manny&quot;        &quot;prez&quot;           &quot;biedermann&quot;     &quot;randalene&quot;    
+## [11,] &quot;nalc&quot;         &quot;eec&quot;            &quot;moma&quot;           &quot;fuseni&quot;       
+## [12,] &quot;sokagakkai&quot;   &quot;evonne&quot;         &quot;fauntroy&quot;       &quot;mothafuckin&quot;  
+## [13,] &quot;confederacy&quot;  &quot;watergate&quot;      &quot;davey&quot;          &quot;bumper&quot;       
+## [14,] &quot;despres&quot;      &quot;brierre&quot;        &quot;mckissick&quot;      &quot;dap&quot;          
+## [15,] &quot;bearcat&quot;      &quot;olaad&quot;          &quot;viney&quot;          &quot;jimbo&quot;        
+## [16,] &quot;fremont&quot;      &quot;ald&quot;            &quot;lorca&quot;          &quot;pseudocreep&quot;  
+## [17,] &quot;segun&quot;        &quot;winesellers&quot;    &quot;apa&quot;            &quot;bush&quot;         
+## [18,] &quot;luke&quot;         &quot;burnside&quot;       &quot;himes&quot;          &quot;calladay&quot;     
+## [19,] &quot;pastors&quot;      &quot;umuaro&quot;         &quot;scheid&quot;         &quot;kearney&quot;      
+## [20,] &quot;peary&quot;        &quot;frelimo&quot;        &quot;mabutu&quot;         &quot;lapido&quot;       
+## [21,] &quot;kabbo&quot;        &quot;blackamerican&quot;  &quot;soulbook&quot;       &quot;skoboloff&quot;    
+## [22,] &quot;satch&quot;        &quot;kalamu&quot;         &quot;cdc&quot;            &quot;studies&quot;      
+## [23,] &quot;essie&quot;        &quot;kabnis&quot;         &quot;nmc&quot;            &quot;afrodisia&quot;    
+## [24,] &quot;corinna&quot;      &quot;panafrikanists&quot; &quot;snooks&quot;         &quot;cudjoes&quot;      
+## [25,] &quot;boxers&quot;       &quot;panafricanists&quot; &quot;otika&quot;          &quot;duh&quot;          
+## [26,] &quot;echewa&quot;       &quot;ayi&quot;            &quot;njerie&quot;         &quot;ijaye&quot;        
+## [27,] &quot;segregation&quot;  &quot;armah&quot;          &quot;benji&quot;          &quot;kitabu&quot;       
+## [28,] &quot;per&quot;          &quot;ulu&quot;            &quot;khartoum&quot;       &quot;pimpleton&quot;    
+## [29,] &quot;caliver&quot;      &quot;fnla&quot;           &quot;himess&quot;         &quot;pukka&quot;        
+## [30,] &quot;keckley&quot;      &quot;pittman&quot;        &quot;beetlecreek&quot;    &quot;asa&quot;          
+## [31,] &quot;rowan&quot;        &quot;haki&quot;           &quot;selfhood&quot;       &quot;cookbooks&quot;    
+## [32,] &quot;macrinus&quot;     &quot;madhubuti&quot;      &quot;malcolm&quot;        &quot;daps&quot;         
+## [33,] &quot;meetrie&quot;      &quot;bta&quot;            &quot;johnnyboys&quot;     &quot;egba&quot;         
+## [34,] &quot;cent&quot;         &quot;gospel&quot;         &quot;mazeway&quot;        &quot;kakilambe&quot;    
+## [35,] &quot;morrie&quot;       &quot;afrika&quot;         &quot;goldwyn&quot;        &quot;nimba&quot;        
+## [36,] &quot;marihuana&quot;    &quot;sisterwoman&quot;    &quot;dhey&quot;           &quot;njoka&quot;        
+## [37,] &quot;tsolo&quot;        &quot;amilcar&quot;        &quot;rolla&quot;          &quot;secularism&quot;   
+## [38,] &quot;bolen&quot;        &quot;ralokae&quot;        &quot;chenaults&quot;      &quot;marvin&quot;       
+## [39,] &quot;wicker&quot;       &quot;detente&quot;        &quot;isom&quot;           &quot;swahili&quot;      
+## [40,] &quot;pigmented&quot;    &quot;dorseys&quot;        &quot;lory&quot;           &quot;astroinfinity&quot;
+## [41,] &quot;healy&quot;        &quot;sundiata&quot;       &quot;lottie&quot;         &quot;bratta&quot;       
+## [42,] &quot;arnie&quot;        &quot;xlove&quot;          &quot;wan&quot;            &quot;mythscience&quot;  
+## [43,] &quot;mumba&quot;        &quot;galethebege&quot;    &quot;lucybelle&quot;      &quot;soussous&quot;     
+## [44,] &quot;erics&quot;        &quot;kwei&quot;           &quot;stonewall&quot;      &quot;sris&quot;         
+## [45,] &quot;snick&quot;        &quot;elfreda&quot;        &quot;bogalusa&quot;       &quot;stayinschool&quot; 
+## [46,] &quot;caracalla&quot;    &quot;owusu&quot;          &quot;squirewell&quot;     &quot;whiteeyed&quot;    
+## [47,] &quot;ogodi&quot;        &quot;walters&quot;        &quot;mabbe&quot;          &quot;pip&quot;          
+## [48,] &quot;confederates&quot; &quot;angola&quot;         &quot;gelasius&quot;       &quot;sonny&quot;        
+## [49,] &quot;somers&quot;       &quot;macebuh&quot;        &quot;zikism&quot;         &quot;akans&quot;        
+## [50,] &quot;higginbotham&quot; &quot;savimbi&quot;        &quot;revitalization&quot; &quot;alfonso&quot;</code></pre>
+</div>
+<div id="k5" class="section level3">
+<h3>K=5</h3>
+<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[5]]$theta, top_features = 100, method = &quot;poisson&quot;, options = &quot;min&quot;)
+driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
+driving_words[1:50,]</code></pre>
+<pre><code>##       [,1]             [,2]          [,3]           [,4]        
+##  [1,] &quot;afrikan&quot;        &quot;chenault&quot;    &quot;libby&quot;        &quot;nalc&quot;      
+##  [2,] &quot;unita&quot;          &quot;johnnyboy&quot;   &quot;dilman&quot;       &quot;bearcat&quot;   
+##  [3,] &quot;mpla&quot;           &quot;reva&quot;        &quot;eaton&quot;        &quot;satch&quot;     
+##  [4,] &quot;angela&quot;         &quot;smythe&quot;      &quot;mitch&quot;        &quot;corinna&quot;   
+##  [5,] &quot;barakas&quot;        &quot;rashman&quot;     &quot;sokagakkai&quot;   &quot;keckley&quot;   
+##  [6,] &quot;naz&quot;            &quot;yuh&quot;         &quot;segun&quot;        &quot;marihuana&quot; 
+##  [7,] &quot;kuumba&quot;         &quot;shug&quot;        &quot;kabbo&quot;        &quot;mumba&quot;     
+##  [8,] &quot;alsc&quot;           &quot;manny&quot;       &quot;peary&quot;        &quot;somers&quot;    
+##  [9,] &quot;zaire&quot;          &quot;despres&quot;     &quot;essie&quot;        &quot;labresch&quot;  
+## [10,] &quot;ignatius&quot;       &quot;veneuse&quot;     &quot;echewa&quot;       &quot;puddin&quot;    
+## [11,] &quot;prez&quot;           &quot;moma&quot;        &quot;caliver&quot;      &quot;corinnas&quot;  
+## [12,] &quot;eec&quot;            &quot;davey&quot;       &quot;macrinus&quot;     &quot;ciaa&quot;      
+## [13,] &quot;evonne&quot;         &quot;morrie&quot;      &quot;meetrie&quot;      &quot;carsons&quot;   
+## [14,] &quot;watergate&quot;      &quot;mckissick&quot;   &quot;tsolo&quot;        &quot;jabloski&quot;  
+## [15,] &quot;brierre&quot;        &quot;bolen&quot;       &quot;wicker&quot;       &quot;tca&quot;       
+## [16,] &quot;olaad&quot;          &quot;pigmented&quot;   &quot;healy&quot;        &quot;lennie&quot;    
+## [17,] &quot;ald&quot;            &quot;lorca&quot;       &quot;caracalla&quot;    &quot;bratton&quot;   
+## [18,] &quot;winesellers&quot;    &quot;arnie&quot;       &quot;ogodi&quot;        &quot;flynn&quot;     
+## [19,] &quot;burnside&quot;       &quot;apa&quot;         &quot;snick&quot;        &quot;leadbellys&quot;
+## [20,] &quot;umuaro&quot;         &quot;soulbook&quot;    &quot;erics&quot;        &quot;jlc&quot;       
+## [21,] &quot;frelimo&quot;        &quot;scheid&quot;      &quot;higginbotham&quot; &quot;reufus&quot;    
+## [22,] &quot;blackamerican&quot;  &quot;cdc&quot;         &quot;franklinton&quot;  &quot;rusick&quot;    
+## [23,] &quot;kalamu&quot;         &quot;nmc&quot;         &quot;adah&quot;         &quot;ashwood&quot;   
+## [24,] &quot;kabnis&quot;         &quot;poyas&quot;       &quot;bronzevilles&quot; &quot;coloureds&quot; 
+## [25,] &quot;panafrikanists&quot; &quot;benji&quot;       &quot;bowman&quot;       &quot;wrestlers&quot; 
+## [26,] &quot;ayi&quot;            &quot;khartoum&quot;    &quot;letty&quot;        &quot;batters&quot;   
+## [27,] &quot;panafricanists&quot; &quot;johnnyboys&quot;  &quot;nichiren&quot;     &quot;galey&quot;     
+## [28,] &quot;armah&quot;          &quot;mazeway&quot;     &quot;buddhism&quot;     &quot;linebacker&quot;
+## [29,] &quot;ulu&quot;            &quot;dhey&quot;        &quot;hemoglobin&quot;   &quot;marge&quot;     
+## [30,] &quot;pittman&quot;        &quot;rolla&quot;       &quot;shoshu&quot;       &quot;durban&quot;    
+## [31,] &quot;fnla&quot;           &quot;chenaults&quot;   &quot;keavy&quot;        &quot;friar&quot;     
+## [32,] &quot;oshea&quot;          &quot;isom&quot;        &quot;carlyle&quot;      &quot;grannie&quot;   
+## [33,] &quot;haki&quot;           &quot;lory&quot;        &quot;temba&quot;        &quot;millennium&quot;
+## [34,] &quot;madhubuti&quot;      &quot;lottie&quot;      &quot;wss&quot;          &quot;vannie&quot;    
+## [35,] &quot;bta&quot;            &quot;malcolm&quot;     &quot;vladosk&quot;      &quot;hightower&quot; 
+## [36,] &quot;awoonor&quot;        &quot;lucybelle&quot;   &quot;ardrey&quot;       &quot;kraley&quot;    
+## [37,] &quot;biedermann&quot;     &quot;stonewall&quot;   &quot;dinnett&quot;      &quot;tesch&quot;     
+## [38,] &quot;sisterwoman&quot;    &quot;bogalusa&quot;    &quot;dorman&quot;       &quot;leadbelly&quot; 
+## [39,] &quot;amilcar&quot;        &quot;wynton&quot;      &quot;barb&quot;         &quot;clancy&quot;    
+## [40,] &quot;ralokae&quot;        &quot;mabbe&quot;       &quot;jamie&quot;        &quot;lancaster&quot; 
+## [41,] &quot;detente&quot;        &quot;gelasius&quot;    &quot;dodger&quot;       &quot;meany&quot;     
+## [42,] &quot;dorseys&quot;        &quot;zikism&quot;      &quot;alessandro&quot;   &quot;shipp&quot;     
+## [43,] &quot;sundiata&quot;       &quot;cwh&quot;         &quot;herron&quot;       &quot;gale&quot;      
+## [44,] &quot;xlove&quot;          &quot;lotties&quot;     &quot;caracallas&quot;   &quot;lincoln&quot;   
+## [45,] &quot;galethebege&quot;    &quot;oaklands&quot;    &quot;pancho&quot;       &quot;hosea&quot;     
+## [46,] &quot;kwei&quot;           &quot;alba&quot;        &quot;umia&quot;         &quot;lahoma&quot;    
+## [47,] &quot;gospel&quot;         &quot;mahdi&quot;       &quot;celia&quot;        &quot;mormon&quot;    
+## [48,] &quot;elfreda&quot;        &quot;revas&quot;       &quot;steamer&quot;      &quot;previn&quot;    
+## [49,] &quot;owusu&quot;          &quot;hausafulani&quot; &quot;medem&quot;        &quot;sacajawea&quot; 
+## [50,] &quot;walters&quot;        &quot;kwoli&quot;       &quot;duane&quot;        &quot;tcas&quot;      
+##       [,5]            
+##  [1,] &quot;kurunmi&quot;       
+##  [2,] &quot;arkestra&quot;      
+##  [3,] &quot;baga&quot;          
+##  [4,] &quot;hondo&quot;         
+##  [5,] &quot;mma&quot;           
+##  [6,] &quot;sri&quot;           
+##  [7,] &quot;carie&quot;         
+##  [8,] &quot;hawa&quot;          
+##  [9,] &quot;ogunmola&quot;      
+## [10,] &quot;randalene&quot;     
+## [11,] &quot;swahili&quot;       
+## [12,] &quot;fuseni&quot;        
+## [13,] &quot;mothafuckin&quot;   
+## [14,] &quot;shona&quot;         
+## [15,] &quot;dap&quot;           
+## [16,] &quot;jimbo&quot;         
+## [17,] &quot;pseudocreep&quot;   
+## [18,] &quot;bumper&quot;        
+## [19,] &quot;studies&quot;       
+## [20,] &quot;marvin&quot;        
+## [21,] &quot;calladay&quot;      
+## [22,] &quot;kearney&quot;       
+## [23,] &quot;lapido&quot;        
+## [24,] &quot;skoboloff&quot;     
+## [25,] &quot;asa&quot;           
+## [26,] &quot;afrodisia&quot;     
+## [27,] &quot;cudjoes&quot;       
+## [28,] &quot;duh&quot;           
+## [29,] &quot;ijaye&quot;         
+## [30,] &quot;kitabu&quot;        
+## [31,] &quot;pimpleton&quot;     
+## [32,] &quot;pukka&quot;         
+## [33,] &quot;professorships&quot;
+## [34,] &quot;cookbooks&quot;     
+## [35,] &quot;daps&quot;          
+## [36,] &quot;egba&quot;          
+## [37,] &quot;kakilambe&quot;     
+## [38,] &quot;nimba&quot;         
+## [39,] &quot;njoka&quot;         
+## [40,] &quot;secularism&quot;    
+## [41,] &quot;sonny&quot;         
+## [42,] &quot;astroinfinity&quot; 
+## [43,] &quot;bratta&quot;        
+## [44,] &quot;mythscience&quot;   
+## [45,] &quot;soussous&quot;      
+## [46,] &quot;sris&quot;          
+## [47,] &quot;stayinschool&quot;  
+## [48,] &quot;whiteeyed&quot;     
+## [49,] &quot;pip&quot;           
+## [50,] &quot;frog&quot;</code></pre>
+</div>
+</div>
+<div id="sessioninfo" class="section level2">
+<h2>SessionInfo</h2>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.5.0 (2018-04-23)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS Sierra 10.12.6
+## 
+## Matrix products: default
+## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] CountClust_1.6.1 ggplot2_2.2.1   
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_0.12.17       RColorBrewer_1.1-2 pillar_1.2.2      
+##  [4] compiler_3.5.0     plyr_1.8.4         tools_3.5.0       
+##  [7] boot_1.3-20        digest_0.6.15      nlme_3.1-137      
+## [10] evaluate_0.10.1    tibble_1.4.2       gtable_0.2.0      
+## [13] lattice_0.20-35    mgcv_1.8-23        rlang_0.2.0       
+## [16] Matrix_1.2-14      yaml_2.1.19        parallel_3.5.0    
+## [19] cluster_2.0.7-1    stringr_1.3.1      knitr_1.20        
+## [22] gtools_3.5.0       stats4_3.5.0       rprojroot_1.3-2   
+## [25] grid_3.5.0         nnet_7.3-12        cowplot_0.9.2     
+## [28] maptpx_1.9-5       flexmix_2.3-14     rmarkdown_1.9     
+## [31] limma_3.36.1       reshape2_1.4.3     magrittr_1.5      
+## [34] MASS_7.3-49        backports_1.1.2    scales_0.5.0      
+## [37] htmltools_0.3.6    modeltools_0.2-21  permute_0.9-4     
+## [40] picante_1.7        colorspace_1.3-2   ape_5.1           
+## [43] stringi_1.2.2      lazyeval_0.2.1     munsell_0.4.3     
+## [46] slam_0.1-43        SQUAREM_2017.10-1  vegan_2.5-1</code></pre>
 </div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using

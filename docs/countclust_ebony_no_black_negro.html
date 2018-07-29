@@ -316,18 +316,24 @@ div.section {
 </div>
 
 
+<div id="packages" class="section level2">
+<h2>Packages</h2>
 <pre class="r"><code>library(CountClust)</code></pre>
 <pre><code>## Loading required package: ggplot2</code></pre>
 <pre class="r"><code>library(ggplot2)</code></pre>
-<div id="introduction" class="section level2">
-<h2>Introduction</h2>
-<p>We apply CountClust on the word frequencies for yearly data from Ebony articles. In one case - we include terms like <em>black</em> and <em>negro</em>, the usage of which are known to have changed over the years. In other case, we remove these terms and see which terms affect the clustering now. Here we present the results for the first case study.</p>
+</div>
+<div id="intro" class="section level2">
+<h2>Intro</h2>
+<p>We apply CountClust on the word frequencies for yearly data from Ebony articles. We remove identity terms - <em>black</em>, <em>negro</em> and <em>afroamerican</em> - and see which terms affect the clustering now. Here we present the results for the second case study.</p>
+</div>
+<div id="load-data" class="section level2">
+<h2>Load Data</h2>
 <p>We first read the counts table of word occurrences in Ebony articles every year.</p>
-<pre class="r"><code>tab_ebony &lt;- get(load(&quot;../output/table_word_frequencies_ebony.rda&quot;))
+<pre class="r"><code>tab_ebony &lt;- get(load(&quot;../output/Document_Term_Matrix_Ebony.rda&quot;))
 all_words_ebony &lt;- get(load(&quot;../output/all_words_ebony.rda&quot;))</code></pre>
 </div>
-<div id="filtering-words" class="section level2">
-<h2>Filtering words</h2>
+<div id="processing-and-filtering-data" class="section level2">
+<h2>Processing and Filtering Data</h2>
 <p>Next we fit the CountClust model to the tabulated counts data. We first remove the words that occur in only one or two years of text data.</p>
 <pre class="r"><code>low_occur_words &lt;- apply(tab_ebony, 2, function(x) return(sum(x[x!=0])))
 tab2_ebony &lt;- tab_ebony[, which(low_occur_words &gt; 2)]</code></pre>
@@ -339,19 +345,19 @@ afroamerican_words &lt;- match(c(&quot;african&quot;, &quot;afroamerican&quot;),
 tl_words &lt;- which(substring(colnames(tab3_ebony), 1,2) == &quot;tl&quot;)
 tab4_ebony &lt;- tab3_ebony[, - c(negro_words, black_words, afroamerican_words, tl_words)]</code></pre>
 </div>
-<div id="fitting-countclust" class="section level2">
-<h2>Fitting CountClust</h2>
+<div id="fit-countclust" class="section level2">
+<h2>Fit CountClust</h2>
 <pre class="r"><code>topic_clus &lt;- list()
-for(k in 2:4){
+for(k in 2:5){
   topic_clus[[k]] &lt;- maptpx::topics(tab4_ebony, K=k, tol = 1)
 }
 save(topic_clus, file = &quot;../output/Ebony_CountClust_no_black_negro.rda&quot;)</code></pre>
 <pre class="r"><code>topic_clus &lt;- get(load(&quot;../output/Ebony_CountClust_no_black_negro.rda&quot;))</code></pre>
 </div>
-<div id="k-2" class="section level2">
-<h2>K = 2</h2>
-<div id="structure-plot" class="section level3">
-<h3>STRUCTURE plot</h3>
+<div id="visualization" class="section level2">
+<h2>Visualization</h2>
+<div id="k-2" class="section level3">
+<h3>K= 2</h3>
 <pre class="r"><code>omega &lt;- topic_clus[[2]]$omega
 annotation &lt;- data.frame(
   sample_id = paste0(&quot;X&quot;, c(1:NROW(omega))),
@@ -372,39 +378,31 @@ StructureGGplot(omega = omega,
                                  axis_label_face = &quot;bold&quot;))</code></pre>
 <p><img src="countclust_ebony_no_black_negro_files/figure-html/unnamed-chunk-8-1.png" width="288" /></p>
 </div>
-<div id="top-driving-words" class="section level3">
-<h3>Top driving words</h3>
-<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[2]]$theta, top_features = 50, method = &quot;poisson&quot;, options = &quot;min&quot;)
-driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
-driving_words[1:20,]</code></pre>
-<pre><code>##       [,1]           [,2]          
-##  [1,] &quot;watergate&quot;    &quot;scobell&quot;     
-##  [2,] &quot;pollard&quot;      &quot;lennie&quot;      
-##  [3,] &quot;percent&quot;      &quot;blodgett&quot;    
-##  [4,] &quot;cicely&quot;       &quot;warmoth&quot;     
-##  [5,] &quot;bicentennial&quot; &quot;bullard&quot;     
-##  [6,] &quot;baraka&quot;       &quot;levister&quot;    
-##  [7,] &quot;blackowned&quot;   &quot;karam&quot;       
-##  [8,] &quot;campy&quot;        &quot;monnerville&quot; 
-##  [9,] &quot;attica&quot;       &quot;javits&quot;      
-## [10,] &quot;nikki&quot;        &quot;allensworth&quot; 
-## [11,] &quot;dellums&quot;      &quot;wakefield&quot;   
-## [12,] &quot;barrows&quot;      &quot;god&quot;         
-## [13,] &quot;liberation&quot;   &quot;judo&quot;        
-## [14,] &quot;kareem&quot;       &quot;groppi&quot;      
-## [15,] &quot;caucus&quot;       &quot;civil_rights&quot;
-## [16,] &quot;owm&quot;          &quot;zandt&quot;       
-## [17,] &quot;erving&quot;       &quot;rexall&quot;      
-## [18,] &quot;dow&quot;          &quot;beaubien&quot;    
-## [19,] &quot;cosell&quot;       &quot;mcminnville&quot; 
-## [20,] &quot;mcgovern&quot;     &quot;listons&quot;</code></pre>
-</div>
-</div>
-<div id="k-3" class="section level2">
-<h2>K = 3</h2>
-<div id="structure-plot-1" class="section level3">
-<h3>STRUCTURE plot</h3>
+<div id="k-3" class="section level3">
+<h3>K= 3</h3>
 <pre class="r"><code>omega &lt;- topic_clus[[3]]$omega
+annotation &lt;- data.frame(
+  sample_id = paste0(&quot;X&quot;, c(1:NROW(omega))),
+  tissue_label = factor(rownames(omega),
+                        levels = rownames(omega)))
+
+rownames(omega) &lt;- annotation$sample_id;
+
+StructureGGplot(omega = omega,
+                annotation = annotation,
+                palette = RColorBrewer::brewer.pal(8, &quot;Accent&quot;),
+                yaxis_label = &quot;Years of Publication&quot;,
+                order_sample = TRUE,
+                axis_tick = list(axis_ticks_length = .1,
+                                 axis_ticks_lwd_y = .1,
+                                 axis_ticks_lwd_x = .1,
+                                 axis_label_size = 7,
+                                 axis_label_face = &quot;bold&quot;))</code></pre>
+<p><img src="countclust_ebony_no_black_negro_files/figure-html/unnamed-chunk-9-1.png" width="288" /></p>
+</div>
+<div id="k-4" class="section level3">
+<h3>K= 4</h3>
+<pre class="r"><code>omega &lt;- topic_clus[[4]]$omega
 annotation &lt;- data.frame(
   sample_id = paste0(&quot;X&quot;, c(1:NROW(omega))),
   tissue_label = factor(rownames(omega),
@@ -424,39 +422,9 @@ StructureGGplot(omega = omega,
                                  axis_label_face = &quot;bold&quot;))</code></pre>
 <p><img src="countclust_ebony_no_black_negro_files/figure-html/unnamed-chunk-10-1.png" width="288" /></p>
 </div>
-<div id="top-driving-words-1" class="section level3">
-<h3>Top driving words</h3>
-<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[3]]$theta, top_features = 50, method = &quot;poisson&quot;, options = &quot;min&quot;)
-driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[3]]$theta)[x])))
-driving_words[1:20,]</code></pre>
-<pre><code>##       [,1]           [,2]            [,3]            
-##  [1,] &quot;scobell&quot;      &quot;plinton&quot;       &quot;barrows&quot;       
-##  [2,] &quot;lennie&quot;       &quot;sostre&quot;        &quot;styron&quot;        
-##  [3,] &quot;blodgett&quot;     &quot;mctear&quot;        &quot;acupuncture&quot;   
-##  [4,] &quot;warmoth&quot;      &quot;callahan&quot;      &quot;styrons&quot;       
-##  [5,] &quot;bullard&quot;      &quot;wyche&quot;         &quot;percent&quot;       
-##  [6,] &quot;levister&quot;     &quot;mantequilla&quot;   &quot;artis&quot;         
-##  [7,] &quot;karam&quot;        &quot;waddles&quot;       &quot;debolt&quot;        
-##  [8,] &quot;monnerville&quot;  &quot;saperstein&quot;    &quot;sids&quot;          
-##  [9,] &quot;javits&quot;       &quot;bcds&quot;          &quot;debolts&quot;       
-## [10,] &quot;allensworth&quot;  &quot;hela&quot;          &quot;kurt&quot;          
-## [11,] &quot;judo&quot;         &quot;haizlip&quot;       &quot;joetha&quot;        
-## [12,] &quot;groppi&quot;       &quot;emmerich&quot;      &quot;ikon&quot;          
-## [13,] &quot;zandt&quot;        &quot;rander&quot;        &quot;dorgan&quot;        
-## [14,] &quot;beaubien&quot;     &quot;holte&quot;         &quot;wedgeworth&quot;    
-## [15,] &quot;civil_rights&quot; &quot;aphrodisiac&quot;   &quot;article&quot;       
-## [16,] &quot;god&quot;          &quot;unia&quot;          &quot;kazan&quot;         
-## [17,] &quot;listons&quot;      &quot;cullinan&quot;      &quot;cicely&quot;        
-## [18,] &quot;davids&quot;       &quot;amniocentesis&quot; &quot;noell&quot;         
-## [19,] &quot;preminger&quot;    &quot;magicians&quot;     &quot;sterilizations&quot;
-## [20,] &quot;delois&quot;       &quot;moorman&quot;       &quot;pickard&quot;</code></pre>
-</div>
-</div>
-<div id="k-4" class="section level2">
-<h2>K = 4</h2>
-<div id="structure-plot-2" class="section level3">
-<h3>STRUCTURE plot</h3>
-<pre class="r"><code>omega &lt;- topic_clus[[4]]$omega
+<div id="k-5" class="section level3">
+<h3>K= 5</h3>
+<pre class="r"><code>omega &lt;- topic_clus[[5]]$omega
 annotation &lt;- data.frame(
   sample_id = paste0(&quot;X&quot;, c(1:NROW(omega))),
   tissue_label = factor(rownames(omega),
@@ -474,35 +442,328 @@ StructureGGplot(omega = omega,
                                  axis_ticks_lwd_x = .1,
                                  axis_label_size = 7,
                                  axis_label_face = &quot;bold&quot;))</code></pre>
-<p><img src="countclust_ebony_no_black_negro_files/figure-html/unnamed-chunk-12-1.png" width="288" /></p>
+<p><img src="countclust_ebony_no_black_negro_files/figure-html/unnamed-chunk-11-1.png" width="288" /></p>
 </div>
-<div id="top-driving-words-2" class="section level3">
-<h3>Top driving words</h3>
-<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[4]]$theta, top_features = 50, method = &quot;poisson&quot;, options = &quot;min&quot;)
-driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[4]]$theta)[x])))
-driving_words[1:20,]</code></pre>
-<pre><code>##       [,1]            [,2]            [,3]         [,4]         
-##  [1,] &quot;scobell&quot;       &quot;cicely&quot;        &quot;nunn&quot;       &quot;barrows&quot;    
-##  [2,] &quot;blodgett&quot;      &quot;percent&quot;       &quot;emmerich&quot;   &quot;wcre&quot;       
-##  [3,] &quot;mctear&quot;        &quot;gourdine&quot;      &quot;rander&quot;     &quot;vvas&quot;       
-##  [4,] &quot;levister&quot;      &quot;erving&quot;        &quot;marques&quot;    &quot;wliich&quot;     
-##  [5,] &quot;callahan&quot;      &quot;mcgovern&quot;      &quot;seretse&quot;    &quot;mantequilla&quot;
-##  [6,] &quot;karam&quot;         &quot;welsing&quot;       &quot;brazilians&quot; &quot;styrons&quot;    
-##  [7,] &quot;god&quot;           &quot;abduljabbar&quot;   &quot;noga&quot;       &quot;witli&quot;      
-##  [8,] &quot;zandt&quot;         &quot;guineabissau&quot;  &quot;magicians&quot;  &quot;rickey&quot;     
-##  [9,] &quot;swat&quot;          &quot;acupuncture&quot;   &quot;moorman&quot;    &quot;bcds&quot;       
-## [10,] &quot;beaubien&quot;      &quot;lockhart&quot;      &quot;ndpa&quot;       &quot;hae&quot;        
-## [11,] &quot;aggrey&quot;        &quot;waddles&quot;       &quot;stovall&quot;    &quot;wlien&quot;      
-## [12,] &quot;listons&quot;       &quot;artis&quot;         &quot;sturrup&quot;    &quot;ikon&quot;       
-## [13,] &quot;lukes&quot;         &quot;tilmon&quot;        &quot;demello&quot;    &quot;kazan&quot;      
-## [14,] &quot;hela&quot;          &quot;pollard&quot;       &quot;monty&quot;      &quot;neer&quot;       
-## [15,] &quot;mclendon&quot;      &quot;debolt&quot;        &quot;mundle&quot;     &quot;holte&quot;      
-## [16,] &quot;narcisse&quot;      &quot;sids&quot;          &quot;bogalusa&quot;   &quot;havc&quot;       
-## [17,] &quot;aphrodisiac&quot;   &quot;debolts&quot;       &quot;riles&quot;      &quot;stniggle&quot;   
-## [18,] &quot;pisani&quot;        &quot;psychosurgery&quot; &quot;tempts&quot;     &quot;histor&quot;     
-## [19,] &quot;amniocentesis&quot; &quot;braithwaite&quot;   &quot;blayton&quot;    &quot;cullinan&quot;   
-## [20,] &quot;coffey&quot;        &quot;joetha&quot;        &quot;cookes&quot;     &quot;vvere&quot;</code></pre>
 </div>
+<div id="top-driving-words-in-clusters" class="section level2">
+<h2>Top driving words in clusters</h2>
+<div id="k2" class="section level3">
+<h3>K=2</h3>
+<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[2]]$theta, top_features = 100, method = &quot;poisson&quot;, options = &quot;min&quot;)
+driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
+driving_words[1:50,]</code></pre>
+<pre><code>##       [,1]           [,2]            
+##  [1,] &quot;witli&quot;        &quot;watergate&quot;     
+##  [2,] &quot;hae&quot;          &quot;pollard&quot;       
+##  [3,] &quot;scobell&quot;      &quot;percent&quot;       
+##  [4,] &quot;lennie&quot;       &quot;cicely&quot;        
+##  [5,] &quot;barrows&quot;      &quot;bicentennial&quot;  
+##  [6,] &quot;blodgett&quot;     &quot;baraka&quot;        
+##  [7,] &quot;styron&quot;       &quot;attica&quot;        
+##  [8,] &quot;xvas&quot;         &quot;dellums&quot;       
+##  [9,] &quot;warmoth&quot;      &quot;nikki&quot;         
+## [10,] &quot;astronaut&quot;    &quot;kareem&quot;        
+## [11,] &quot;bullard&quot;      &quot;riles&quot;         
+## [12,] &quot;darrow&quot;       &quot;erving&quot;        
+## [13,] &quot;levister&quot;     &quot;cosell&quot;        
+## [14,] &quot;wcre&quot;         &quot;mcgovern&quot;      
+## [15,] &quot;whitmore&quot;     &quot;dymally&quot;       
+## [16,] &quot;petey&quot;        &quot;khalilah&quot;      
+## [17,] &quot;vvas&quot;         &quot;plinton&quot;       
+## [18,] &quot;karam&quot;        &quot;pam&quot;           
+## [19,] &quot;dunn&quot;         &quot;revenuesharing&quot;
+## [20,] &quot;wliich&quot;       &quot;joplin&quot;        
+## [21,] &quot;monnerville&quot;  &quot;sweetback&quot;     
+## [22,] &quot;styrons&quot;      &quot;mctear&quot;        
+## [23,] &quot;sis&quot;          &quot;jermaine&quot;      
+## [24,] &quot;allensworth&quot;  &quot;aggrey&quot;        
+## [25,] &quot;javits&quot;       &quot;abduljabbar&quot;   
+## [26,] &quot;jennie&quot;       &quot;liberation&quot;    
+## [27,] &quot;groppi&quot;       &quot;welsing&quot;       
+## [28,] &quot;judo&quot;         &quot;callahan&quot;      
+## [29,] &quot;zandt&quot;        &quot;caucus&quot;        
+## [30,] &quot;his&quot;          &quot;namibia&quot;       
+## [31,] &quot;god&quot;          &quot;black_panthers&quot;
+## [32,] &quot;quads&quot;        &quot;spinners&quot;      
+## [33,] &quot;beaubien&quot;     &quot;imamu&quot;         
+## [34,] &quot;wba&quot;          &quot;hbc&quot;           
+## [35,] &quot;streetcar&quot;    &quot;guineabissau&quot;  
+## [36,] &quot;bein&quot;         &quot;winkfield&quot;     
+## [37,] &quot;wlien&quot;        &quot;stax&quot;          
+## [38,] &quot;bcds&quot;         &quot;acupuncture&quot;   
+## [39,] &quot;listons&quot;      &quot;congresswoman&quot; 
+## [40,] &quot;ikon&quot;         &quot;amiri&quot;         
+## [41,] &quot;canonization&quot; &quot;meriwether&quot;    
+## [42,] &quot;said&quot;         &quot;waddles&quot;       
+## [43,] &quot;davids&quot;       &quot;sostre&quot;        
+## [44,] &quot;preminger&quot;    &quot;tilmon&quot;        
+## [45,] &quot;delois&quot;       &quot;artis&quot;         
+## [46,] &quot;kazan&quot;        &quot;seale&quot;         
+## [47,] &quot;nichelle&quot;     &quot;debolt&quot;        
+## [48,] &quot;neer&quot;         &quot;sids&quot;          
+## [49,] &quot;mantequilla&quot;  &quot;transracial&quot;   
+## [50,] &quot;mclendon&quot;     &quot;embry&quot;</code></pre>
+</div>
+<div id="k3" class="section level3">
+<h3>K=3</h3>
+<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[3]]$theta, top_features = 100, method = &quot;poisson&quot;, options = &quot;min&quot;)
+driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
+driving_words[1:50,]</code></pre>
+<pre><code>##       [,1]           [,2]             [,3]          
+##  [1,] &quot;scobell&quot;      &quot;watergate&quot;      &quot;barrows&quot;     
+##  [2,] &quot;blodgett&quot;     &quot;cicely&quot;         &quot;wcre&quot;        
+##  [3,] &quot;warmoth&quot;      &quot;bicentennial&quot;   &quot;vvas&quot;        
+##  [4,] &quot;levister&quot;     &quot;percent&quot;        &quot;wliich&quot;      
+##  [5,] &quot;karam&quot;        &quot;dellums&quot;        &quot;mantequilla&quot; 
+##  [6,] &quot;monnerville&quot;  &quot;kareem&quot;         &quot;witli&quot;       
+##  [7,] &quot;javits&quot;       &quot;riles&quot;          &quot;styrons&quot;     
+##  [8,] &quot;allensworth&quot;  &quot;erving&quot;         &quot;rickey&quot;      
+##  [9,] &quot;judo&quot;         &quot;cosell&quot;         &quot;hae&quot;         
+## [10,] &quot;zandt&quot;        &quot;dymally&quot;        &quot;bcds&quot;        
+## [11,] &quot;beaubien&quot;     &quot;mcgovern&quot;       &quot;wlien&quot;       
+## [12,] &quot;god&quot;          &quot;khalilah&quot;       &quot;ikon&quot;        
+## [13,] &quot;listons&quot;      &quot;pam&quot;            &quot;kazan&quot;       
+## [14,] &quot;davids&quot;       &quot;revenuesharing&quot; &quot;neer&quot;        
+## [15,] &quot;preminger&quot;    &quot;sweetback&quot;      &quot;holte&quot;       
+## [16,] &quot;civil_rights&quot; &quot;mctear&quot;         &quot;havc&quot;        
+## [17,] &quot;mclendon&quot;     &quot;aggrey&quot;         &quot;stniggle&quot;    
+## [18,] &quot;brazilians&quot;   &quot;abduljabbar&quot;    &quot;histor&quot;      
+## [19,] &quot;narcisse&quot;     &quot;welsing&quot;        &quot;cullinan&quot;    
+## [20,] &quot;seretse&quot;      &quot;callahan&quot;       &quot;vvere&quot;       
+## [21,] &quot;noga&quot;         &quot;spinners&quot;       &quot;wdth&quot;        
+## [22,] &quot;nubia&quot;        &quot;guineabissau&quot;   &quot;keckley&quot;     
+## [23,] &quot;pisani&quot;       &quot;hbc&quot;            &quot;pcople&quot;      
+## [24,] &quot;alba&quot;         &quot;acupuncture&quot;    &quot;brashear&quot;    
+## [25,] &quot;saintjacques&quot; &quot;meriwether&quot;     &quot;cbl&quot;         
+## [26,] &quot;wadleigh&quot;     &quot;waddles&quot;        &quot;harley&quot;      
+## [27,] &quot;coffey&quot;       &quot;tilmon&quot;         &quot;reenlistment&quot;
+## [28,] &quot;picou&quot;        &quot;artis&quot;          &quot;vvould&quot;      
+## [29,] &quot;louvestre&quot;    &quot;pollard&quot;        &quot;tnie&quot;        
+## [30,] &quot;sturrup&quot;      &quot;debolt&quot;         &quot;vill&quot;        
+## [31,] &quot;dwights&quot;      &quot;sids&quot;           &quot;durousseau&quot;  
+## [32,] &quot;mcvea&quot;        &quot;embry&quot;          &quot;wiiite&quot;      
+## [33,] &quot;egd&quot;          &quot;debolts&quot;        &quot;countr&quot;      
+## [34,] &quot;kelsey&quot;       &quot;psychosurgery&quot;  &quot;halley&quot;      
+## [35,] &quot;sprattling&quot;   &quot;sahel&quot;          &quot;wtre&quot;        
+## [36,] &quot;demello&quot;      &quot;kurt&quot;           &quot;witliout&quot;    
+## [37,] &quot;matthias&quot;     &quot;joetha&quot;         &quot;fuld&quot;        
+## [38,] &quot;monty&quot;        &quot;zaire&quot;          &quot;owm&quot;         
+## [39,] &quot;mundle&quot;       &quot;pips&quot;           &quot;havx&quot;        
+## [40,] &quot;crump&quot;        &quot;shockley&quot;       &quot;hac&quot;         
+## [41,] &quot;wilde&quot;        &quot;randle&quot;         &quot;xvho&quot;        
+## [42,] &quot;brantley&quot;     &quot;chandra&quot;        &quot;styron&quot;      
+## [43,] &quot;accutron&quot;     &quot;filmmakers&quot;     &quot;notliing&quot;    
+## [44,] &quot;bogalusa&quot;     &quot;hela&quot;           &quot;xvere&quot;       
+## [45,] &quot;1961&quot;         &quot;verta&quot;          &quot;landau&quot;      
+## [46,] &quot;eken&quot;         &quot;haizlip&quot;        &quot;naulls&quot;      
+## [47,] &quot;nubian&quot;       &quot;chicanos&quot;       &quot;wiiat&quot;       
+## [48,] &quot;aborigine&quot;    &quot;caucus&quot;         &quot;tvo&quot;         
+## [49,] &quot;liston&quot;       &quot;dorgan&quot;         &quot;govemment&quot;   
+## [50,] &quot;buganda&quot;      &quot;wedgeworth&quot;     &quot;imd&quot;</code></pre>
+</div>
+<div id="k4" class="section level3">
+<h3>K=4</h3>
+<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[4]]$theta, top_features = 100, method = &quot;poisson&quot;, options = &quot;min&quot;)
+driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
+driving_words[1:50,]</code></pre>
+<pre><code>##       [,1]           [,2]         [,3]             [,4]          
+##  [1,] &quot;barrows&quot;      &quot;scobell&quot;    &quot;percent&quot;        &quot;sostre&quot;      
+##  [2,] &quot;styron&quot;       &quot;blodgett&quot;   &quot;bicentennial&quot;   &quot;wyche&quot;       
+##  [3,] &quot;bullard&quot;      &quot;levister&quot;   &quot;cosell&quot;         &quot;mantequilla&quot; 
+##  [4,] &quot;whitmore&quot;     &quot;god&quot;        &quot;khalilah&quot;       &quot;waddles&quot;     
+##  [5,] &quot;styrons&quot;      &quot;karam&quot;      &quot;mctear&quot;         &quot;haizlip&quot;     
+##  [6,] &quot;monnerville&quot;  &quot;zandt&quot;      &quot;aggrey&quot;         &quot;saperstein&quot;  
+##  [7,] &quot;groppi&quot;       &quot;beaubien&quot;   &quot;abduljabbar&quot;    &quot;emmerich&quot;    
+##  [8,] &quot;bcds&quot;         &quot;listons&quot;    &quot;callahan&quot;       &quot;rander&quot;      
+##  [9,] &quot;ikon&quot;         &quot;mclendon&quot;   &quot;spinners&quot;       &quot;holte&quot;       
+## [10,] &quot;kazan&quot;        &quot;narcisse&quot;   &quot;hbc&quot;            &quot;cullinan&quot;    
+## [11,] &quot;delois&quot;       &quot;pisani&quot;     &quot;guineabissau&quot;   &quot;magicians&quot;   
+## [12,] &quot;neer&quot;         &quot;coffey&quot;     &quot;acupuncture&quot;    &quot;moorman&quot;     
+## [13,] &quot;seretse&quot;      &quot;picou&quot;      &quot;watergate&quot;      &quot;ndpa&quot;        
+## [14,] &quot;bahaullah&quot;    &quot;louvestre&quot;  &quot;tilmon&quot;         &quot;keckley&quot;     
+## [15,] &quot;saintjacques&quot; &quot;nubia&quot;      &quot;debolt&quot;         &quot;yoki&quot;        
+## [16,] &quot;wadleigh&quot;     &quot;sprattling&quot; &quot;sids&quot;           &quot;cbl&quot;         
+## [17,] &quot;brazilians&quot;   &quot;liston&quot;     &quot;debolts&quot;        &quot;durousseau&quot;  
+## [18,] &quot;brashear&quot;     &quot;matthias&quot;   &quot;psychosurgery&quot;  &quot;halley&quot;      
+## [19,] &quot;billys&quot;       &quot;crump&quot;      &quot;sahel&quot;          &quot;whites&quot;      
+## [20,] &quot;noga&quot;         &quot;wilde&quot;      &quot;joetha&quot;         &quot;aquarius&quot;    
+## [21,] &quot;reenlistment&quot; &quot;brantley&quot;   &quot;kurt&quot;           &quot;tempts&quot;      
+## [22,] &quot;egd&quot;          &quot;accutron&quot;   &quot;zaire&quot;          &quot;landau&quot;      
+## [23,] &quot;kelsey&quot;       &quot;1961&quot;       &quot;pips&quot;           &quot;naulls&quot;      
+## [24,] &quot;harley&quot;       &quot;blodgetts&quot;  &quot;randle&quot;         &quot;guadalajara&quot; 
+## [25,] &quot;bagpipe&quot;      &quot;cavities&quot;   &quot;shockley&quot;       &quot;pichon&quot;      
+## [26,] &quot;rickey&quot;       &quot;muu&quot;        &quot;hela&quot;           &quot;riles&quot;       
+## [27,] &quot;sturrup&quot;      &quot;tilson&quot;     &quot;dorgan&quot;         &quot;battiste&quot;    
+## [28,] &quot;demello&quot;      &quot;lewter&quot;     &quot;wedgeworth&quot;     &quot;byberry&quot;     
+## [29,] &quot;monty&quot;        &quot;karams&quot;     &quot;nona&quot;           &quot;pelton&quot;      
+## [30,] &quot;mundle&quot;       &quot;lambo&quot;      &quot;aphrodisiac&quot;    &quot;panafricans&quot; 
+## [31,] &quot;fuld&quot;         &quot;diodorus&quot;   &quot;noell&quot;          &quot;parson&quot;      
+## [32,] &quot;dobys&quot;        &quot;finkley&quot;    &quot;ricky&quot;          &quot;femaleheaded&quot;
+## [33,] &quot;sandras&quot;      &quot;khotso&quot;     &quot;cicely&quot;         &quot;gmi&quot;         
+## [34,] &quot;xvho&quot;         &quot;magicool&quot;   &quot;sterilizations&quot; &quot;aitf&quot;        
+## [35,] &quot;hac&quot;          &quot;ydi&quot;        &quot;sizemore&quot;       &quot;sharman&quot;     
+## [36,] &quot;cid&quot;          &quot;dwights&quot;    &quot;amniocentesis&quot;  &quot;treemonisha&quot; 
+## [37,] &quot;eken&quot;         &quot;maples&quot;     &quot;pickard&quot;        &quot;luqman&quot;      
+## [38,] &quot;xvere&quot;        &quot;hennagan&quot;   &quot;demps&quot;          &quot;ayds&quot;        
+## [39,] &quot;viet&quot;         &quot;alhambra&quot;   &quot;holden&quot;         &quot;buddys&quot;      
+## [40,] &quot;bogalusa&quot;     &quot;perucho&quot;    &quot;blackonblack&quot;   &quot;mccombs&quot;     
+## [41,] &quot;lennie&quot;       &quot;guthridge&quot;  &quot;sef&quot;            &quot;magee&quot;       
+## [42,] &quot;kirwood&quot;      &quot;canaan&quot;     &quot;wimer&quot;          &quot;eyo&quot;         
+## [43,] &quot;ramoboas&quot;     &quot;moorefield&quot; &quot;bbf&quot;            &quot;breiner&quot;     
+## [44,] &quot;dassin&quot;       &quot;hasties&quot;    &quot;paigc&quot;          &quot;crutchfield&quot; 
+## [45,] &quot;handkiss&quot;     &quot;hayling&quot;    &quot;amin&quot;           &quot;xernona&quot;     
+## [46,] &quot;whitmores&quot;    &quot;rumfords&quot;   &quot;shaune&quot;         &quot;pollutants&quot;  
+## [47,] &quot;montys&quot;       &quot;mme&quot;        &quot;llewellyn&quot;      &quot;fergies&quot;     
+## [48,] &quot;tmha&quot;         &quot;tema&quot;       &quot;dialysis&quot;       &quot;archies&quot;     
+## [49,] &quot;franchising&quot;  &quot;clemson&quot;    &quot;argentine&quot;      &quot;sirhan&quot;      
+## [50,] &quot;ramoboa&quot;      &quot;madera&quot;     &quot;sherwoods&quot;      &quot;sweethack&quot;</code></pre>
+</div>
+<div id="k5" class="section level3">
+<h3>K=5</h3>
+<pre class="r"><code>out &lt;- ExtractTopFeatures(topic_clus[[5]]$theta, top_features = 100, method = &quot;poisson&quot;, options = &quot;min&quot;)
+driving_words &lt;- t(apply(out$indices, c(1,2), function(x) return(rownames(topic_clus[[2]]$theta)[x])))
+driving_words[1:50,]</code></pre>
+<pre><code>##       [,1]             [,2]              [,3]         [,4]          
+##  [1,] &quot;watergate&quot;      &quot;scobell&quot;         &quot;blodgett&quot;   &quot;barrows&quot;     
+##  [2,] &quot;percent&quot;        &quot;monnerville&quot;     &quot;levister&quot;   &quot;styrons&quot;     
+##  [3,] &quot;cicely&quot;         &quot;seretse&quot;         &quot;karam&quot;      &quot;waddles&quot;     
+##  [4,] &quot;bicentennial&quot;   &quot;brazilians&quot;      &quot;god&quot;        &quot;rickeys&quot;     
+##  [5,] &quot;cosell&quot;         &quot;saintjacques&quot;    &quot;zandt&quot;      &quot;bcds&quot;        
+##  [6,] &quot;khalilah&quot;       &quot;wadleigh&quot;        &quot;listons&quot;    &quot;ikon&quot;        
+##  [7,] &quot;pam&quot;            &quot;noga&quot;            &quot;mclendon&quot;   &quot;haizlip&quot;     
+##  [8,] &quot;mctear&quot;         &quot;narcisse&quot;        &quot;pisani&quot;     &quot;kazan&quot;       
+##  [9,] &quot;aggrey&quot;         &quot;egd&quot;             &quot;picou&quot;      &quot;rickey&quot;      
+## [10,] &quot;abduljabbar&quot;    &quot;kelsey&quot;          &quot;louvestre&quot;  &quot;neer&quot;        
+## [11,] &quot;callahan&quot;       &quot;sturrup&quot;         &quot;sprattling&quot; &quot;brashear&quot;    
+## [12,] &quot;spinners&quot;       &quot;coffey&quot;          &quot;crump&quot;      &quot;paiges&quot;      
+## [13,] &quot;hbc&quot;            &quot;dwights&quot;         &quot;crumps&quot;     &quot;harley&quot;      
+## [14,] &quot;guineabissau&quot;   &quot;demello&quot;         &quot;1961&quot;       &quot;reenlistment&quot;
+## [15,] &quot;acupuncture&quot;    &quot;monty&quot;           &quot;accutron&quot;   &quot;xerox&quot;       
+## [16,] &quot;dymally&quot;        &quot;mundle&quot;          &quot;blodgetts&quot;  &quot;fuld&quot;        
+## [17,] &quot;tilmon&quot;         &quot;eken&quot;            &quot;cavities&quot;   &quot;hac&quot;         
+## [18,] &quot;debolt&quot;         &quot;bogalusa&quot;        &quot;muu&quot;        &quot;xvho&quot;        
+## [19,] &quot;sids&quot;           &quot;brantley&quot;        &quot;tilson&quot;     &quot;xvere&quot;       
+## [20,] &quot;artis&quot;          &quot;handkiss&quot;        &quot;karams&quot;     &quot;dassin&quot;      
+## [21,] &quot;debolts&quot;        &quot;bautzen&quot;         &quot;lambo&quot;      &quot;kirwood&quot;     
+## [22,] &quot;psychosurgery&quot;  &quot;hindustani&quot;      &quot;diodorus&quot;   &quot;ramoboas&quot;    
+## [23,] &quot;sahel&quot;          &quot;lefthandedness&quot;  &quot;magicool&quot;   &quot;guadalajara&quot; 
+## [24,] &quot;joetha&quot;         &quot;montys&quot;          &quot;ydi&quot;        &quot;pichon&quot;      
+## [25,] &quot;kurt&quot;           &quot;tmha&quot;            &quot;maples&quot;     &quot;doby&quot;        
+## [26,] &quot;zaire&quot;          &quot;starletta&quot;       &quot;alhambra&quot;   &quot;styron&quot;      
+## [27,] &quot;pips&quot;           &quot;lewter&quot;          &quot;langdon&quot;    &quot;nonsister&quot;   
+## [28,] &quot;randle&quot;         &quot;edgerton&quot;        &quot;perucho&quot;    &quot;ramoboa&quot;     
+## [29,] &quot;shockley&quot;       &quot;lymon&quot;           &quot;hasties&quot;    &quot;femaleheaded&quot;
+## [30,] &quot;hela&quot;           &quot;thackeray&quot;       &quot;hayling&quot;    &quot;ogunde&quot;      
+## [31,] &quot;dorgan&quot;         &quot;finkley&quot;         &quot;rumfords&quot;   &quot;hurd&quot;        
+## [32,] &quot;wedgeworth&quot;     &quot;khotso&quot;          &quot;tema&quot;       &quot;bluesmen&quot;    
+## [33,] &quot;nona&quot;           &quot;crummie&quot;         &quot;guthridge&quot;  &quot;aitf&quot;        
+## [34,] &quot;aphrodisiac&quot;    &quot;grahame&quot;         &quot;picous&quot;     &quot;sharman&quot;     
+## [35,] &quot;noell&quot;          &quot;handedness&quot;      &quot;canaan&quot;     &quot;treemonisha&quot; 
+## [36,] &quot;ricky&quot;          &quot;handkissing&quot;     &quot;rumford&quot;    &quot;andres&quot;      
+## [37,] &quot;sterilizations&quot; &quot;levias&quot;          &quot;njoroge&quot;    &quot;kassy&quot;       
+## [38,] &quot;sizemore&quot;       &quot;righthandedness&quot; &quot;pentathlon&quot; &quot;klh&quot;         
+## [39,] &quot;amniocentesis&quot;  &quot;kostrubala&quot;      &quot;wesbury&quot;    &quot;archies&quot;     
+## [40,] &quot;pickard&quot;        &quot;warhawk&quot;         &quot;ahmes&quot;      &quot;fergies&quot;     
+## [41,] &quot;demps&quot;          &quot;nkrumahs&quot;        &quot;ericsson&quot;   &quot;hueneme&quot;     
+## [42,] &quot;holden&quot;         &quot;hennagan&quot;        &quot;mccluskey&quot;  &quot;ludy&quot;        
+## [43,] &quot;blackonblack&quot;   &quot;marian&quot;          &quot;spitzer&quot;    &quot;phillda&quot;     
+## [44,] &quot;sef&quot;            &quot;yerby&quot;           &quot;1960&quot;       &quot;xvork&quot;       
+## [45,] &quot;wimer&quot;          &quot;beins&quot;           &quot;arrid&quot;      &quot;harries&quot;     
+## [46,] &quot;bbf&quot;            &quot;doubloon&quot;        &quot;almonds&quot;    &quot;khanh&quot;       
+## [47,] &quot;paigc&quot;          &quot;mclemore&quot;        &quot;pepsicola&quot;  &quot;waltann&quot;     
+## [48,] &quot;amin&quot;           &quot;wilden&quot;          &quot;garrison&quot;   &quot;swindall&quot;    
+## [49,] &quot;shaune&quot;         &quot;wvsc&quot;            &quot;seafarers&quot;  &quot;trina&quot;       
+## [50,] &quot;llewellyn&quot;      &quot;silverthome&quot;     &quot;engle&quot;      &quot;xxas&quot;        
+##       [,5]               
+##  [1,] &quot;sostre&quot;           
+##  [2,] &quot;wyche&quot;            
+##  [3,] &quot;mantequilla&quot;      
+##  [4,] &quot;emmerich&quot;         
+##  [5,] &quot;rander&quot;           
+##  [6,] &quot;holte&quot;            
+##  [7,] &quot;cullinan&quot;         
+##  [8,] &quot;magicians&quot;        
+##  [9,] &quot;moorman&quot;          
+## [10,] &quot;ndpa&quot;             
+## [11,] &quot;keckley&quot;          
+## [12,] &quot;cbl&quot;              
+## [13,] &quot;durousseau&quot;       
+## [14,] &quot;whites&quot;           
+## [15,] &quot;tempts&quot;           
+## [16,] &quot;landau&quot;           
+## [17,] &quot;naulls&quot;           
+## [18,] &quot;battiste&quot;         
+## [19,] &quot;byberry&quot;          
+## [20,] &quot;pelton&quot;           
+## [21,] &quot;panafricans&quot;      
+## [22,] &quot;gmi&quot;              
+## [23,] &quot;riles&quot;            
+## [24,] &quot;ayds&quot;             
+## [25,] &quot;buddys&quot;           
+## [26,] &quot;mccombs&quot;          
+## [27,] &quot;breiner&quot;          
+## [28,] &quot;crutchfield&quot;      
+## [29,] &quot;xernona&quot;          
+## [30,] &quot;darrow&quot;           
+## [31,] &quot;charmtred&quot;        
+## [32,] &quot;serutan&quot;          
+## [33,] &quot;shadrack&quot;         
+## [34,] &quot;swanigan&quot;         
+## [35,] &quot;bankmptcy&quot;        
+## [36,] &quot;charlevoix&quot;       
+## [37,] &quot;matson&quot;           
+## [38,] &quot;mccomb&quot;           
+## [39,] &quot;berryhill&quot;        
+## [40,] &quot;cac&quot;              
+## [41,] &quot;cartv&quot;            
+## [42,] &quot;emmerichs&quot;        
+## [43,] &quot;enterprisejournal&quot;
+## [44,] &quot;moo&quot;              
+## [45,] &quot;sylvain&quot;          
+## [46,] &quot;lorenza&quot;          
+## [47,] &quot;rapidez&quot;          
+## [48,] &quot;narco&quot;            
+## [49,] &quot;south&quot;            
+## [50,] &quot;asg&quot;</code></pre>
+</div>
+</div>
+<div id="sessioninfo" class="section level2">
+<h2>SessionInfo</h2>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.5.0 (2018-04-23)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS Sierra 10.12.6
+## 
+## Matrix products: default
+## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] CountClust_1.6.1 ggplot2_2.2.1   
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_0.12.17       RColorBrewer_1.1-2 pillar_1.2.2      
+##  [4] compiler_3.5.0     plyr_1.8.4         tools_3.5.0       
+##  [7] boot_1.3-20        digest_0.6.15      nlme_3.1-137      
+## [10] evaluate_0.10.1    tibble_1.4.2       gtable_0.2.0      
+## [13] lattice_0.20-35    mgcv_1.8-23        rlang_0.2.0       
+## [16] Matrix_1.2-14      yaml_2.1.19        parallel_3.5.0    
+## [19] cluster_2.0.7-1    stringr_1.3.1      knitr_1.20        
+## [22] gtools_3.5.0       stats4_3.5.0       rprojroot_1.3-2   
+## [25] grid_3.5.0         nnet_7.3-12        cowplot_0.9.2     
+## [28] maptpx_1.9-5       flexmix_2.3-14     rmarkdown_1.9     
+## [31] limma_3.36.1       reshape2_1.4.3     magrittr_1.5      
+## [34] MASS_7.3-49        backports_1.1.2    scales_0.5.0      
+## [37] htmltools_0.3.6    modeltools_0.2-21  permute_0.9-4     
+## [40] picante_1.7        colorspace_1.3-2   ape_5.1           
+## [43] stringi_1.2.2      lazyeval_0.2.1     munsell_0.4.3     
+## [46] slam_0.1-43        SQUAREM_2017.10-1  vegan_2.5-1</code></pre>
 </div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using

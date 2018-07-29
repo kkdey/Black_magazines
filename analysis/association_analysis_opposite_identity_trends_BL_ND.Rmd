@@ -265,6 +265,48 @@ trend_plotter(c("negros", "negroes"), c("musician", "song", "songs", "sang"), mo
 ```
 
 
+## [Black, Negro] vs (actress)
+
+```{r}
+trend_plotter(c("blacks"), c("actress"), model_list_1)
+```
+
+
+## [Black] vs (actor,actress)
+
+```{r}
+trend_plotter(c("blacks"), c("actress"), model_list_2)
+```
+
+## [Negro] vs (actor,actress)
+
+```{r}
+trend_plotter(c("negroes"), c("actress"), model_list_2)
+```
+
+
+
+
+## [Black, Negro] vs writers
+
+```{r}
+trend_plotter(c("blacks"), c("writers"), model_list_1)
+```
+
+## [Black] vs writers
+
+```{r}
+trend_plotter(c("blacks"), c("writers"), model_list_2)
+```
+
+
+## [Negro] vs writers
+
+```{r}
+trend_plotter(c("negros", "negroes"), c("writers"), model_list_2)
+```
+
+
 
 ## SessionInfo
 
