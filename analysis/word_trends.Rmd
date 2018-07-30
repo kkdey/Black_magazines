@@ -19,10 +19,10 @@ in the magazines Ebony and Black World/Negro Digest across a time period of
 ## Word frequencies
 
 ```{r}
-ebony_data <- get(load( "../output/table_word_frequencies_ebony.rda"))
+ebony_data <- get(load( "../output/Document_Term_Matrix_Ebony.rda"))
 ebony_data_norm <- t(apply(ebony_data, 1, function(x) return(x/sum(x))))
 
-BL_ND_data <- get(load( "../output/table_word_frequencies_BL_ND.rda"))
+BL_ND_data <- get(load( "../output/Document_Term_Matrix_BW_ND.rda"))
 BL_ND_data_norm <- t(apply(BL_ND_data, 1, function(x) return(x/sum(x))))
 
 ```
@@ -30,7 +30,7 @@ BL_ND_data_norm <- t(apply(BL_ND_data, 1, function(x) return(x/sum(x))))
 
 ## literature
 
-```{r}
+```{r fig.height=4, fig.width=6}
 par(mfrow=c(1,2))
 plot(ebony_data_norm[, "literature"], 
      col = "red", pch = 20, cex = 1.5, xaxt = "n", 
@@ -47,7 +47,7 @@ axis(1, at=1:dim(BL_ND_data_norm)[1],
 
 ## arts
 
-```{r }
+```{r fig.height=4, fig.width=6}
 par(mfrow=c(1,2))
 plot(ebony_data_norm[, "arts"] + ebony_data_norm[, "art"], 
      col = "red", pch = 20, cex = 1.5, xaxt = "n", 
@@ -64,7 +64,7 @@ axis(1, at=1:dim(BL_ND_data_norm)[1],
 
 ## blues and jazz
 
-```{r}
+```{r fig.height=4, fig.width=6}
 par(mfrow=c(1,2))
 plot(ebony_data_norm[, "blues"] + ebony_data_norm[, "jazz"], 
      col = "red", pch = 20, cex = 1.5, xaxt = "n", 
@@ -81,7 +81,7 @@ axis(1, at=1:dim(BL_ND_data_norm)[1],
 
 ## blues
 
-```{r}
+```{r fig.height=4, fig.width=6}
 par(mfrow=c(1,2))
 plot(ebony_data_norm[, "blues"], 
      col = "red", pch = 20, cex = 1.5, xaxt = "n", 
@@ -98,7 +98,7 @@ axis(1, at=1:dim(BL_ND_data_norm)[1],
 
 ## civil rights
 
-```{r}
+```{r fig.height=4, fig.width=6}
 par(mfrow=c(1,2))
 plot(ebony_data_norm[, "civil_rights"], 
      col = "red", pch = 20, cex = 1.5, xaxt = "n", 
@@ -115,7 +115,7 @@ axis(1, at=1:dim(BL_ND_data_norm)[1],
 
 ## martin luther king
 
-```{r}
+```{r fig.height=4, fig.width=6}
 par(mfrow=c(1,2))
 plot(ebony_data_norm[, "martin_luther_king"] + ebony_data_norm[, "dr_king"], 
      col = "red", pch = 20, cex = 1.5, xaxt = "n", 
@@ -132,7 +132,7 @@ axis(1, at=1:dim(BL_ND_data_norm)[1],
 
 ## sports
 
-```{r}
+```{r fig.height=4, fig.width=6}
 par(mfrow=c(1,2))
 plot(ebony_data_norm[, "baseball"] + ebony_data_norm[, "basketball"] + ebony_data_norm[, "football"], 
      col = "red", pch = 20, cex = 1.5, xaxt = "n", 
@@ -149,7 +149,7 @@ axis(1, at=1:dim(BL_ND_data_norm)[1],
 
 ## vietnam
 
-```{r}
+```{r fig.height=4, fig.width=6}
 par(mfrow=c(1,2))
 plot(ebony_data_norm[, "vietnam"], 
      col = "red", pch = 20, cex = 1.5, xaxt = "n", 
@@ -166,7 +166,7 @@ axis(1, at=1:dim(BL_ND_data_norm)[1],
 
 ## black power
 
-```{r}
+```{r fig.height=4, fig.width=6}
 par(mfrow=c(1,2))
 plot(ebony_data_norm[, "black_power"], 
      col = "red", pch = 20, cex = 1.5, xaxt = "n", 
@@ -183,7 +183,7 @@ axis(1, at=1:dim(BL_ND_data_norm)[1],
 
 ## black panther
 
-```{r}
+```{r fig.height=4, fig.width=6}
 par(mfrow=c(1,2))
 plot(ebony_data_norm[, "black_panther"], 
      col = "red", pch = 20, cex = 1.5, xaxt = "n", 
@@ -200,7 +200,7 @@ axis(1, at=1:dim(BL_ND_data_norm)[1],
 
 ## afroamerican
 
-```{r}
+```{r fig.height=4, fig.width=6}
 par(mfrow=c(1,2))
 plot(ebony_data_norm[, "afroamerican"], 
      col = "red", pch = 20, cex = 1.5, xaxt = "n", 
@@ -217,7 +217,7 @@ axis(1, at=1:dim(BL_ND_data_norm)[1],
 
 ## african
 
-```{r}
+```{r fig.height=4, fig.width=6}
 par(mfrow=c(1,2))
 plot(ebony_data_norm[, "african"] + ebony_data_norm[, "afrikan"], 
      col = "red", pch = 20, cex = 1.5, xaxt = "n", 

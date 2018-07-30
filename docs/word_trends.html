@@ -324,10 +324,10 @@ library(wordVectors)</code></pre>
 </div>
 <div id="word-frequencies" class="section level2">
 <h2>Word frequencies</h2>
-<pre class="r"><code>ebony_data &lt;- get(load( &quot;../output/table_word_frequencies_ebony.rda&quot;))
+<pre class="r"><code>ebony_data &lt;- get(load( &quot;../output/Document_Term_Matrix_Ebony.rda&quot;))
 ebony_data_norm &lt;- t(apply(ebony_data, 1, function(x) return(x/sum(x))))
 
-BL_ND_data &lt;- get(load( &quot;../output/table_word_frequencies_BL_ND.rda&quot;))
+BL_ND_data &lt;- get(load( &quot;../output/Document_Term_Matrix_BW_ND.rda&quot;))
 BL_ND_data_norm &lt;- t(apply(BL_ND_data, 1, function(x) return(x/sum(x))))</code></pre>
 </div>
 <div id="literature" class="section level2">
@@ -344,7 +344,7 @@ plot(BL_ND_data_norm[, &quot;literature&quot;],
      ylab = &quot;occurrence prop.&quot;, xlab = &quot;&quot;, main = &quot;literature&quot;)
 axis(1, at=1:dim(BL_ND_data_norm)[1], 
      rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)</code></pre>
-<p><img src="word_trends_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="word_trends_files/figure-html/unnamed-chunk-3-1.png" width="576" /></p>
 </div>
 <div id="arts" class="section level2">
 <h2>arts</h2>
@@ -360,7 +360,7 @@ plot(BL_ND_data_norm[, &quot;arts&quot;] + BL_ND_data_norm[, &quot;art&quot;],
      ylab = &quot;occurrence prop.&quot;, xlab = &quot;&quot;, main = &quot;arts&quot;)
 axis(1, at=1:dim(BL_ND_data_norm)[1], 
      rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)</code></pre>
-<p><img src="word_trends_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="word_trends_files/figure-html/unnamed-chunk-4-1.png" width="576" /></p>
 </div>
 <div id="blues-and-jazz" class="section level2">
 <h2>blues and jazz</h2>
@@ -376,7 +376,7 @@ plot(BL_ND_data_norm[, &quot;blues&quot;] + BL_ND_data_norm[, &quot;jazz&quot;],
      ylab = &quot;occurrence prop.&quot;, xlab = &quot;&quot;, main = &quot;blues and jazz&quot;)
 axis(1, at=1:dim(BL_ND_data_norm)[1], 
      rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)</code></pre>
-<p><img src="word_trends_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="word_trends_files/figure-html/unnamed-chunk-5-1.png" width="576" /></p>
 </div>
 <div id="blues" class="section level2">
 <h2>blues</h2>
@@ -392,7 +392,7 @@ plot(BL_ND_data_norm[, &quot;blues&quot;],
      ylab = &quot;occurrence prop.&quot;, xlab = &quot;&quot;, main = &quot;blues&quot;)
 axis(1, at=1:dim(BL_ND_data_norm)[1], 
      rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)</code></pre>
-<p><img src="word_trends_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="word_trends_files/figure-html/unnamed-chunk-6-1.png" width="576" /></p>
 </div>
 <div id="civil-rights" class="section level2">
 <h2>civil rights</h2>
@@ -408,7 +408,7 @@ plot(BL_ND_data_norm[, &quot;civil_rights&quot;],
      ylab = &quot;occurrence prop.&quot;, xlab = &quot;&quot;, main = &quot;civil rights&quot;)
 axis(1, at=1:dim(BL_ND_data_norm)[1], 
      rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)</code></pre>
-<p><img src="word_trends_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="word_trends_files/figure-html/unnamed-chunk-7-1.png" width="576" /></p>
 </div>
 <div id="martin-luther-king" class="section level2">
 <h2>martin luther king</h2>
@@ -424,7 +424,7 @@ plot(BL_ND_data_norm[, &quot;martin_luther_king&quot;] + BL_ND_data_norm[, &quot
      ylab = &quot;occurrence prop.&quot;, xlab = &quot;&quot;, main = &quot;Martin Luther King&quot;)
 axis(1, at=1:dim(BL_ND_data_norm)[1], 
      rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)</code></pre>
-<p><img src="word_trends_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="word_trends_files/figure-html/unnamed-chunk-8-1.png" width="576" /></p>
 </div>
 <div id="sports" class="section level2">
 <h2>sports</h2>
@@ -440,7 +440,7 @@ plot(BL_ND_data_norm[, &quot;baseball&quot;] + BL_ND_data_norm[, &quot;basketbal
      ylab = &quot;occurrence prop.&quot;, xlab = &quot;&quot;, main = &quot;baseball, basketball, football&quot;)
 axis(1, at=1:dim(BL_ND_data_norm)[1], 
      rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)</code></pre>
-<p><img src="word_trends_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="word_trends_files/figure-html/unnamed-chunk-9-1.png" width="576" /></p>
 </div>
 <div id="vietnam" class="section level2">
 <h2>vietnam</h2>
@@ -456,7 +456,7 @@ plot(BL_ND_data_norm[, &quot;vietnam&quot;],
      ylab = &quot;occurrence prop.&quot;, xlab = &quot;&quot;, main = &quot;vietnam&quot;)
 axis(1, at=1:dim(BL_ND_data_norm)[1], 
      rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)</code></pre>
-<p><img src="word_trends_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="word_trends_files/figure-html/unnamed-chunk-10-1.png" width="576" /></p>
 </div>
 <div id="black-power" class="section level2">
 <h2>black power</h2>
@@ -472,7 +472,7 @@ plot(BL_ND_data_norm[, &quot;black_power&quot;],
      ylab = &quot;occurrence prop.&quot;, xlab = &quot;&quot;, main = &quot;black power&quot;)
 axis(1, at=1:dim(BL_ND_data_norm)[1], 
      rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)</code></pre>
-<p><img src="word_trends_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="word_trends_files/figure-html/unnamed-chunk-11-1.png" width="576" /></p>
 </div>
 <div id="black-panther" class="section level2">
 <h2>black panther</h2>
@@ -488,7 +488,7 @@ plot(BL_ND_data_norm[, &quot;black_panther&quot;],
      ylab = &quot;occurrence prop.&quot;, xlab = &quot;&quot;, main = &quot;black panther&quot;)
 axis(1, at=1:dim(BL_ND_data_norm)[1], 
      rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)</code></pre>
-<p><img src="word_trends_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="word_trends_files/figure-html/unnamed-chunk-12-1.png" width="576" /></p>
 </div>
 <div id="afroamerican" class="section level2">
 <h2>afroamerican</h2>
@@ -504,7 +504,7 @@ plot(BL_ND_data_norm[, &quot;afroamerican&quot;],
      ylab = &quot;occurrence prop.&quot;, xlab = &quot;&quot;, main = &quot;afroamerican&quot;)
 axis(1, at=1:dim(BL_ND_data_norm)[1], 
      rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)</code></pre>
-<p><img src="word_trends_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="word_trends_files/figure-html/unnamed-chunk-13-1.png" width="576" /></p>
 </div>
 <div id="african" class="section level2">
 <h2>african</h2>
@@ -520,18 +520,18 @@ plot(BL_ND_data_norm[, &quot;african&quot;] + BL_ND_data_norm[, &quot;afrikan&qu
      ylab = &quot;occurrence prop.&quot;, xlab = &quot;&quot;, main = &quot;african&quot;)
 axis(1, at=1:dim(BL_ND_data_norm)[1], 
      rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)</code></pre>
-<p><img src="word_trends_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="word_trends_files/figure-html/unnamed-chunk-14-1.png" width="576" /></p>
 </div>
 <div id="sessioninfo" class="section level2">
 <h2>SessionInfo</h2>
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>## R version 3.4.4 (2018-03-15)
+<pre><code>## R version 3.5.0 (2018-04-23)
 ## Platform: x86_64-apple-darwin15.6.0 (64-bit)
 ## Running under: macOS Sierra 10.12.6
 ## 
 ## Matrix products: default
-## BLAS: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRblas.0.dylib
-## LAPACK: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRlapack.dylib
+## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
 ## 
 ## locale:
 ## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -543,14 +543,12 @@ axis(1, at=1:dim(BL_ND_data_norm)[1],
 ## [1] wordVectors_2.0 ggplot2_2.2.1  
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.16      digest_0.6.15     rprojroot_1.3-2  
-##  [4] plyr_1.8.4        grid_3.4.4        gtable_0.2.0     
-##  [7] backports_1.1.2   magrittr_1.5      evaluate_0.10.1  
-## [10] scales_0.5.0.9000 pillar_1.1.0      rlang_0.2.0      
-## [13] stringi_1.1.6     lazyeval_0.2.1    rmarkdown_1.9    
-## [16] tools_3.4.4       stringr_1.3.0     munsell_0.4.3    
-## [19] yaml_2.1.18       compiler_3.4.4    colorspace_1.3-2 
-## [22] htmltools_0.3.6   knitr_1.20        tibble_1.4.2</code></pre>
+##  [1] Rcpp_0.12.17     digest_0.6.15    rprojroot_1.3-2  plyr_1.8.4      
+##  [5] grid_3.5.0       gtable_0.2.0     backports_1.1.2  magrittr_1.5    
+##  [9] evaluate_0.10.1  scales_0.5.0     pillar_1.2.2     rlang_0.2.0     
+## [13] stringi_1.2.2    lazyeval_0.2.1   rmarkdown_1.9    tools_3.5.0     
+## [17] stringr_1.3.1    munsell_0.4.3    yaml_2.1.19      compiler_3.5.0  
+## [21] colorspace_1.3-2 htmltools_0.3.6  knitr_1.20       tibble_1.4.2</code></pre>
 </div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using

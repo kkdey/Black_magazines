@@ -83,7 +83,7 @@ rownames(omega) <- annotation$sample_id;
 
 StructureGGplot(omega = omega,
                 annotation = annotation,
-                palette = RColorBrewer::brewer.pal(8, "Accent"),
+                palette = RColorBrewer::brewer.pal(8, "Accent")[c(3,5)],
                 yaxis_label = "Years of Publication",
                 order_sample = TRUE,
                 axis_tick = list(axis_ticks_length = .1,

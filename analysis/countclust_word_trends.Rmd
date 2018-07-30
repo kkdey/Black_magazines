@@ -1,0 +1,190 @@
+---
+title: "Trends in top distinguishing words in CountClust"
+author: "Kushal K Dey"
+date: "7/29/2018"
+output: html_document
+---
+
+## Intro
+
+In this chapter, we plot the trends in top distinguishing words from fitting
+topic models on the yearly issues of the Negro Digest/ Black World and the 
+Ebony magazines.
+
+## Black World/Nwgro Digest 
+
+### Word frequencies
+
+```{r}
+BL_ND_data <- get(load( "../output/Document_Term_Matrix_BW_ND.rda"))
+BL_ND_data_norm <- t(apply(BL_ND_data, 1, function(x) return(x/sum(x))))
+```
+
+### theater
+
+```{r fig.height=4, fig.width=4}
+plot(BL_ND_data_norm[, "theater"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "theater")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+### broadside
+
+```{r fig.height=4, fig.width=4}
+plot(BL_ND_data_norm[, "broadside"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "broadside")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+### aesthetics
+
+```{r fig.height=4, fig.width=4}
+plot(BL_ND_data_norm[, "aesthetics"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "aesthetics")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+### literature
+
+```{r fig.height=4, fig.width=4}
+plot(BL_ND_data_norm[, "literature"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "literature")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+### civil rights
+
+```{r fig.height=4, fig.width=4}
+plot(BL_ND_data_norm[, "civil_rights"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "civil rights")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+### righters
+
+```{r fig.height=4, fig.width=4}
+plot(BL_ND_data_norm[, "righters"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "righters")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+### segregation
+
+```{r fig.height=4, fig.width=4}
+plot(BL_ND_data_norm[, "segregation"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "segregation")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+### race
+
+```{r fig.height=4, fig.width=4}
+plot(BL_ND_data_norm[, "race"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "race")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+### black panther
+
+```{r fig.height=4, fig.width=4}
+plot(BL_ND_data_norm[, "black_panther"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "black panther")
+axis(1, at=1:dim(BL_ND_data_norm)[1], 
+     rownames(BL_ND_data_norm), las = 2, cex.axis = 0.7)
+```
+
+## Ebony
+
+### Word frequencies
+
+```{r}
+ebony_data <- get(load( "../output/Document_Term_Matrix_Ebony.rda"))
+ebony_data_norm <- t(apply(ebony_data, 1, function(x) return(x/sum(x))))
+```
+
+### theater
+
+```{r fig.height=4, fig.width=4}
+plot(ebony_data_norm[, "literature"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "literature")
+axis(1, at=1:dim(ebony_data_norm)[1], 
+     rownames(ebony_data_norm), las = 2, cex.axis = 0.7)
+```
+
+### drama
+
+```{r fig.height=4, fig.width=4}
+plot(ebony_data_norm[, "drama"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "drama")
+axis(1, at=1:dim(ebony_data_norm)[1], 
+     rownames(ebony_data_norm), las = 2, cex.axis = 0.7)
+```
+
+### black panther
+
+```{r fig.height=4, fig.width=4}
+plot(ebony_data_norm[, "black_panther"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "black panther")
+axis(1, at=1:dim(ebony_data_norm)[1], 
+     rownames(ebony_data_norm), las = 2, cex.axis = 0.7)
+```
+
+### watergate
+
+```{r fig.height=4, fig.width=4}
+plot(ebony_data_norm[, "watergate"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "watergate")
+axis(1, at=1:dim(ebony_data_norm)[1], 
+     rownames(ebony_data_norm), las = 2, cex.axis = 0.7)
+```
+
+### civil rights
+
+```{r fig.height=4, fig.width=4}
+plot(ebony_data_norm[, "civil_rights"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "civil rights")
+axis(1, at=1:dim(ebony_data_norm)[1], 
+     rownames(ebony_data_norm), las = 2, cex.axis = 0.7)
+```
+
+### segregation
+
+```{r fig.height=4, fig.width=4}
+plot(ebony_data_norm[, "segregation"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "segregation")
+axis(1, at=1:dim(ebony_data_norm)[1], 
+     rownames(ebony_data_norm), las = 2, cex.axis = 0.7)
+```
+
+### race
+
+```{r fig.height=4, fig.width=4}
+plot(ebony_data_norm[, "race"], 
+     col = "red", pch = 20, cex = 1.5, xaxt = "n", 
+     ylab = "occurrence prop.", xlab = "", main = "race")
+axis(1, at=1:dim(ebony_data_norm)[1], 
+     rownames(ebony_data_norm), las = 2, cex.axis = 0.7)
+```

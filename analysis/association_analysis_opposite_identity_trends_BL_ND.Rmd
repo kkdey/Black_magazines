@@ -34,24 +34,22 @@ for(m in 1:length(ll)){
 ### Full model
 
 ```{r warning = FALSE, message=FALSE}
-dirs <- c("../Negro_Digest/ND_1961/",
-          "../Negro_Digest/ND_1962/",
-          "../Negro_Digest/ND_1963/",
-          "../Negro_Digest/ND_1964/",
-          "../Negro_Digest/ND_1965/",
-          "../Negro_Digest/ND_1966/",
-          "../Negro_Digest/ND_1967/",
-          "../Negro_Digest/ND_1968/",
-          "../Negro_Digest/ND_1969/",
-          "../Negro_Digest/ND_1970/",
-          "../Black_World/BL_1970/",
-          "../Black_World/BL_1971/",
-          "../Black_World/BL_1972/",
-          "../Black_World/BL_1973/",
-          "../Black_World/BL_1974/",
-          "../Black_World/BL_1975/",
-          "../Black_World/BL_1976/")
-
+dirs <- c("../BL_ND/BL_ND_1961/",
+          "../BL_ND/BL_ND_1962/",
+          "../BL_ND/BL_ND_1963/",
+          "../BL_ND/BL_ND_1964/",
+          "../BL_ND/BL_ND_1965/",
+          "../BL_ND/BL_ND_1966/",
+          "../BL_ND/BL_ND_1967/",
+          "../BL_ND/BL_ND_1968/",
+          "../BL_ND/BL_ND_1969/",
+          "../BL_ND/BL_ND_1970/",
+          "../BL_ND/BL_ND_1971/",
+          "../BL_ND/BL_ND_1972/",
+          "../BL_ND/BL_ND_1973/",
+          "../BL_ND/BL_ND_1974/",
+          "../BL_ND/BL_ND_1975/",
+          "../BL_ND/BL_ND_1976/")
 
 model_list_2 <- list()
 for(m in 1:length(dirs)){
@@ -70,11 +68,10 @@ trend_plotter <- function(word_set_1, word_set_2, model_list){
              cosineSimilarity(model_list[[m]][[word_set_1, average = TRUE]], 
                               model_list[[m]][[word_set_2, average = TRUE]]))
   }
-  df <- data.frame("year" =  c(1961:1970, 1970:1976),
+  df <- data.frame("year" =  c(1961:1976),
                    "score" = assoc)
-  p <- qplot(year, score, data = df, xlab = "year", ylab = "association score") +  
-            geom_smooth(method = "lm", size = 1.5) +
-            ggtitle("trend plot")
+  p <- qplot(year, score, data = df, xlab = "", ylab = "association score") +  
+            geom_smooth(method = "lm", size = 1.5) 
   p
 }
 ```
@@ -82,85 +79,85 @@ trend_plotter <- function(word_set_1, word_set_2, model_list){
 
 ## [Black, Negro] vs vote
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("black", "blacks"), c("vote", "votes"), model_list_1)
 ```
 
 ## [Black] vs vote
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("black", "blacks"), c("vote", "votes"), model_list_2)
 ```
 
 
 ## [Negro] vs vote
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("negro", "negros", "negroes"), c("vote", "votes"), model_list_2)
 ```
 
 
 ## [Black, Negro] vs muslims
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter("black", c("muslims"), model_list_1)
 ```
 
 ## [Black] vs muslims
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter("black", c("muslims"), model_list_2)
 ```
 
 
 ## [Negro] vs muslims
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter("negro",  "muslims", model_list_2)
 ```
 
 ## [Black, Negro] vs islam
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter("black", c("islam"), model_list_1)
 ```
 
 ## [Black] vs islam
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter("black", c("islam"), model_list_2)
 ```
 
 
 ## [Negro] vs islam
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter("negro",  "islam", model_list_2)
 ```
 
 ## [Black, Negro] vs white
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("black", "blacks"), c("white", "whites"), model_list_1)
 ```
 
 ## [Black] vs white
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("black", "blacks"), c("white", "whites"), model_list_2)
 ```
 
 
 ## [Negro] vs white
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("negro", "negros", "negroes"), c("white", "whites"), model_list_2)
 ```
 
 
 ## [Black, Negro] vs arts
 
-```{r}
+```{r fig.height=3, fig.width=3}
 arts <- c("arts", "art", "music", "musicians", "musician",
    "poem", "poems", "poet", "poets", "writer", "writers",
    "poetry", "literature", "novels",
@@ -173,14 +170,14 @@ trend_plotter(c("blacks"), arts, model_list_1)
 
 ## [Black] vs arts
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("blacks"), arts, model_list_2)
 ```
 
 
 ## [Negro] vs arts
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("negroes", "negros"), arts, model_list_2)
 ```
 
@@ -188,99 +185,99 @@ trend_plotter(c("negroes", "negros"), arts, model_list_2)
 
 ## [Black, Negro] vs father, mother
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("black"), c("father", "mother"), model_list_1)
 ```
 
 ## [Black] vs father, mother
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("black"), c("father", "mother"), model_list_2)
 ```
 
 
 ## [Negro] vs father, mother
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("negro"), c("father", "mother"), model_list_2)
 ```
 
 
 ## [Black, Negro] vs muhammad
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("black"), c("muhammad"), model_list_1)
 ```
 
 ## [Black] vs father, muhammad
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("black"), c("muhammad"), model_list_2)
 ```
 
 
 ## [Negro] vs father, muhammad
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("negro"), c("muhammad"), model_list_2)
 ```
 
 
 ## [Black, Negro] vs brotherhood
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("black"), c("brotherhood"), model_list_1)
 ```
 
 ## [Black] vs brotherhood
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("black"), c("brotherhood"), model_list_2)
 ```
 
 
 ## [Negro] vs brotherhood
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("negro"), c("brotherhood"), model_list_2)
 ```
 
 ## [Black, Negro] vs music
 
-```{r}
-trend_plotter(c("blacks"), c("musician", "song", "songs", "sang"), model_list_1)
+```{r fig.height=3, fig.width=3}
+trend_plotter(c("blacks"), c("song", "songs"), model_list_1)
 ```
 
 ## [Black] vs music
 
-```{r}
-trend_plotter(c("blacks"), c("musician", "song", "songs", "sang"), model_list_2)
+```{r fig.height=3, fig.width=3}
+trend_plotter(c("blacks"), c("song", "songs"), model_list_2)
 ```
 
 
 ## [Negro] vs music
 
-```{r}
-trend_plotter(c("negros", "negroes"), c("musician", "song", "songs", "sang"), model_list_2)
+```{r fig.height=3, fig.width=3}
+trend_plotter(c("negros", "negroes"), c("song", "songs"), model_list_2)
 ```
 
 
 ## [Black, Negro] vs (actress)
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("blacks"), c("actress"), model_list_1)
 ```
 
 
 ## [Black] vs (actor,actress)
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("blacks"), c("actress"), model_list_2)
 ```
 
 ## [Negro] vs (actor,actress)
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("negroes"), c("actress"), model_list_2)
 ```
 
@@ -289,20 +286,20 @@ trend_plotter(c("negroes"), c("actress"), model_list_2)
 
 ## [Black, Negro] vs writers
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("blacks"), c("writers"), model_list_1)
 ```
 
 ## [Black] vs writers
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("blacks"), c("writers"), model_list_2)
 ```
 
 
 ## [Negro] vs writers
 
-```{r}
+```{r fig.height=3, fig.width=3}
 trend_plotter(c("negros", "negroes"), c("writers"), model_list_2)
 ```
 

@@ -34,23 +34,22 @@ for(m in 1:length(ll)){
 ### Full model
 
 ```{r warning = FALSE, message=FALSE}
-dirs <- c("../Negro_Digest/ND_1961/",
-          "../Negro_Digest/ND_1962/",
-          "../Negro_Digest/ND_1963/",
-          "../Negro_Digest/ND_1964/",
-          "../Negro_Digest/ND_1965/",
-          "../Negro_Digest/ND_1966/",
-          "../Negro_Digest/ND_1967/",
-          "../Negro_Digest/ND_1968/",
-          "../Negro_Digest/ND_1969/",
-          "../Negro_Digest/ND_1970/",
-          "../Black_World/BL_1970/",
-          "../Black_World/BL_1971/",
-          "../Black_World/BL_1972/",
-          "../Black_World/BL_1973/",
-          "../Black_World/BL_1974/",
-          "../Black_World/BL_1975/",
-          "../Black_World/BL_1976/")
+dirs <- c("../BL_ND/BL_ND_1961/",
+          "../BL_ND/BL_ND_1962/",
+          "../BL_ND/BL_ND_1963/",
+          "../BL_ND/BL_ND_1964/",
+          "../BL_ND/BL_ND_1965/",
+          "../BL_ND/BL_ND_1966/",
+          "../BL_ND/BL_ND_1967/",
+          "../BL_ND/BL_ND_1968/",
+          "../BL_ND/BL_ND_1969/",
+          "../BL_ND/BL_ND_1970/",
+          "../BL_ND/BL_ND_1971/",
+          "../BL_ND/BL_ND_1972/",
+          "../BL_ND/BL_ND_1973/",
+          "../BL_ND/BL_ND_1974/",
+          "../BL_ND/BL_ND_1975/",
+          "../BL_ND/BL_ND_1976/")
 
 
 model_list_2 <- list()
@@ -70,7 +69,7 @@ trend_plotter <- function(word_set_1, word_set_2, model_list){
              cosineSimilarity(model_list[[m]][[word_set_1, average = TRUE]], 
                               model_list[[m]][[word_set_2, average = TRUE]]))
   }
-  df <- data.frame("year" =  c(1961:1970, 1970:1976),
+  df <- data.frame("year" =  c(1961:1976),
                    "score" = assoc)
   p <- qplot(year, score, data = df, xlab = "year", ylab = "association score") +  
             geom_smooth(method = "lm", size = 1.5) +

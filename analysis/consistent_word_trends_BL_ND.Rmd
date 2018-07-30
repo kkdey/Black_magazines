@@ -38,7 +38,7 @@ trend_plotter <- function(word_set_1, word_set_2, model_list){
              cosineSimilarity(model_list[[m]][[word_set_1, average = TRUE]], 
                               model_list[[m]][[word_set_2, average = TRUE]]))
   }
-  df <- data.frame("year" =  c(1961:1970, 1970:1976),
+  df <- data.frame("year" =  c(1961:1976),
                    "score" = assoc)
   p <- qplot(year, score, data = df, xlab = "year", ylab = "association score") +  
             geom_smooth(method = "lm", size = 1.5) +

@@ -61,47 +61,46 @@ trend_plotter <- function(word_set_1, word_set_2, model_list){
   }
   df <- data.frame("year" =  c(1961:1976),
                    "score" = assoc)
-  p <- qplot(year, score, data = df, xlab = "year", ylab = "association score") +  
-            geom_smooth(method = "lm", size = 1.5) +
-            ggtitle("trend plot")
+  p <- qplot(year, score, data = df, xlab = "", ylab = "association score") +  
+            geom_smooth(method = "lm", size = 1.5)
   p
 }
 ```
 
 ## [Black, Negro] vs civil rights 
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("civil_rights"), model_list_1)
 ```
 
 ## [Black] vs civil rights
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("civil_rights"), model_list_2)
 ```
 
 ## [negro] vs civil rights
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("negro", "negros", "negroes"), c("civil_rights"), model_list_2)
 ```
 
 
 ## [Black, Negro] vs economy
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("economy"), model_list_1)
 ```
 
 ## Black vs economy
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("economy"), model_list_2)
 ```
 
 ## Negro vs economy 
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("negro", "negros", "negroes"), c("economy"), model_list_2)
 ```
 
@@ -109,261 +108,261 @@ trend_plotter(c("negro", "negros", "negroes"), c("economy"), model_list_2)
 
 ## [Black, Negro] vs opportunities
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("opportunities"), model_list_1)
 ```
 
 ## Black vs opportunities 
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("opportunities"), model_list_2)
 ```
 
 ## Negro vs opportunities 
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("negro", "negros", "negroes"), c("opportunities"), model_list_2)
 ```
 
 ## [Black, Negro] vs qualified
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("qualified"), model_list_1)
 ```
 
 ## [Black] vs qualified
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("qualified"), model_list_2)
 ```
 
 ## [Negro] vs qualified
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("negro", "negros", "negroes"), c("qualified"), model_list_2)
 ```
 
 ## [Black, Negro] vs progress
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("progress"), model_list_1)
 ```
 
 ## [Black, Negro] vs progress
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("progress"), model_list_2)
 ```
 
 
 ## [Negro] vs progress
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("negro", "negros", "negroes"), c("progress"), model_list_2)
 ```
 
 ## [Black, Negro] vs leaders
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("leaders", "ministers"), model_list_1)
 ```
 
 ## [Black, Negro] vs leaders
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("leaders", "ministers"), model_list_2)
 ```
 
 ## [Black, Negro] vs leaders
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("negro", "negros", "negroes"), c("leaders", "ministers"), model_list_2)
 ```
 
 ## [Black, Negro] vs white
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("white"), model_list_1)
 ```
 
 ## [Black] vs white
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("white"), model_list_2)
 ```
 
 ## [Negro] vs white
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("negro", "negros", "negroes"), c("white"), model_list_2)
 ```
 
 ## [Black, Negro] vs studies
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("studies"), model_list_1)
 ```
 
 
 ## [Black] vs studies
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("studies"), model_list_2)
 ```
 
 ## [Negro] vs studies
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("negro", "negros", "negroes"), c("studies"), model_list_2)
 ```
 
 ## [Black, Negro] vs bright
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("bright"), model_list_1)
 ```
 
 ## [Black] vs bright
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("bright"), model_list_2)
 ```
 
 
 ## [Negro] vs bright
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("negro", "negros", "negroes"), c("bright"), model_list_2)
 ```
 
 
 ## [Black, Negro] vs rights
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("rights"), model_list_1)
 ```
 
 
 ## [Black] vs rights
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("rights"), model_list_2)
 ```
 
 ## [Negro]  vs rights
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("negro", "negros", "negroes"), c("rights"), model_list_2)
 ```
 
 
 ## [Black, Negro] vs employment, jobs
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("employment", "jobs", "income", "unemployment"), model_list_1)
 ```
 
 ## [Black] vs employment, jobs
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("employment", "jobs", "income", "unemployment"), model_list_2)
 ```
 
 ## [Negro] vs employment, jobs
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("negro", "negros", "negroes"), c("employment", "jobs", "income", "unemployment"), model_list_2)
 ```
 
 
 ## [Black, Negro] vs education
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("education"), model_list_1)
 ```
 
 ## [Black] vs education
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("education"), model_list_2)
 ```
 
 ## [Negro] vs education
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("negro", "negros", "negroes"), c("education"), model_list_2)
 ```
 
 ## [Black, Negro] vs minorities
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("minorities"), model_list_1)
 ```
 
 ## [Black] vs minorities
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("minorities"), model_list_2)
 ```
 
 ## [Negro] vs minorities
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("negro", "negros", "negroes"), c("minorities"), model_list_2)
 ```
 
 ## [Black, Negro] vs families
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("families"), model_list_1)
 ```
 
 ## [Black] vs families
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("families"), model_list_2)
 ```
 
 ## [Negro] vs families
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("negro", "negros", "negroes"), c("families"), model_list_2)
 ```
 
 ## [Black, Negro] vs deprived
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("deprived"), model_list_1)
 ```
 
 ## [Black] vs deprived
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("deprived"), model_list_2)
 ```
 
 ## [Negro] vs deprived
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("negro", "negros", "negroes"), c("deprived"), model_list_2)
 ```
 
 ## [Black, Negro] vs inferior
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("inferior"), model_list_1)
 ```
 
 
 ## [Black] vs inferior
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("black", "blacks"), c("inferior"), model_list_2)
 ```
 
 ## [Negro] vs inferior
 
-```{r}
+```{r fig.height = 3, fig.width = 3}
 trend_plotter(c("negro", "negros", "negroes"), c("inferior"), model_list_2)
 ```
 

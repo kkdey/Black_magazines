@@ -49,3 +49,20 @@ for(m in 1:length(filelist)){
                          force = TRUE)
 }
 ```
+
+```{r echo=TRUE, eval=FALSE}
+dir <- c("../Ebony_ID/")
+filelist <- list.files(dir, pattern = ".txt")
+
+
+for(m in 1:length(filelist)){
+  
+  ############  Train word2vec model on the yearly text data  #####################
+  
+  model = train_word2vec(paste0(dir, filelist[m]),
+                         paste0(dir, filelist[m], "_word2vec.bin"),
+                         vectors=100,threads=10,window=10,
+                         iter=50, min_count = 3, negative_samples=0,
+                         force = TRUE)
+}
+```
