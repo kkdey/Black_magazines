@@ -1,0 +1,26 @@
+% adopt PLoS genetics environment settings
+\documentclass[10pt,letterpaper]{article}
+\usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
+
+\input{header.tex}
+
+% Text layout specific to Supplemental Materials
+\topmargin 0.0cm
+\oddsidemargin 0.5cm
+\evensidemargin 0.5cm
+\textwidth 16cm
+\textheight 21cm
+
+\setlength{\parskip}{1em}
+
+\begin{document}
+
+\paragraph*{S4 Fig.}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[height=4in, width=6in]{SuppFig4.pdf}
+\end{figure}
+\label{figS4}
+{\bf Trends in contextual association score between the phrase \emph{martin-luther-king} and \emph{assassination} for the two magazines of study - \emph{Negro Digest/Black World} and \emph{Ebony}. The association score jumps 1968 onwards after Dr. King's assassination, with the jump being more clear in the \emph{Ebony} magazine. The association scores were computed by first cosine similarities of the word projections from the \emph{word2vec} model (ref), with subsequent refinement of these similarity values by the \emph{CorShrink} method (ref). 
+\end{document}
